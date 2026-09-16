@@ -1,0 +1,58 @@
+# The subprojects and their state, mirrored from the umbrella's docs/ROADMAP.md.
+# state: done | partial | open
+
+[[sp]]
+id = "SP-0"
+name_en = "Identity, accounts and tenancy"
+name_pt = "Identidade, contas e tenancy"
+decides_en = "Who the user is, what an account is, how ownership and isolation work, the account → workspace → project hierarchy"
+decides_pt = "Quem é o usuário, o que é uma conta, como funcionam posse e isolamento, a hierarquia conta → workspace → projeto"
+state = "done"
+
+[[sp]]
+id = "SP-4"
+name_en = "The work model: specs and autonomy"
+name_pt = "O modelo de trabalho: specs e autonomia"
+decides_en = "What the platform does; where the human decides, approves and gives context"
+decides_pt = "O que a plataforma faz; onde o humano decide, aprova e dá contexto"
+state = "done"
+
+[[sp]]
+id = "SP-1"
+name_en = "Component and repository topology"
+name_pt = "Topologia de componentes e repositórios"
+decides_en = "Which components exist and each one's role"
+decides_pt = "Quais componentes existem e o papel de cada um"
+state = "done"
+
+[[sp]]
+id = "SP-3"
+name_en = "The domain model and persistence"
+name_pt = "O modelo de domínio e a persistência"
+decides_en = "Workspace, project, card, artifact, event; the database"
+decides_pt = "Workspace, projeto, card, artefato, evento; o banco de dados"
+state = "done"
+
+[[sp]]
+id = "SP-2"
+name_en = "Contract and protocols"
+name_pt = "Contrato e protocolos"
+decides_en = "The contract's source of truth; REST, gRPC and streaming"
+decides_pt = "A fonte da verdade do contrato; REST, gRPC e streaming"
+state = "done"
+
+[[sp]]
+id = "SP-5"
+name_en = "Runtime, environment and IDE"
+name_pt = "Runtime, ambiente e IDE"
+decides_en = "The terminal, parallel execution, deployment"
+decides_pt = "O terminal, a execução paralela, o deploy"
+state = "open"
+
+[[sp]]
+id = "SP-6"
+name_en = "Integration with Claude"
+name_pt = "Integração com o Claude"
+decides_en = "The agent, the chat as a command channel"
+decides_pt = "O agente, o chat como canal de comando"
+state = "open"

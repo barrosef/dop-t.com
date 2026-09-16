@@ -1,0 +1,8 @@
+{{/* The switch lands on the SAME page in the other language, never on the
+     other home — that is the difference between a bilingual site and two
+     sites that happen to share a domain. */}}
+<nav class="lang" aria-label="{{ i18n "lang_label" }}">
+  {{ range sort .AllTranslations "Language.Weight" }}
+  <a href="{{ .RelPermalink }}" hreflang="{{ .Language.Lang }}" lang="{{ .Language.Lang }}"{{ if eq .Language.Lang $.Language.Lang }} aria-current="true"{{ end }}>{{ index (dict "en" "EN" "pt-br" "PT") .Language.Lang }}</a>
+  {{ end }}
+</nav>

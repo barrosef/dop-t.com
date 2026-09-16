@@ -1,0 +1,11 @@
+{{ $lang := .Site.Language.Lang }}
+{{ $base := .Site.Params.github.adrBase }}
+<ol class="adrs">
+  {{ range .Site.Data.adrs.adr }}
+  {{ $title := index . (cond (eq $lang "en") "title_en" "title_pt") }}
+  <li>
+    <span class="n">{{ .number }}</span>
+    <a href="{{ $base }}/{{ .file }}" rel="noopener">{{ $title }}{{ partial "icons/external.html" . }}</a>
+  </li>
+  {{ end }}
+</ol>

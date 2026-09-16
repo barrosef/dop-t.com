@@ -1,5 +1,182 @@
+[tagline]
+other = "Orquestração de entrega para quem desenvolve com agentes."
+
+[skip]
+other = "Ir para o conteúdo"
+
+[nav_label]
+other = "Site"
+
+[nav_product]
+other = "Produto"
+
+[nav_architecture]
+other = "Arquitetura"
+
+[nav_status]
+other = "Estágio"
+
 [nav_pricing]
 other = "Planos"
 
 [nav_legal]
 other = "Jurídico"
+
+[lang_label]
+other = "Idioma"
+
+[sign_in]
+other = "Entrar"
+
+[cta_github]
+other = "Ver o código no GitHub"
+
+[cta_architecture]
+other = "Ler a arquitetura"
+
+[why_eyebrow]
+other = "Por que existe"
+
+[how_eyebrow]
+other = "Como é construído"
+
+[how_more]
+other = "A arquitetura inteira"
+
+[stands_eyebrow]
+other = "Onde está"
+
+[stands_more]
+other = "O estágio em detalhe"
+
+[stat_subprojects]
+other = "subprojetos desenhados"
+
+[stat_adr]
+other = "a decisão de arquitetura mais recente"
+
+[stat_qa]
+other = "ambiente de QA no Google Cloud"
+
+[stat_qa_value]
+other = "no ar"
+
+[panel_title]
+other = "DEMANDA · DOP-241 · LINHA DO TEMPO"
+
+[panel_live]
+other = "ao vivo"
+
+[panel_caption]
+other = "O log de eventos de uma demanda, como o cockpit mostra"
+
+[panel_col_time]
+other = "Hora"
+
+[panel_col_event]
+other = "Evento"
+
+[panel_col_actor]
+other = "Ator"
+
+[actor_user]
+other = "ator: usuário"
+
+[actor_agent]
+other = "ator: agente"
+
+[panel_attempts]
+other = "tentativas"
+
+[panel_backoff]
+other = "backoff"
+
+[panel_dead_letters]
+other = "dead letters"
+
+[panel_outbox]
+other = "outbox"
+
+[panel_outbox_value]
+other = "transacional"
+
+[diagram_title]
+other = "A arquitetura da plataforma DOP"
+
+[diagram_desc]
+other = "O cockpit fala REST e SSE com o BFF; o BFF fala gRPC com o core; o core é dono do Postgres para o estado e do NATS JetStream para os eventos, e provisiona uma sandbox por demanda. O Identity Platform autentica o usuário na borda."
+
+[diagram_identity]
+other = "Identity Platform"
+
+[diagram_identity_meta]
+other = "login · tokens"
+
+[diagram_sandbox]
+other = "Sandbox"
+
+[diagram_sandbox_meta]
+other = "uma microVM por demanda"
+
+[diagram_cockpit]
+other = "Cockpit"
+
+[diagram_bff]
+other = "BFF"
+
+[diagram_core]
+other = "Core"
+
+[diagram_core_meta1]
+other = "a única fonte da verdade"
+
+[diagram_core_meta2]
+other = "schema · vault · log de eventos"
+
+[diagram_postgres_meta]
+other = "estado · outbox"
+
+[diagram_edge_state]
+other = "estado"
+
+[diagram_edge_events]
+other = "eventos"
+
+[diagram_edge_sandbox]
+other = "provisiona"
+
+[diagram_edge_signin]
+other = "verifica"
+
+[flow_dedup]
+other = "chave de dedup"
+
+[prerelease]
+other = "Pré-lançamento — ainda não há onde entrar"
+
+[sp_col_id]
+other = "#"
+
+[sp_col_name]
+other = "Subprojeto"
+
+[sp_col_decides]
+other = "Decide"
+
+[sp_col_state]
+other = "Estado"
+
+[sp_state_done]
+other = "desenhado"
+
+[sp_state_partial]
+other = "em andamento"
+
+[sp_state_open]
+other = "aberto"
+
+[legal_privacy]
+other = "Privacidade"
+
+[legal_terms]
+other = "Termos"

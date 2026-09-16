@@ -3,6 +3,8 @@ title = "DOP"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 enableRobotsTXT = true
+# Three pages per language and no taxonomy: a tags page would be an empty box.
+disableKinds = ["taxonomy", "term"]
 
 [markup]
   [markup.goldmark.renderer]
@@ -40,7 +42,23 @@ enableRobotsTXT = true
 # The convention is inherited from barrosef.com, where it works.
 
 [params]
+  # The meta description falls back to the i18n tagline when this is empty.
   description = ""
+
+  # Where the code lives. The primary call to action on every page points
+  # here — "built in the open" is verifiable, not claimed.
+  [params.github]
+    url = "https://github.com/barrosef/dop"
+    org = "https://github.com/barrosef"
+    adrBase = "https://github.com/barrosef/dop/blob/main/docs/adr"
+
+  # The three numbers on the home's "where it stands" block. Each has a source
+  # in the umbrella repository (docs/ROADMAP.md, docs/adr/); update them here,
+  # never in a layout.
+  [params.status]
+    subprojectsDesigned = "5"
+    subprojectsTotal = "7"
+    latestADR = "0030"
 
   # The four plans. They are ALSO a catalog in the product's database, read by
   # the sign-up wizard — see the DOP platform's profile-onboarding spec.

@@ -1,0 +1,26 @@
+{{/* A static reproduction of the cockpit's event log for one demand. Every
+     value is true of the platform as built (docs/superpowers/specs/2026-09-16-site-design.md §3.1);
+     the event names are the aggregate keys the core emits. */}}
+<div class="panel reveal" aria-labelledby="timeline-caption">
+  <div class="panel__bar">
+    <span>{{ i18n "panel_title" }}</span>
+    <span class="panel__live">{{ i18n "panel_live" }}</span>
+  </div>
+  <table class="timeline">
+    <caption id="timeline-caption">{{ i18n "panel_caption" }}</caption>
+    <thead><tr><th scope="col">{{ i18n "panel_col_time" }}</th><th scope="col">{{ i18n "panel_col_event" }}</th><th scope="col">{{ i18n "panel_col_actor" }}</th></tr></thead>
+    <tbody>
+      <tr><td>09:41:02</td><td>account-created</td><td>{{ i18n "actor_user" }}</td></tr>
+      <tr><td>09:41:19</td><td>demand-opened</td><td>{{ i18n "actor_user" }}</td></tr>
+      <tr><td>09:43:55</td><td>spec-approved</td><td>{{ i18n "actor_user" }}</td></tr>
+      <tr><td>10:12:07</td><td>verification-green</td><td>{{ i18n "actor_agent" }}</td></tr>
+      <tr class="is-current"><td>10:14:30</td><td><span class="arrow" aria-hidden="true">→</span>pr-delivered</td><td>{{ i18n "actor_agent" }}</td></tr>
+    </tbody>
+  </table>
+  <div class="panel__foot">
+    <span>{{ i18n "panel_attempts" }} <b>5</b></span>
+    <span>{{ i18n "panel_backoff" }} <b>1s → 1min</b></span>
+    <span>{{ i18n "panel_dead_letters" }} <b>0</b></span>
+    <span>{{ i18n "panel_outbox" }} <b>{{ i18n "panel_outbox_value" }}</b></span>
+  </div>
+</div>

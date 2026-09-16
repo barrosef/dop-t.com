@@ -1,0 +1,53 @@
+{{ define "main" }}
+{{ $p := .Params }}
+<div class="wrap">
+  <div class="page-head">
+    <span class="eyebrow">{{ i18n "nav_architecture" }}</span>
+    <h1>{{ .Title }}</h1>
+    <div class="prose">{{ .Content }}</div>
+  </div>
+
+  {{ with $p.components }}
+  <section class="section" id="components">
+    <div class="section__head"><h2>{{ $p.components_title }}</h2></div>
+    <div class="rows">
+      {{ range . }}
+      <div class="row">
+        <div class="row__key">{{ .name }}<small>{{ .stack }}</small></div>
+        <div class="row__body"><b>{{ .role }}</b><span>{{ .text }}</span></div>
+        <div class="row__aside">{{ with .repo }}<a href="{{ $.Site.Params.github.org }}/{{ . }}" rel="noopener">{{ . }} ↗</a>{{ end }}</div>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  {{ with $p.invariants }}
+  <section class="section" id="invariants">
+    <div class="section__head"><h2>{{ $p.invariants_title }}</h2><p class="lead">{{ $p.invariants_lead }}</p></div>
+    <ol class="invariants">
+      {{ range . }}<li><div><b>{{ .title }}</b><span>{{ .text }}</span></div></li>{{ end }}
+    </ol>
+  </section>
+  {{ end }}
+
+  {{ with $p.event }}
+  <section class="section" id="event">
+    <div class="section__head"><h2>{{ .title }}</h2><p class="lead">{{ .lead }}</p></div>
+    <ol class="flow">
+      {{ range .steps }}<li{{ if .dlq }} class="is-dlq"{{ end }}><b>{{ .name }}</b><span>{{ .text }}</span></li>{{ end }}
+    </ol>
+    <div class="flow__facts">
+      <span>MaxDeliver <b>5</b></span>
+      <span>backoff <b>1s · 5s · 15s · 1min</b></span>
+      <span>{{ i18n "flow_dedup" }} <b>(event, consumer)</b></span>
+    </div>
+  </section>
+  {{ end }}
+
+  <section class="section" id="adrs">
+    <div class="section__head"><h2>{{ $p.adrs_title }}</h2><p class="lead">{{ $p.adrs_lead }}</p></div>
+    {{ partial "adr-index.html" . }}
+  </section>
+</div>
+{{ end }}

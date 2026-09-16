@@ -1,0 +1,21 @@
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="{{ "/" | relLangURL }}" aria-label="{{ .Site.Title }}">{{ partial "icons/mark.html" . }}<span>DOP</span></a>
+    <nav class="site-nav" aria-label="{{ i18n "nav_label" }}">
+      {{ $current := .RelPermalink }}
+      {{ range $item := slice
+           (dict "key" "nav_product" "url" ("/" | relLangURL))
+           (dict "key" "nav_architecture" "url" ("architecture/" | relLangURL))
+           (dict "key" "nav_status" "url" ("status/" | relLangURL)) }}
+      <a class="nav-link" href="{{ $item.url }}"{{ if eq $current $item.url }} aria-current="page"{{ end }}>{{ i18n $item.key }}</a>
+      {{ end }}
+      {{ with .Site.Params.github.url }}
+      <a class="ext" href="{{ . }}" rel="noopener">GitHub {{ partial "icons/external.html" . }}</a>
+      {{ end }}
+      {{ with .Site.Params.app.signInURL }}
+      <a class="btn" href="{{ . }}">{{ i18n "sign_in" }}</a>
+      {{ end }}
+      {{ partial "lang-switch.html" . }}
+    </nav>
+  </div>
+</header>

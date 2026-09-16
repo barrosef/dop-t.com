@@ -1,0 +1,16 @@
+{{ $lang := .Site.Language.Lang }}
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th scope="col">{{ i18n "sp_col_id" }}</th><th scope="col">{{ i18n "sp_col_name" }}</th><th scope="col">{{ i18n "sp_col_decides" }}</th><th scope="col">{{ i18n "sp_col_state" }}</th></tr></thead>
+  <tbody>
+    {{ range .Site.Data.subprojects.sp }}
+    <tr>
+      <td>{{ .id }}</td>
+      <td>{{ index . (cond (eq $lang "en") "name_en" "name_pt") }}</td>
+      <td>{{ index . (cond (eq $lang "en") "decides_en" "decides_pt") }}</td>
+      <td><span class="state state--{{ .state }}">{{ i18n (printf "sp_state_%s" .state) }}</span></td>
+    </tr>
+    {{ end }}
+  </tbody>
+</table>
+</div>

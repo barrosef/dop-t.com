@@ -1,5 +1,182 @@
+[tagline]
+other = "Delivery orchestration for developers who ship with agents."
+
+[skip]
+other = "Skip to content"
+
+[nav_label]
+other = "Site"
+
+[nav_product]
+other = "Product"
+
+[nav_architecture]
+other = "Architecture"
+
+[nav_status]
+other = "Status"
+
 [nav_pricing]
 other = "Pricing"
 
 [nav_legal]
 other = "Legal"
+
+[lang_label]
+other = "Language"
+
+[sign_in]
+other = "Sign in"
+
+[cta_github]
+other = "See the code on GitHub"
+
+[cta_architecture]
+other = "Read the architecture"
+
+[why_eyebrow]
+other = "Why it exists"
+
+[how_eyebrow]
+other = "How it is built"
+
+[how_more]
+other = "The whole architecture"
+
+[stands_eyebrow]
+other = "Where it stands"
+
+[stands_more]
+other = "Status in detail"
+
+[stat_subprojects]
+other = "subprojects designed"
+
+[stat_adr]
+other = "the latest architecture decision"
+
+[stat_qa]
+other = "QA environment on Google Cloud"
+
+[stat_qa_value]
+other = "live"
+
+[panel_title]
+other = "DEMAND · DOP-241 · TIMELINE"
+
+[panel_live]
+other = "live"
+
+[panel_caption]
+other = "The event log of one demand, as the cockpit shows it"
+
+[panel_col_time]
+other = "Time"
+
+[panel_col_event]
+other = "Event"
+
+[panel_col_actor]
+other = "Actor"
+
+[actor_user]
+other = "actor: user"
+
+[actor_agent]
+other = "actor: agent"
+
+[panel_attempts]
+other = "attempts"
+
+[panel_backoff]
+other = "backoff"
+
+[panel_dead_letters]
+other = "dead letters"
+
+[panel_outbox]
+other = "outbox"
+
+[panel_outbox_value]
+other = "transactional"
+
+[diagram_title]
+other = "The DOP platform's architecture"
+
+[diagram_desc]
+other = "The cockpit talks REST and SSE to the BFF; the BFF talks gRPC to the core; the core owns Postgres for state and NATS JetStream for events, and provisions one sandbox per demand. Identity Platform signs the user in at the edge."
+
+[diagram_identity]
+other = "Identity Platform"
+
+[diagram_identity_meta]
+other = "sign-in · tokens"
+
+[diagram_sandbox]
+other = "Sandbox"
+
+[diagram_sandbox_meta]
+other = "one microVM per demand"
+
+[diagram_cockpit]
+other = "Cockpit"
+
+[diagram_bff]
+other = "BFF"
+
+[diagram_core]
+other = "Core"
+
+[diagram_core_meta1]
+other = "the only source of truth"
+
+[diagram_core_meta2]
+other = "schema · vault · event log"
+
+[diagram_postgres_meta]
+other = "state · outbox"
+
+[diagram_edge_state]
+other = "state"
+
+[diagram_edge_events]
+other = "events"
+
+[diagram_edge_sandbox]
+other = "provisions"
+
+[diagram_edge_signin]
+other = "verifies"
+
+[flow_dedup]
+other = "dedup key"
+
+[prerelease]
+other = "Pre-release — nothing here can be signed into yet"
+
+[sp_col_id]
+other = "#"
+
+[sp_col_name]
+other = "Subproject"
+
+[sp_col_decides]
+other = "Decides"
+
+[sp_col_state]
+other = "State"
+
+[sp_state_done]
+other = "designed"
+
+[sp_state_partial]
+other = "in progress"
+
+[sp_state_open]
+other = "open"
+
+[legal_privacy]
+other = "Privacy"
+
+[legal_terms]
+other = "Terms"

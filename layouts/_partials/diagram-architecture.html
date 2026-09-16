@@ -1,0 +1,63 @@
+{{/* The architecture in one picture. Labels are real <text> so they are
+     selectable, searchable and translated through i18n. The core carries the
+     accent border because it is the only source of truth — that is the point
+     the diagram makes. */}}
+<svg class="diagram" viewBox="0 0 680 372" role="img" aria-labelledby="diagram-title diagram-desc">
+  <title id="diagram-title">{{ i18n "diagram_title" }}</title>
+  <desc id="diagram-desc">{{ i18n "diagram_desc" }}</desc>
+  <defs>
+    <marker id="head" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="head" d="M0 0L8 4L0 8z"></path></marker>
+  </defs>
+
+  <!-- identity, at the edge -->
+  <rect class="box box--dashed" x="20" y="20" width="180" height="56" rx="8"></rect>
+  <text class="name" x="36" y="44">{{ i18n "diagram_identity" }}</text>
+  <text class="meta" x="36" y="62">{{ i18n "diagram_identity_meta" }}</text>
+
+  <!-- sandbox, one per demand -->
+  <rect class="box" x="460" y="20" width="210" height="56" rx="8"></rect>
+  <text class="name" x="476" y="44">{{ i18n "diagram_sandbox" }}</text>
+  <text class="meta" x="476" y="62">{{ i18n "diagram_sandbox_meta" }}</text>
+
+  <!-- cockpit -->
+  <rect class="box" x="20" y="150" width="160" height="64" rx="8"></rect>
+  <text class="name" x="36" y="177">{{ i18n "diagram_cockpit" }}</text>
+  <text class="meta" x="36" y="196">dop-app · React</text>
+
+  <!-- bff -->
+  <rect class="box" x="250" y="150" width="150" height="64" rx="8"></rect>
+  <text class="name" x="266" y="177">{{ i18n "diagram_bff" }}</text>
+  <text class="meta" x="266" y="196">dop-api · Python</text>
+
+  <!-- core -->
+  <rect class="box box--core" x="460" y="130" width="210" height="104" rx="8"></rect>
+  <text class="name" x="476" y="160">{{ i18n "diagram_core" }}</text>
+  <text class="meta" x="476" y="180">dop-core · Go</text>
+  <text class="meta" x="476" y="200">{{ i18n "diagram_core_meta1" }}</text>
+  <text class="meta" x="476" y="218">{{ i18n "diagram_core_meta2" }}</text>
+
+  <!-- stores -->
+  <rect class="box" x="460" y="296" width="110" height="56" rx="8"></rect>
+  <text class="name" x="476" y="320">Postgres</text>
+  <text class="meta" x="476" y="338">{{ i18n "diagram_postgres_meta" }}</text>
+  <rect class="box" x="578" y="296" width="92" height="56" rx="8"></rect>
+  <text class="name" x="594" y="320">NATS</text>
+  <text class="meta" x="594" y="338">JetStream</text>
+
+  <!-- edges -->
+  <path class="edge" d="M180 182 H250" marker-end="url(#head)"></path>
+  <path class="edge" d="M400 182 H460" marker-end="url(#head)"></path>
+  <path class="edge" d="M515 234 V296" marker-end="url(#head)"></path>
+  <path class="edge" d="M624 234 V296" marker-end="url(#head)"></path>
+  <path class="edge" d="M565 130 V76" marker-end="url(#head)"></path>
+  <path class="edge edge--dashed" d="M110 76 V150" marker-end="url(#head)"></path>
+  <path class="edge edge--dashed" d="M200 48 H325 V150" marker-end="url(#head)"></path>
+
+  <!-- edge labels -->
+  <text class="meta" x="215" y="172" text-anchor="middle">REST · SSE</text>
+  <text class="meta" x="430" y="172" text-anchor="middle">gRPC</text>
+  <text class="meta" x="523" y="270">{{ i18n "diagram_edge_state" }}</text>
+  <text class="meta" x="632" y="270">{{ i18n "diagram_edge_events" }}</text>
+  <text class="meta" x="573" y="108">{{ i18n "diagram_edge_sandbox" }}</text>
+  <text class="meta" x="118" y="118">{{ i18n "diagram_edge_signin" }}</text>
+</svg>

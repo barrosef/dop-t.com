@@ -3,43 +3,33 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
-    {{ with .Site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}
+    <title>{{ if .IsHome }}{{ .Site.Title }} — {{ i18n "tagline" }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+    {{ $description := or .Description (i18n "tagline") }}
+    <meta name="description" content="{{ $description }}">
     {{/* Open Graph is not decoration on a product site: it is what a link
          pasted into a chat renders as, which is where most first impressions
          of a B2B product actually happen. */}}
-    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ .Permalink }}">
-    {{ with .Site.Params.description }}<meta property="og:description" content="{{ . }}">{{ end }}
-    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:description" content="{{ $description }}">
+    <meta property="og:locale" content="{{ replace .Site.Language.Lang "-" "_" }}">
+    <meta name="twitter:card" content="summary">
+    <meta name="theme-color" content="#0f1218">
     {{ range .AllTranslations }}<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
     {{ end }}
-    {{/* Inline and small on purpose. A stylesheet is a second request that can
-         fail on its own, and this page's job today is to prove the first one
-         arrives. It grows into a file when there is a design to hold. */}}
-    <style>
-      :root { color-scheme: light dark; }
-      body {
-        margin: 0; padding: 12vh 6vw; max-width: 42rem;
-        font: 16px/1.7 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        color: #16181d; background: #fbfbfa;
-      }
-      h1 { font-size: 2rem; letter-spacing: -0.02em; margin: 0 0 1.5rem; }
-      p { margin: 0 0 1.1rem; }
-      .meta { font-size: 0.875rem; color: #6b7280; border-top: 1px solid #e5e7eb; padding-top: 1.1rem; margin-top: 2rem; }
-      nav { margin-top: 2.5rem; font-size: 0.875rem; }
-      nav a { color: #6b7280; text-decoration: none; border-bottom: 1px solid #d1d5db; }
-      nav a:hover { color: #16181d; }
-      @media (prefers-color-scheme: dark) {
-        body { color: #e7e9ee; background: #101216; }
-        .meta { color: #9aa3af; border-color: #262b33; }
-        nav a { color: #9aa3af; border-color: #343a44; }
-        nav a:hover { color: #e7e9ee; }
-      }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+    {{/* One stylesheet, fingerprinted: the design has a file to hold it now. */}}
+    {{ with resources.Get "css/site.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+    {{ end }}
   </head>
   <body>
-    <main>{{ block "main" . }}{{ end }}</main>
+    <a class="skip" href="#main">{{ i18n "skip" }}</a>
+    {{ partial "header.html" . }}
+    <main id="main">{{ block "main" . }}{{ end }}</main>
+    {{ partial "footer.html" . }}
   </body>
 </html>

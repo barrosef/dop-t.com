@@ -1,14 +1,83 @@
 {{ define "main" }}
-  <h1>{{ .Site.Title }}</h1>
-  {{ with .Site.Params.description }}<p>{{ . }}</p>{{ end }}
-  {{ .Content }}
-  {{/* The language switch is the cheapest proof that both trees were built and
-       published, not just the default one. */}}
-  {{ with .AllTranslations }}
-    <nav>
-      {{ range . }}{{ if ne .Language.Lang $.Language.Lang }}
-        <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
-      {{ end }}{{ end }}
-    </nav>
-  {{ end }}
+{{ $p := .Params }}
+<section class="hero">
+  <div class="wrap">
+    <div class="hero__copy reveal">
+      <span class="eyebrow">{{ $p.eyebrow }}</span>
+      <h1>{{ $p.headline }}</h1>
+      <p class="lead">{{ $p.lead }}</p>
+      <div class="actions">
+        {{ with .Site.Params.github.url }}<a class="btn btn--primary" href="{{ . }}" rel="noopener">{{ i18n "cta_github" }} {{ partial "icons/arrow.html" . }}</a>{{ end }}
+        <a class="btn" href="{{ "architecture/" | relLangURL }}">{{ i18n "cta_architecture" }}</a>
+      </div>
+    </div>
+    {{ partial "timeline-panel.html" . }}
+  </div>
+</section>
+
+{{ with $p.values }}
+<section class="section" id="why">
+  <div class="wrap">
+    <div class="section__head">
+      <span class="eyebrow eyebrow--dim">{{ i18n "why_eyebrow" }}</span>
+      <h2>{{ $p.why_title }}</h2>
+    </div>
+    <ul class="cards">
+      {{ range . }}
+      <li class="card">
+        {{ partial (printf "icons/%s.html" .icon) . }}
+        <h3>{{ .title }}</h3>
+        <p>{{ .text }}</p>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</section>
+{{ end }}
+
+{{ with $p.how }}
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="section__head">
+      <span class="eyebrow eyebrow--dim">{{ i18n "how_eyebrow" }}</span>
+      <h2>{{ .title }}</h2>
+    </div>
+    <div class="how">
+      {{ partial "diagram-architecture.html" $ }}
+      <div>
+        <ul class="how__points">
+          {{ range .points }}<li><b>{{ .title }}</b><span>{{ .text }}</span></li>{{ end }}
+        </ul>
+        <p style="margin-top: 28px"><a class="more" href="{{ "architecture/" | relLangURL }}">{{ i18n "how_more" }} {{ partial "icons/arrow.html" . }}</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ with .Site.Params.status }}
+<section class="section" id="stands">
+  <div class="wrap">
+    <div class="section__head">
+      <span class="eyebrow eyebrow--dim">{{ i18n "stands_eyebrow" }}</span>
+      <h2>{{ $p.stands_title }}</h2>
+    </div>
+    <ul class="stats">
+      <li class="stat"><b>{{ .subprojectsDesigned }}<small>/ {{ .subprojectsTotal }}</small></b><span>{{ i18n "stat_subprojects" }}</span></li>
+      <li class="stat"><b>ADR-{{ .latestADR }}</b><span>{{ i18n "stat_adr" }}</span></li>
+      <li class="stat"><b>{{ i18n "stat_qa_value" }}</b><span>{{ i18n "stat_qa" }}</span></li>
+    </ul>
+    <p style="margin-top: 28px"><a class="more" href="{{ "status/" | relLangURL }}">{{ i18n "stands_more" }} {{ partial "icons/arrow.html" . }}</a></p>
+  </div>
+</section>
+{{ end }}
+
+<section class="section section--closing">
+  <div class="wrap">
+    <div class="closing">
+      <h2>{{ $p.closing }}</h2>
+      {{ with .Site.Params.github.url }}<a class="btn btn--primary" href="{{ . }}" rel="noopener">{{ i18n "cta_github" }} {{ partial "icons/arrow.html" . }}</a>{{ end }}
+    </div>
+  </div>
+</section>
 {{ end }}

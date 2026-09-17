@@ -18,28 +18,17 @@
     <meta name="theme-color" content="#0d1117">
     {{ range .AllTranslations }}<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
     {{ end }}
-    {{/* The cockpit's two faces, from the same host it loads them from. */}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
     {{ with resources.Get "css/site.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
     {{ end }}
   </head>
   <body>
     <a class="skip" href="#main">{{ i18n "skip" }}</a>
-    <div class="ide">
-      {{ partial "titlebar.html" . }}
-      <div class="ide__body">
-        <aside class="sidebar" aria-label="{{ i18n "nav_label" }}">
-          <div class="sidebar__inner">
-            {{ partial "sidebar-nav.html" . }}
-            <div class="sidebar__foot">{{ i18n "tagline" }}</div>
-          </div>
-        </aside>
-        <main id="main" class="editor">{{ block "main" . }}{{ end }}</main>
-      </div>
-      {{ partial "statusbar.html" . }}
-    </div>
+    {{ partial "header.html" . }}
+    <main id="main">{{ block "main" . }}{{ end }}</main>
+    {{ partial "footer.html" . }}
   </body>
 </html>

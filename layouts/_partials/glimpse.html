@@ -1,0 +1,18 @@
+{{/* One demand's timeline, as the cockpit shows it. Every value is true of
+     the platform as built: the event names are the aggregate keys the core
+     emits, and the retry policy is the consumer's. */}}
+<div class="glimpse" role="group" aria-label="{{ i18n "reader_caption" }}">
+  <div class="glimpse__bar">{{ partial "icons/pulse.html" . }}<span>{{ i18n "reader_title" }}</span><span class="tag">DOP-241</span><span class="live">{{ i18n "reader_live" }}</span></div>
+  <div class="glimpse__rows">
+    <div class="evt"><span class="k">09:41:02</span><span class="n">account-created</span><span class="s">{{ i18n "actor_user" }}</span></div>
+    <div class="evt"><span class="k">09:41:19</span><span class="n">demand-opened</span><span class="s">{{ i18n "actor_user" }}</span></div>
+    <div class="evt"><span class="k">09:43:55</span><span class="n">spec-approved</span><span class="s">{{ i18n "actor_user" }}</span></div>
+    <div class="evt"><span class="k">10:12:07</span><span class="n">verification-green</span><span class="s s--ok">{{ i18n "actor_agent" }}</span></div>
+    <div class="evt evt--current"><span class="k">10:14:30</span><span class="n">pr-delivered</span><span class="s s--ok">{{ i18n "actor_agent" }}</span></div>
+  </div>
+  <div class="glimpse__foot">
+    <span>{{ i18n "panel_attempts" }} <b>5</b></span>
+    <span>{{ i18n "panel_backoff" }} <b>1s → 1min</b></span>
+    <span>{{ i18n "panel_dead_letters" }} <b>0</b></span>
+  </div>
+</div>

@@ -1,11 +1,11 @@
 {{ define "main" }}
 {{ $p := .Params }}
-<div class="doc">
-  <header class="doc-head">
-    <div class="doc-head__meta">
-      <span class="chip chip--key">{{ i18n "nav_status" }}</span>
-      <span class="chip">{{ i18n "meta_source" }} docs/ROADMAP.md</span>
-      {{ if not .Site.Params.app.signInURL }}<span class="chip chip--warn">{{ i18n "prerelease" }}</span>{{ end }}
+<div class="wrap">
+  <header class="page-head">
+    <div class="page-head__meta">
+      <span class="tag">{{ i18n "nav_status" }}</span>
+      <span class="tag tag--soft">{{ i18n "meta_source" }} docs/ROADMAP.md</span>
+      {{ if not .Site.Params.app.signInURL }}<span class="tag tag--warn">{{ i18n "prerelease" }}</span>{{ end }}
     </div>
     <h1>{{ .Title }}</h1>
     <div class="prose">{{ .Content }}</div>
@@ -28,7 +28,7 @@
   {{ end }}
 
   {{ with $p.next }}
-  <section class="block" id="next">
+  <section class="block block--last" id="next">
     <div class="block__head"><h2>{{ $p.next_title }}</h2></div>
     <ul class="kv">
       {{ range $i, $n := . }}

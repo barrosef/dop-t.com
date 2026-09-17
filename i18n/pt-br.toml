@@ -29,7 +29,7 @@ other = "Idioma"
 other = "Entrar"
 
 [cta_github]
-other = "Ver o código no GitHub"
+other = "Acompanhe no GitHub"
 
 [cta_architecture]
 other = "Ler a arquitetura"
@@ -41,19 +41,19 @@ other = "Por que existe"
 other = "Como é construído"
 
 [how_more]
-other = "a arquitetura inteira"
+other = "A arquitetura inteira"
 
 [stands_eyebrow]
 other = "Onde está"
 
 [stands_more]
-other = "o estágio em detalhe"
+other = "O estágio em detalhe"
 
 [stat_subprojects]
-other = "subprojetos desenhados"
+other = "de 7 subprojetos desenhados"
 
 [stat_adr]
-other = "a decisão de arquitetura mais recente"
+other = "a decisão mais recente"
 
 [stat_qa]
 other = "ambiente de QA no Google Cloud"
@@ -498,3 +498,21 @@ other = "Anthropic primeiro (ADR-0022)"
 
 [dext_jira2]
 other = "planejado · PRD 1.0"
+
+[cta_how]
+other = "Veja como funciona"
+
+[ribbon_open]
+other = "Código aberto"
+
+[ribbon_open_meta]
+other = "código, roadmap e decisões no GitHub"
+
+[ribbon_stack]
+other = "um core, uma API e um cockpit"
+
+[footer_site]
+other = "Site"
+
+[footer_open]
+other = "Às claras"

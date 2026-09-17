@@ -1,0 +1,15 @@
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="{{ "/" | relLangURL }}">{{ partial "icons/mark.html" . }}<span>DOP</span></a>
+    {{ partial "nav.html" . }}
+    <div class="header-actions">
+      {{ partial "lang-switch.html" . }}
+      {{ with .Site.Params.app.signInURL }}<a class="btn btn--sm btn--primary" href="{{ . }}">{{ i18n "sign_in" }}</a>{{ end }}
+      {{ with .Site.Params.github.url }}<a class="btn btn--sm" href="{{ . }}" rel="noopener">{{ partial "icons/github.html" . }}GitHub</a>{{ end }}
+      <details class="menu">
+        <summary class="btn btn--sm" aria-label="{{ i18n "nav_label" }}">{{ partial "icons/menu.html" . }}{{ i18n "menu" }}</summary>
+        {{ partial "nav.html" . }}
+      </details>
+    </div>
+  </div>
+</header>

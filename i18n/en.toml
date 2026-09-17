@@ -29,7 +29,7 @@ other = "Language"
 other = "Sign in"
 
 [cta_github]
-other = "See the code on GitHub"
+other = "Follow on GitHub"
 
 [cta_architecture]
 other = "Read the architecture"
@@ -41,19 +41,19 @@ other = "Why it exists"
 other = "How it is built"
 
 [how_more]
-other = "the whole architecture"
+other = "The whole architecture"
 
 [stands_eyebrow]
 other = "Where it stands"
 
 [stands_more]
-other = "status in detail"
+other = "Status in detail"
 
 [stat_subprojects]
-other = "subprojects designed"
+other = "of 7 subprojects designed"
 
 [stat_adr]
-other = "the latest architecture decision"
+other = "the latest decision"
 
 [stat_qa]
 other = "QA environment on Google Cloud"
@@ -498,3 +498,21 @@ other = "Anthropic first (ADR-0022)"
 
 [dext_jira2]
 other = "planned · PRD 1.0"
+
+[cta_how]
+other = "See how it works"
+
+[ribbon_open]
+other = "Open source"
+
+[ribbon_open_meta]
+other = "code, roadmap and decisions on GitHub"
+
+[ribbon_stack]
+other = "a core, an API and a cockpit"
+
+[footer_site]
+other = "Site"
+
+[footer_open]
+other = "In the open"

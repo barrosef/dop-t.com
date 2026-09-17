@@ -1,0 +1,24 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__col">
+      <a class="brand" href="{{ "/" | relLangURL }}">{{ partial "icons/mark.html" . }}<span>DOP</span></a>
+      <p class="tagline">{{ i18n "tagline" }}</p>
+    </div>
+    <div class="site-footer__col">
+      <h4>{{ i18n "footer_site" }}</h4>
+      <a href="{{ "/" | relLangURL }}">{{ i18n "nav_product" }}</a>
+      <a href="{{ "architecture/" | relLangURL }}">{{ i18n "nav_architecture" }}</a>
+      <a href="{{ "status/" | relLangURL }}">{{ i18n "nav_status" }}</a>
+    </div>
+    <div class="site-footer__col">
+      <h4>{{ i18n "footer_open" }}</h4>
+      {{ with .Site.Params.github.url }}<a href="{{ . }}" rel="noopener">GitHub</a><a href="{{ . }}/blob/main/docs/ROADMAP.md" rel="noopener">{{ i18n "doc_roadmap" }}</a><a href="{{ . }}/tree/main/docs/adr" rel="noopener">{{ i18n "doc_adrs" }}</a>{{ end }}
+      {{ with .Site.Params.legal.privacyPath }}<a href="{{ . | relLangURL }}">{{ i18n "legal_privacy" }}</a>{{ end }}
+      {{ with .Site.Params.legal.termsPath }}<a href="{{ . | relLangURL }}">{{ i18n "legal_terms" }}</a>{{ end }}
+    </div>
+    <div class="fine">
+      <span>{{ i18n "status_open" }}</span>
+      {{ range sort .AllTranslations "Language.Weight" }}{{ if ne .Language.Lang $.Language.Lang }}<a href="{{ .RelPermalink }}" hreflang="{{ .Language.Lang }}" lang="{{ .Language.Lang }}">{{ .Language.LanguageName }}</a>{{ end }}{{ end }}
+    </div>
+  </div>
+</footer>

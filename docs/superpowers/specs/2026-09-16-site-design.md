@@ -1,9 +1,9 @@
 # dop-t.com — the product site, direction "Panel"
 
 **Status:** approved by the owner on 2026-09-16 (direction A, "Painel");
-**amended 2026-09-17** — the visual system in §5 is superseded by §9, "the
-site wears the product's chrome". §1–§4 (audience, information architecture,
-content rules) stand.
+**amended 2026-09-17** — §5 was superseded by §9 ("the site wears the
+product's chrome"), and §9 by §10 ("a site, not a cockpit") the same day.
+§1–§4 (audience, information architecture, content rules) stand.
 **Replaces:** the proof-of-pipeline page shipped on 2026-09-09
 
 ## 1. What this is
@@ -330,3 +330,37 @@ inside an editor.
 **What did not change:** the three routes, the language switch landing on the
 same page, the `[params]` convention, the data files, the content, the
 accessibility requirements, the reduced-motion rule, and the done criteria.
+
+## 10. Amendment (2026-09-17, later) — a site, not a cockpit
+
+The owner's review of §9: the palette was right, the metaphor was wrong —
+*"ficou muito cara de cockpit"*. Three principles for this revision, in the
+owner's words: more marketing, less technique; more flow, less rigid
+navigation; navigation that is intuitive, not a cockpit's.
+
+**What stays from §9:** the product's colours (the blue, the navy, the cool
+greys — the same hsl values), the demand timeline as the product's glimpse,
+the six diagrams on the architecture page, the data files, the language
+switch, the `<details>` phone menu.
+
+**What changes:**
+
+- **The ground is light.** The navy is used as two bands — the hero and the
+  closing call — not as the page. Dark mode inverts the ground and keeps
+  the bands.
+- **The header is horizontal:** wordmark, the three pages centred as pills,
+  language switch and GitHub on the right. No sidebar, no title bar, no
+  status bar.
+- **Headlines are Bricolage Grotesque** (600/700), which gives the site a
+  face of its own; Inter stays for reading text because it is the product's
+  face; JetBrains Mono appears only where the content is data (event names,
+  dates, tags).
+- **The home is a marketing page** and its copy was rewritten for benefits:
+  hero (*"You decide. The agent delivers."*), a facts ribbon, four value
+  propositions as big sentences with one accented word each, *how it works*
+  in three numbered steps (the order is the point: two are the developer's,
+  one is the agent's), *under the hood* with one diagram and three
+  sentences, *where the project stands* with four figures from
+  `[params.status]`, and a closing band with the one call to action.
+- **The technique moves down** to the architecture and status pages, which
+  keep their document structure under the new chrome.

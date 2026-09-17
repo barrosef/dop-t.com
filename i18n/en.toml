@@ -231,3 +231,270 @@ other = "decisions on record"
 
 [diagram_cli]
 other = "CLI"
+
+[dcore_title]
+other = "The core, inside: ports and adapters"
+
+[dcore_desc]
+other = "One binary with four modes drives the domain from the left; the domain reaches infrastructure only through ports; each port has two or more adapters on the right, verified by one contract suite."
+
+[dcore_driving]
+other = "drives"
+
+[dcore_driven]
+other = "driven — one port, its adapters"
+
+[dcore_worker]
+other = "consumers"
+
+[dcore_sched]
+other = "periodic tasks"
+
+[dcore_launcher]
+other = "sandboxes"
+
+[dcore_callauth]
+other = "every call verified: a person's token,"
+
+[dcore_callauth2]
+other = "or a platform assertion (ADR-0029)"
+
+[dcore_domain]
+other = "domain"
+
+[dcore_domain_meta1]
+other = "services, entities, rules —"
+
+[dcore_domain_meta2]
+other = "no SQL, no HTTP, no SDK"
+
+[dcore_domain_meta3]
+other = "every write emits an event"
+
+[dcore_contract_suite]
+other = "one contract suite per port; every adapter"
+
+[dbff_title]
+other = "The BFF, inside: two transports, one rule"
+
+[dbff_desc]
+other = "REST with SSE and gRPC are adapters that call the same use case; the use case talks to the core over gRPC with a platform assertion, and verifies the person's token with Identity Platform. It holds no database and no secret."
+
+[dbff_driving]
+other = "drives"
+
+[dbff_driven]
+other = "driven"
+
+[dbff_parity1]
+other = "the rule lives once, in usecases;"
+
+[dbff_parity2]
+other = "both transports call the same function,"
+
+[dbff_parity3]
+other = "and a parity test proves it"
+
+[dbff_usecase_meta1]
+other = "translate, authorize, forward —"
+
+[dbff_usecase_meta2]
+other = "nothing persists here"
+
+[dbff_assertion]
+other = "assertion (ADR-0029)"
+
+[dbff_verifies]
+other = "verifies the person's token · resolves the account"
+
+[dbff_links]
+other = "mints action links (e-mail verification)"
+
+[dbff_none]
+other = "no database · no secret · every write goes to the core"
+
+[dev_title]
+other = "Events and the flow engine"
+
+[dev_desc]
+other = "A write commits its event to the outbox in the same transaction; a relay publishes it to NATS JetStream; four consumers react; an exhausted delivery goes to one dead-letter queue, is classified and recorded. The flow engine — stages with actions on enter and exit, and a rules table that accumulates down the hierarchy — decides what an event triggers; its dispatcher is planned and not wired yet."
+
+[dev_write]
+other = "write"
+
+[dev_write_meta]
+other = "one transaction"
+
+[dev_outbox_meta]
+other = "same transaction, or neither"
+
+[dev_envelope_meta]
+other = "aggregate key · actor"
+
+[dev_consumers]
+other = "consumers (worker)"
+
+[dev_timeline_meta]
+other = "per aggregate"
+
+[dev_attention_meta]
+other = "the attention box"
+
+[dev_planned]
+other = "planned"
+
+[dev_engine]
+other = "the flow engine"
+
+[dev_engine_meta]
+other = "a dynamic, typed and inheritable flow"
+
+[dev_stages]
+other = "stages (typed)"
+
+[dev_stage_actions]
+other = "each stage carries actions on enter and on exit;"
+
+[dev_rules]
+other = "rules table"
+
+[dev_rules_meta]
+other = "platform → account → workspace → project;"
+
+[dev_decide]
+other = "decide → plan → execute"
+
+[dev_frozen]
+other = "frozen"
+
+[dev_failure]
+other = "the failure path"
+
+[dev_failure_meta]
+other = "redelivered with backoff, then kept — never dropped"
+
+[dev_dlq_meta]
+other = "one queue · full envelope"
+
+[dev_dlq_consumer]
+other = "DLQ consumer"
+
+[dev_dlq_consumer_meta]
+other = "re-runs the same handler"
+
+[dev_classify]
+other = "classify: recoverable · irrecoverable · unknown"
+
+[dev_classify_meta]
+other = "seeded from the error kind; learned from a signature"
+
+[dev_ledger]
+other = "error ledger — (event, consumer)"
+
+[dev_ledger_meta]
+other = "every attempt, its error, the last success"
+
+[dev_retry]
+other = "3 attempts from the DLQ, then Term — the record stays"
+
+[dapp_title]
+other = "The cockpit, inside"
+
+[dapp_desc]
+other = "Pages, components and hooks sit on a generated client: the OpenAPI document is downloaded and committed, Orval generates the react-query hooks and the Zod schemas, and every request carries the token and the account. Firebase Auth signs the person in on the product's own domain."
+
+[dapp_contract]
+other = "the generated contract"
+
+[dapp_no_fetch]
+other = "no hand-written fetch"
+
+[dapp_auth_meta]
+other = "sign-in · e-mail, Google, GitHub"
+
+[dapp_rails1]
+other = "no backend rule is reproduced"
+
+[dapp_rails2]
+other = "here: order, priority and"
+
+[dapp_rails3]
+other = "permissions arrive computed"
+
+[dext_title]
+other = "The platform and what it talks to"
+
+[dext_desc]
+other = "DOP runs on Google Cloud; keeps its own Postgres and NATS; sends e-mail and SMS through OneSignal, SendGrid, SMTP, Twilio or Zenvia; reads and writes repositories on GitHub and GitLab; runs agents on Anthropic or OpenAI; and provisions sandboxes on Docker or Kubernetes. Jira is planned."
+
+[dext_center_meta]
+other = "every integration behind a port"
+
+[dext_runs]
+other = "runs on"
+
+[dext_sends]
+other = "sends through"
+
+[dext_comm]
+other = "communication"
+
+[dext_ports]
+other = "one port per channel"
+
+[dext_data]
+other = "data, ours"
+
+[dext_data_meta]
+other = "on a VM in QA · k3d locally"
+
+[dext_runtime]
+other = "sandbox runtime"
+
+[dext_local]
+other = "locally"
+
+[dext_code]
+other = "code hosts"
+
+[dext_code_meta]
+other = "resolved per repository"
+
+[dext_oauth]
+other = "GitHub is also a sign-in provider"
+
+[dext_models]
+other = "model providers"
+
+[dext_models_meta]
+other = "one port per vendor"
+
+[dext_jira]
+other = "task manager"
+
+[dcore_contract_suite2]
+other = "passes the same tests (ADR-0001)"
+
+[dev_envelope_meta2]
+other = "request · session · caller"
+
+[dev_stage_actions2]
+other = "a gate decides who advances it"
+
+[dev_rules_meta2]
+other = "rules accumulate, and a level may disable one above it"
+
+[dev_classify_meta2]
+other = "that burns every retry twice; a success demotes it"
+
+[dapp_rails4]
+other = "and are rendered"
+
+[dapp_rails5]
+other = "as they came"
+
+[dext_models_meta2]
+other = "Anthropic first (ADR-0022)"
+
+[dext_jira2]
+other = "planned · PRD 1.0"

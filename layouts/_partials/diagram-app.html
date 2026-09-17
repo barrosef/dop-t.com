@@ -1,0 +1,43 @@
+{{/* The cockpit, inside. Names are directories under
+     repos/dop-app/artifacts/dop/src and repos/dop-app/lib. */}}
+<svg class="diagram" viewBox="0 0 960 440" role="img" aria-labelledby="app-title app-desc">
+  <title id="app-title">{{ i18n "dapp_title" }}</title>
+  <desc id="app-desc">{{ i18n "dapp_desc" }}</desc>
+  <defs><marker id="head-app" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="head" d="M0 0L8 4L0 8z"></path></marker></defs>
+
+  <rect class="box" x="20" y="30" width="640" height="60" rx="6"></rect>
+  <text class="name" x="34" y="52">pages</text><text class="meta" x="90" y="52">wouter</text>
+  <text class="mono" x="34" y="76">sign-in · sign-up · onboarding · home · workspace-cockpit · project · demand · card-execution</text>
+  <path class="edge" d="M340 90 V110" marker-end="url(#head-app)"></path>
+
+  <rect class="box" x="20" y="110" width="640" height="60" rx="6"></rect>
+  <text class="name" x="34" y="132">components</text>
+  <text class="mono" x="34" y="156">platform (attention box · layout · sidebar) · security · ui · stage views · doc viewer</text>
+  <path class="edge" d="M340 170 V190" marker-end="url(#head-app)"></path>
+
+  <rect class="box" x="20" y="190" width="640" height="60" rx="6"></rect>
+  <text class="name" x="34" y="212">hooks · state</text>
+  <text class="mono" x="34" y="236">use-api · use-attention-stream (SSE) · zustand uiStore · ThemeProvider · i18n (pt-BR · en)</text>
+  <path class="edge" d="M340 250 V270" marker-end="url(#head-app)"></path>
+
+  <rect class="box box--core" x="20" y="270" width="640" height="80" rx="6"></rect>
+  <text class="name" x="34" y="292">{{ i18n "dapp_contract" }}</text>
+  <text class="mono" x="34" y="316">lib/api-spec/openapi.json → Orval → lib/api-client-react (react-query hooks) · lib/api-zod</text>
+  <text class="meta" x="34" y="336">custom-fetch: Authorization · x-account-id · {{ i18n "dapp_no_fetch" }}</text>
+  <path class="edge" d="M340 350 V380" marker-end="url(#head-app)"></path>
+  <rect class="box" x="20" y="380" width="640" height="40" rx="6"></rect>
+  <text class="name" x="34" y="405">BFF</text><text class="meta" x="80" y="405">api.qa.dop-t.com · REST · SSE</text>
+
+  <rect class="box box--dashed" x="700" y="190" width="240" height="60" rx="6"></rect>
+  <text class="name" x="714" y="212">Firebase Auth SDK</text><text class="meta" x="714" y="232">{{ i18n "dapp_auth_meta" }}</text>
+  <path class="edge edge--dashed" d="M660 220 H700" marker-start="url(#head-app)"></path>
+  <path class="edge edge--dashed" d="M820 250 V380" marker-end="url(#head-app)"></path>
+  <rect class="box box--dashed" x="700" y="380" width="240" height="40" rx="6"></rect>
+  <text class="name" x="714" y="405">Identity Platform</text><text class="meta" x="840" y="405">auth.qa.dop-t.com</text>
+
+  <text class="meta" x="700" y="52">{{ i18n "dapp_rails1" }}</text>
+  <text class="meta" x="700" y="70">{{ i18n "dapp_rails2" }}</text>
+  <text class="meta" x="700" y="88">{{ i18n "dapp_rails3" }}</text>
+  <text class="meta" x="700" y="106">{{ i18n "dapp_rails4" }}</text>
+  <text class="meta" x="700" y="124">{{ i18n "dapp_rails5" }}</text>
+</svg>

@@ -324,3 +324,16 @@ a.chip:hover { color: var(--text); border-color: var(--muted); text-decoration: 
   .doc > *:nth-child(3) { animation-delay: 120ms; }
   @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 }
+
+/* diagram vocabulary shared by the architecture page */
+.diagram .hex { fill: var(--bg); stroke: var(--primary); stroke-width: 2; }
+.diagram .hex--outer { fill: var(--panel); stroke: var(--line); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.diagram .label { font: 600 11px var(--font-sans); fill: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+.diagram .mono { font: 11px var(--font-mono); fill: var(--text); }
+.diagram .port { font: 500 11.5px var(--font-mono); fill: var(--primary); }
+.diagram .box--group { fill: var(--panel); }
+.diagram .box--warn { stroke: var(--warn); }
+.diagram--tall { aspect-ratio: auto; }
+.figure { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.figure .block__head h3 { font-size: 15px; font-weight: 600; }
+.figure figcaption { font-size: 13px; color: var(--muted); }

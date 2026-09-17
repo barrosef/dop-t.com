@@ -1,0 +1,64 @@
+{{/* The core, inside: the hexagon. Every name here is a package or a type in
+     repos/dop-core — internal/domain/*, internal/domain/ports/ports.go, and
+     internal/adapter/*. Redraw it when they change, not before. */}}
+<svg class="diagram" viewBox="0 0 960 470" role="img" aria-labelledby="core-title core-desc">
+  <title id="core-title">{{ i18n "dcore_title" }}</title>
+  <desc id="core-desc">{{ i18n "dcore_desc" }}</desc>
+  <defs><marker id="head-core" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="head" d="M0 0L8 4L0 8z"></path></marker></defs>
+
+  <!-- driving side: the four modes of the one binary -->
+  <text class="label" x="20" y="48">{{ i18n "dcore_driving" }}</text>
+  <rect class="box" x="20" y="64" width="140" height="48" rx="6"></rect>
+  <text class="name" x="34" y="84">serve</text><text class="meta" x="34" y="102">gRPC · app/grpc</text>
+  <rect class="box" x="20" y="144" width="140" height="48" rx="6"></rect>
+  <text class="name" x="34" y="164">worker</text><text class="meta" x="34" y="182">{{ i18n "dcore_worker" }}</text>
+  <rect class="box" x="20" y="224" width="140" height="48" rx="6"></rect>
+  <text class="name" x="34" y="244">sched</text><text class="meta" x="34" y="262">{{ i18n "dcore_sched" }}</text>
+  <rect class="box" x="20" y="304" width="140" height="48" rx="6"></rect>
+  <text class="name" x="34" y="324">launcher</text><text class="meta" x="34" y="342">{{ i18n "dcore_launcher" }}</text>
+  <path class="edge" d="M160 88 H172 V230 H180" marker-end="url(#head-core)"></path>
+  <path class="edge" d="M160 168 H172"></path>
+  <path class="edge" d="M160 248 H172"></path>
+  <path class="edge" d="M160 328 H172 V230"></path>
+  <text class="meta" x="20" y="436">{{ i18n "dcore_callauth" }}</text>
+  <text class="meta" x="20" y="452">{{ i18n "dcore_callauth2" }}</text>
+
+  <!-- the hexagon: ports outside, domain inside -->
+  <polygon class="hex hex--outer" points="280,70 480,70 580,230 480,390 280,390 180,230"></polygon>
+  <polygon class="hex" points="295,90 465,90 550,230 465,370 295,370 210,230"></polygon>
+  <text class="label" x="380" y="122" text-anchor="middle">{{ i18n "dcore_domain" }}</text>
+  <text class="mono" x="380" y="160" text-anchor="middle">identity · hierarchy · resource</text>
+  <text class="mono" x="380" y="182" text-anchor="middle">demand · workflow · execution</text>
+  <text class="mono" x="380" y="204" text-anchor="middle">delivery · attention · notification</text>
+  <text class="mono" x="380" y="226" text-anchor="middle">reaction · event · knowledge</text>
+  <text class="mono" x="380" y="248" text-anchor="middle">cost · agent · secondfactor</text>
+  <text class="meta" x="380" y="290" text-anchor="middle">{{ i18n "dcore_domain_meta1" }}</text>
+  <text class="meta" x="380" y="306" text-anchor="middle">{{ i18n "dcore_domain_meta2" }}</text>
+  <text class="meta" x="380" y="336" text-anchor="middle">{{ i18n "dcore_domain_meta3" }}</text>
+  <text class="label" x="380" y="384" text-anchor="middle">ports</text>
+
+  <!-- driven side: one port, its adapters -->
+  <text class="label" x="600" y="48">{{ i18n "dcore_driven" }}</text>
+  <path class="edge" d="M580 230 H588"></path>
+  <path class="edge" d="M588 72 V402"></path>
+  {{ range $i, $r := slice
+       (slice "Repositories" "Postgres")
+       (slice "EventBus" "NATS JetStream · memory")
+       (slice "IdentityProvider" "Firebase · OIDC")
+       (slice "SecretStore" "Secret Manager · k8s · memory")
+       (slice "ObjectStore" "GCS · fs")
+       (slice "SandboxLauncher" "Docker · Kubernetes")
+       (slice "VerificationRunner" "Docker · Kubernetes · script")
+       (slice "ProjectRepository" "git server · local · remote")
+       (slice "Mailer" "OneSignal · SendGrid · SMTP")
+       (slice "SMSer" "Twilio · Zenvia")
+       (slice "AgentProvider" "Anthropic · OpenAI")
+       (slice "GitProvider" "GitHub · GitLab") }}
+  {{ $y := add 72 (mul $i 30) }}
+  <path class="edge" d="M588 {{ $y }} H596" marker-end="url(#head-core)"></path>
+  <text class="port" x="606" y="{{ add $y 4 }}">{{ index $r 0 }}</text>
+  <text class="mono" x="760" y="{{ add $y 4 }}">{{ index $r 1 }}</text>
+  {{ end }}
+  <text class="meta" x="606" y="436">{{ i18n "dcore_contract_suite" }}</text>
+  <text class="meta" x="606" y="452">{{ i18n "dcore_contract_suite2" }}</text>
+</svg>

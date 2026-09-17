@@ -1,0 +1,83 @@
+{{/* Events and the flow engine. The pipeline on top is what runs today
+     (outbox → NATS → the four consumers → the DLQ); the dispatcher that will
+     turn a flow's stage actions and the rules table into planned actions is
+     drawn dashed, because it is plan 2 of 3 (P-29) and not wired yet. */}}
+<svg class="diagram" viewBox="0 0 1000 580" role="img" aria-labelledby="ev-title ev-desc">
+  <title id="ev-title">{{ i18n "dev_title" }}</title>
+  <desc id="ev-desc">{{ i18n "dev_desc" }}</desc>
+  <defs><marker id="head-ev" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="head" d="M0 0L8 4L0 8z"></path></marker></defs>
+
+  <!-- the pipeline -->
+  <rect class="box" x="20" y="40" width="140" height="64" rx="6"></rect>
+  <text class="name" x="34" y="64">{{ i18n "dev_write" }}</text><text class="meta" x="34" y="84">{{ i18n "dev_write_meta" }}</text>
+  <rect class="box" x="190" y="40" width="200" height="64" rx="6"></rect>
+  <text class="name" x="204" y="64">outbox</text><text class="meta" x="204" y="84">{{ i18n "dev_outbox_meta" }}</text>
+  <rect class="box" x="420" y="40" width="140" height="64" rx="6"></rect>
+  <text class="name" x="434" y="64">relay</text><text class="meta" x="434" y="84">MsgId = event id</text>
+  <rect class="box box--core" x="590" y="40" width="170" height="64" rx="6"></rect>
+  <text class="name" x="604" y="64">NATS JetStream</text><text class="meta" x="604" y="84">dop.&gt; · dlq.&gt;</text>
+  <rect class="box" x="780" y="40" width="200" height="64" rx="6"></rect>
+  <text class="name" x="794" y="60">Envelope</text><text class="meta" x="794" y="78">{{ i18n "dev_envelope_meta" }}</text><text class="meta" x="794" y="94">{{ i18n "dev_envelope_meta2" }}</text>
+  <path class="edge" d="M160 72 H190" marker-end="url(#head-ev)"></path>
+  <path class="edge" d="M390 72 H420" marker-end="url(#head-ev)"></path>
+  <path class="edge" d="M560 72 H590" marker-end="url(#head-ev)"></path>
+  <path class="edge edge--dashed" d="M760 72 H780"></path>
+
+  <!-- the consumers -->
+  <text class="label" x="420" y="140">{{ i18n "dev_consumers" }}</text>
+  <path class="edge" d="M675 104 V122 H90 V156" marker-end="url(#head-ev)"></path>
+  <path class="edge" d="M485 122 V156" marker-end="url(#head-ev)"></path>
+  <path class="edge" d="M675 122 V156" marker-end="url(#head-ev)"></path>
+  <path class="edge" d="M675 122 H865 V156" marker-end="url(#head-ev)"></path>
+  <rect class="box box--dashed" x="20" y="156" width="140" height="52" rx="6"></rect>
+  <text class="name" x="34" y="178">dispatcher</text><text class="meta" x="34" y="196">P-29 · {{ i18n "dev_planned" }}</text>
+  <rect class="box" x="420" y="156" width="130" height="52" rx="6"></rect>
+  <text class="name" x="434" y="178">timeline</text><text class="meta" x="434" y="196">{{ i18n "dev_timeline_meta" }}</text>
+  <rect class="box" x="600" y="156" width="150" height="52" rx="6"></rect>
+  <text class="name" x="614" y="178">attention</text><text class="meta" x="614" y="196">{{ i18n "dev_attention_meta" }}</text>
+  <rect class="box" x="800" y="156" width="130" height="52" rx="6"></rect>
+  <text class="name" x="814" y="178">notification</text><text class="meta" x="814" y="196">Mailer</text>
+
+  <!-- the flow engine -->
+  <rect class="box box--group" x="20" y="250" width="470" height="310" rx="8"></rect>
+  <text class="label" x="36" y="276">{{ i18n "dev_engine" }}</text>
+  <text class="meta" x="36" y="294">ADR-0014 · {{ i18n "dev_engine_meta" }}</text>
+  <path class="edge edge--dashed" d="M90 208 V250" marker-end="url(#head-ev)"></path>
+
+  <text class="port" x="36" y="324">{{ i18n "dev_stages" }}</text>
+  {{ range $i, $s := slice "context" "spec" "plan" "implementation" "test" "human_validation" "finalization" }}
+  {{ $x := add 36 (mul (mod $i 4) 110) }}{{ $y := add 334 (mul (div $i 4) 30) }}
+  <rect class="box" x="{{ $x }}" y="{{ $y }}" width="102" height="22" rx="4"></rect>
+  <text class="mono" x="{{ add $x 51 }}" y="{{ add $y 15 }}" text-anchor="middle">{{ $s }}</text>
+  {{ end }}
+  <text class="meta" x="36" y="410">{{ i18n "dev_stage_actions" }}</text>
+  <text class="meta" x="36" y="426">{{ i18n "dev_stage_actions2" }}</text>
+
+  <text class="port" x="36" y="456">{{ i18n "dev_rules" }}</text>
+  <text class="meta" x="36" y="474">{{ i18n "dev_rules_meta" }}</text>
+  <text class="meta" x="36" y="490">{{ i18n "dev_rules_meta2" }}</text>
+
+  <text class="port" x="36" y="520">{{ i18n "dev_decide" }}</text>
+  <text class="meta" x="36" y="538">Decide · DecideStage → PlannedAction ({{ i18n "dev_frozen" }}) → Execute</text>
+  <text class="meta" x="36" y="554">open_attention · close_attention · send_email · provision_bench</text>
+
+  <!-- the failure path -->
+  <rect class="box box--group" x="520" y="250" width="460" height="310" rx="8"></rect>
+  <text class="label" x="536" y="276">{{ i18n "dev_failure" }}</text>
+  <text class="meta" x="536" y="294">{{ i18n "dev_failure_meta" }}</text>
+  <path class="edge" d="M675 208 V236 H600 V322" marker-end="url(#head-ev)"></path>
+  <text class="meta" x="686" y="228">NAK · MaxDeliver 5</text>
+  <text class="meta" x="686" y="244">1s · 5s · 15s · 1min</text>
+  <rect class="box box--warn" x="536" y="322" width="200" height="52" rx="6"></rect>
+  <text class="name" x="550" y="344">dlq.event</text><text class="meta" x="550" y="362">{{ i18n "dev_dlq_meta" }}</text>
+  <path class="edge" d="M736 348 H764" marker-end="url(#head-ev)"></path>
+  <rect class="box" x="764" y="322" width="200" height="52" rx="6"></rect>
+  <text class="name" x="778" y="344">{{ i18n "dev_dlq_consumer" }}</text><text class="meta" x="778" y="362">{{ i18n "dev_dlq_consumer_meta" }}</text>
+  <path class="edge" d="M864 374 V402" marker-end="url(#head-ev)"></path>
+  <rect class="box" x="536" y="402" width="428" height="64" rx="6"></rect>
+  <text class="name" x="550" y="424">{{ i18n "dev_classify" }}</text><text class="meta" x="550" y="442">{{ i18n "dev_classify_meta" }}</text><text class="meta" x="550" y="458">{{ i18n "dev_classify_meta2" }}</text>
+  <path class="edge" d="M750 466 V492" marker-end="url(#head-ev)"></path>
+  <rect class="box" x="536" y="492" width="428" height="52" rx="6"></rect>
+  <text class="name" x="550" y="514">{{ i18n "dev_ledger" }}</text><text class="meta" x="550" y="532">{{ i18n "dev_ledger_meta" }}</text>
+  <text class="meta" x="536" y="556">{{ i18n "dev_retry" }}</text>
+</svg>

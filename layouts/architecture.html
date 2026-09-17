@@ -22,6 +22,19 @@
   </section>
   {{ end }}
 
+  {{ with $p.diagrams }}
+  <section class="block" id="diagrams">
+    <div class="block__head"><h2>{{ .title }}</h2><p>{{ .lead }}</p></div>
+    {{ range .items }}
+    <figure class="figure" id="{{ .id }}">
+      <div class="block__head"><h3>{{ .title }}</h3></div>
+      {{ partial (printf "diagram-%s.html" .id) $ }}
+      <figcaption>{{ .caption }}</figcaption>
+    </figure>
+    {{ end }}
+  </section>
+  {{ end }}
+
   {{ with $p.invariants }}
   <section class="block" id="invariants">
     <div class="block__head"><h2>{{ $p.invariants_title }}</h2><p>{{ $p.invariants_lead }}</p></div>

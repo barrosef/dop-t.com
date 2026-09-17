@@ -30,6 +30,28 @@ components:
     repo: ""
     role: "Uma por demanda, com um único worktree compartilhado."
     text: "A fronteira dura é entre contas e entre demandas. O conhecimento do projeto é clonado lá dentro como um repositório git; a verificação roda da fonte num runner efêmero."
+diagrams:
+  title: "Os diagramas"
+  lead: "Seis figuras, da plataforma inteira até cada componente. Todo nome nelas é um pacote, um port ou um adaptador que existe nos repositórios; o que está planejado e não construído aparece tracejado."
+  items:
+    - id: architecture
+      title: "A plataforma"
+      caption: "O cockpit e a CLI chegam ao BFF; o BFF chega ao core; o core é dono do estado, dos eventos e das sandboxes. O Identity Platform autentica a pessoa na borda."
+    - id: core
+      title: "O core por dentro — o hexágono"
+      caption: "Um binário, quatro modos, um domínio. O domínio nunca importa um driver: declara um port, e o adaptador à direita o implementa. Todo port tem pelo menos dois adaptadores e uma suíte de contrato que ambos precisam passar — é isso que faz do ambiente local e do Google Cloud a mesma plataforma."
+    - id: bff
+      title: "O BFF por dentro — dois transportes, uma regra"
+      caption: "REST com SSE para o cockpit, gRPC para a CLI, e o mesmo caso de uso por baixo. A autorização está presa ao caso de uso, não ao router, então uma regra não pode existir num transporte e não no outro; um teste de paridade mantém isso."
+    - id: events
+      title: "Eventos e o motor de fluxos"
+      caption: "O que roda hoje é o pipeline e o caminho da falha: outbox, NATS, quatro consumidores, uma fila de dead letters, um ledger de erros. O motor de fluxos é o vocabulário — estágios tipados, ações na entrada e na saída, regras que acumulam pela hierarquia — e o dispatcher que o liga ao barramento é o plano 2 de 3."
+    - id: app
+      title: "O cockpit por dentro"
+      caption: "Quatro camadas sobre um cliente gerado. O contrato é um arquivo commitado; os hooks e os schemas vêm dele; a camada de fetch leva o token e a conta. Nada que o backend já decidiu é decidido de novo aqui."
+    - id: external
+      title: "A plataforma e com quem ela conversa"
+      caption: "Todo serviço externo fica atrás de um port, então trocar um é um adaptador e um valor de configuração, não uma reescrita. O que está sólido tem adaptador hoje; o que está tracejado está no roadmap."
 invariants_title: "As cinco invariantes"
 invariants_lead: "As paredes estruturais da arquitetura. Uma mudança que quebra uma delas está errada mesmo quando compila e os testes passam."
 invariants:

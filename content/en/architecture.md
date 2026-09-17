@@ -30,6 +30,28 @@ components:
     repo: ""
     role: "One per demand, with a single shared worktree."
     text: "The hard boundary is between accounts and between demands. The project's knowledge is cloned inside as a git repository; verification runs from source in an ephemeral runner."
+diagrams:
+  title: "The diagrams"
+  lead: "Six pictures, from the whole platform down to each component. Every name in them is a package, a port or an adapter that exists in the repositories; what is planned and not built is drawn dashed."
+  items:
+    - id: architecture
+      title: "The platform"
+      caption: "The cockpit and the CLI reach the BFF; the BFF reaches the core; the core owns the state, the events and the sandboxes. Identity Platform signs the person in at the edge."
+    - id: core
+      title: "The core, inside — the hexagon"
+      caption: "One binary, four modes, one domain. The domain never imports a driver: it declares a port, and the adapter on the right implements it. Every port has at least two adapters and one contract suite that both must pass — which is what makes the local environment and Google Cloud the same platform."
+    - id: bff
+      title: "The BFF, inside — two transports, one rule"
+      caption: "REST with SSE for the cockpit, gRPC for the CLI, and the same use case underneath. Authorization is pinned to the use case, not to the router, so a rule cannot exist on one transport and not the other; a parity test keeps it that way."
+    - id: events
+      title: "Events and the flow engine"
+      caption: "What runs today is the pipeline and the failure path: outbox, NATS, four consumers, one dead-letter queue, an error ledger. The flow engine is the vocabulary — typed stages, actions on enter and exit, rules that accumulate down the hierarchy — and the dispatcher that connects it to the bus is plan 2 of 3."
+    - id: app
+      title: "The cockpit, inside"
+      caption: "Four layers on a generated client. The contract is a committed file; the hooks and schemas come from it; the fetch layer carries the token and the account. Nothing the backend already decided is decided again here."
+    - id: external
+      title: "The platform and what it talks to"
+      caption: "Every external service sits behind a port, so swapping one is an adapter and a configuration value, not a rewrite. What is solid has an adapter today; what is dashed is on the roadmap."
 invariants_title: "The five invariants"
 invariants_lead: "The architecture's load-bearing walls. A change that breaks one is wrong even when it compiles and the tests pass."
 invariants:

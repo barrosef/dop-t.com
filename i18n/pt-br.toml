@@ -231,3 +231,270 @@ other = "decisões registradas"
 
 [diagram_cli]
 other = "CLI"
+
+[dcore_title]
+other = "O core por dentro: ports e adaptadores"
+
+[dcore_desc]
+other = "Um binário com quatro modos aciona o domínio pela esquerda; o domínio só alcança a infraestrutura por ports; cada port tem dois ou mais adaptadores à direita, verificados por uma única suíte de contrato."
+
+[dcore_driving]
+other = "aciona"
+
+[dcore_driven]
+other = "acionados — um port, seus adaptadores"
+
+[dcore_worker]
+other = "consumidores"
+
+[dcore_sched]
+other = "tarefas periódicas"
+
+[dcore_launcher]
+other = "sandboxes"
+
+[dcore_callauth]
+other = "toda chamada verificada: o token da pessoa,"
+
+[dcore_callauth2]
+other = "ou uma asserção da plataforma (ADR-0029)"
+
+[dcore_domain]
+other = "domínio"
+
+[dcore_domain_meta1]
+other = "serviços, entidades, regras —"
+
+[dcore_domain_meta2]
+other = "sem SQL, sem HTTP, sem SDK"
+
+[dcore_domain_meta3]
+other = "toda escrita emite um evento"
+
+[dcore_contract_suite]
+other = "uma suíte de contrato por port; todo adaptador"
+
+[dbff_title]
+other = "O BFF por dentro: dois transportes, uma regra"
+
+[dbff_desc]
+other = "REST com SSE e gRPC são adaptadores que chamam o mesmo caso de uso; o caso de uso fala com o core por gRPC com uma asserção da plataforma, e verifica o token da pessoa no Identity Platform. Não tem banco nem segredo."
+
+[dbff_driving]
+other = "aciona"
+
+[dbff_driven]
+other = "acionados"
+
+[dbff_parity1]
+other = "a regra vive uma vez, em usecases;"
+
+[dbff_parity2]
+other = "os dois transportes chamam a mesma função,"
+
+[dbff_parity3]
+other = "e um teste de paridade prova isso"
+
+[dbff_usecase_meta1]
+other = "traduz, autoriza, encaminha —"
+
+[dbff_usecase_meta2]
+other = "nada persiste aqui"
+
+[dbff_assertion]
+other = "asserção (ADR-0029)"
+
+[dbff_verifies]
+other = "verifica o token da pessoa · resolve a conta"
+
+[dbff_links]
+other = "emite links de ação (verificação de e-mail)"
+
+[dbff_none]
+other = "sem banco · sem segredo · toda escrita vai para o core"
+
+[dev_title]
+other = "Eventos e o motor de fluxos"
+
+[dev_desc]
+other = "Uma escrita commita o seu evento na outbox na mesma transação; um relay publica no NATS JetStream; quatro consumidores reagem; uma entrega esgotada vai para uma única fila de dead letters, é classificada e registrada. O motor de fluxos — estágios com ações na entrada e na saída, e uma tabela de regras que acumula pela hierarquia — decide o que um evento dispara; o seu dispatcher está planejado e ainda não ligado."
+
+[dev_write]
+other = "escrita"
+
+[dev_write_meta]
+other = "uma transação"
+
+[dev_outbox_meta]
+other = "mesma transação, ou nenhuma"
+
+[dev_envelope_meta]
+other = "chave do agregado · ator"
+
+[dev_consumers]
+other = "consumidores (worker)"
+
+[dev_timeline_meta]
+other = "por agregado"
+
+[dev_attention_meta]
+other = "a caixa de atenção"
+
+[dev_planned]
+other = "planejado"
+
+[dev_engine]
+other = "o motor de fluxos"
+
+[dev_engine_meta]
+other = "um fluxo dinâmico, tipado e herdável"
+
+[dev_stages]
+other = "estágios (tipados)"
+
+[dev_stage_actions]
+other = "cada estágio carrega ações na entrada e na saída;"
+
+[dev_rules]
+other = "tabela de regras"
+
+[dev_rules_meta]
+other = "plataforma → conta → workspace → projeto;"
+
+[dev_decide]
+other = "decidir → planejar → executar"
+
+[dev_frozen]
+other = "congelado"
+
+[dev_failure]
+other = "o caminho da falha"
+
+[dev_failure_meta]
+other = "reentregue com backoff, depois guardada — nunca descartada"
+
+[dev_dlq_meta]
+other = "uma fila · envelope completo"
+
+[dev_dlq_consumer]
+other = "consumidor da DLQ"
+
+[dev_dlq_consumer_meta]
+other = "reexecuta o mesmo handler"
+
+[dev_classify]
+other = "classificar: recuperável · irrecuperável · desconhecida"
+
+[dev_classify_meta]
+other = "semeada do tipo do erro; aprendida de uma assinatura"
+
+[dev_ledger]
+other = "ledger de erros — (evento, consumidor)"
+
+[dev_ledger_meta]
+other = "cada tentativa, o seu erro, o último sucesso"
+
+[dev_retry]
+other = "3 tentativas a partir da DLQ, depois Term — o registro fica"
+
+[dapp_title]
+other = "O cockpit por dentro"
+
+[dapp_desc]
+other = "Páginas, componentes e hooks se apoiam num cliente gerado: o documento OpenAPI é baixado e commitado, o Orval gera os hooks do react-query e os schemas Zod, e toda requisição leva o token e a conta. O Firebase Auth autentica a pessoa no domínio do próprio produto."
+
+[dapp_contract]
+other = "o contrato gerado"
+
+[dapp_no_fetch]
+other = "nenhum fetch escrito à mão"
+
+[dapp_auth_meta]
+other = "login · e-mail, Google, GitHub"
+
+[dapp_rails1]
+other = "nenhuma regra do backend"
+
+[dapp_rails2]
+other = "é reproduzida aqui: ordem,"
+
+[dapp_rails3]
+other = "prioridade e permissões chegam"
+
+[dext_title]
+other = "A plataforma e com quem ela conversa"
+
+[dext_desc]
+other = "O DOP roda no Google Cloud; mantém seu próprio Postgres e NATS; envia e-mail e SMS por OneSignal, SendGrid, SMTP, Twilio ou Zenvia; lê e escreve repositórios no GitHub e no GitLab; roda agentes na Anthropic ou na OpenAI; e provisiona sandboxes em Docker ou Kubernetes. O Jira está planejado."
+
+[dext_center_meta]
+other = "toda integração atrás de um port"
+
+[dext_runs]
+other = "roda em"
+
+[dext_sends]
+other = "envia por"
+
+[dext_comm]
+other = "comunicação"
+
+[dext_ports]
+other = "um port por canal"
+
+[dext_data]
+other = "dados, nossos"
+
+[dext_data_meta]
+other = "numa VM em QA · k3d localmente"
+
+[dext_runtime]
+other = "runtime das sandboxes"
+
+[dext_local]
+other = "localmente"
+
+[dext_code]
+other = "hospedagem de código"
+
+[dext_code_meta]
+other = "resolvido por repositório"
+
+[dext_oauth]
+other = "o GitHub também é provedor de login"
+
+[dext_models]
+other = "provedores de modelo"
+
+[dext_models_meta]
+other = "um port por fornecedor"
+
+[dext_jira]
+other = "gerenciador de tarefas"
+
+[dcore_contract_suite2]
+other = "passa nos mesmos testes (ADR-0001)"
+
+[dev_envelope_meta2]
+other = "requisição · sessão · chamador"
+
+[dev_stage_actions2]
+other = "um gate decide quem o avança"
+
+[dev_rules_meta2]
+other = "as regras acumulam, e um nível pode desligar uma acima dele"
+
+[dev_classify_meta2]
+other = "que queima toda retentativa duas vezes; um sucesso rebaixa"
+
+[dapp_rails4]
+other = "computadas e são renderizadas"
+
+[dapp_rails5]
+other = "como vieram"
+
+[dext_models_meta2]
+other = "Anthropic primeiro (ADR-0022)"
+
+[dext_jira2]
+other = "planejado · PRD 1.0"

@@ -524,3 +524,15 @@ other = "built by"
 
 [footer_and]
 other = "and"
+
+[notfound_title]
+other = "There is nothing at this address"
+
+[notfound_text]
+other = "The page may have moved, or the link was never right. The three pages that exist:"
+
+[notfound_home]
+other = "Home"
+
+[notfound_pt]
+other = "Em português:"

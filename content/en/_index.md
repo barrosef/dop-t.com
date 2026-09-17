@@ -1,6 +1,8 @@
 ---
 title: "DOP"
 translationKey: "home"
+seo_title: "DOP — You decide. The agent delivers. AI-agent delivery orchestration for developers"
+description: "DOP is a cockpit where a developer and an AI coding agent take a demand from the spec to a green pull request, with every step on the record. Open source, built in the open."
 headline: "You decide. The agent delivers."
 lead: "DOP is a cockpit where a developer and an AI agent work on the same demand — from the first line of the spec to the pull request that turns green. You keep the decisions; the agent keeps the work moving."
 note: "Pre-release, built in the open. The code is public today; the product opens to the first developers soon."

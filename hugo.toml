@@ -3,6 +3,9 @@ title = "DOP"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 enableRobotsTXT = true
+# lastmod in the sitemap comes from the page's last commit; CI checks out with
+# fetch-depth 0 for exactly this.
+enableGitInfo = true
 # Three pages per language and no taxonomy: a tags page would be an empty box.
 disableKinds = ["taxonomy", "term"]
 
@@ -45,10 +48,12 @@ disableKinds = ["taxonomy", "term"]
   # and says nothing.
   [languages.en]
     languageName = "English"
+    languageCode = "en-US"
     contentDir = "content/en"
     weight = 1
   [languages.pt-br]
     languageName = "Português"
+    languageCode = "pt-BR"
     contentDir = "content/pt-br"
     weight = 2
 

@@ -1,6 +1,7 @@
 ---
 title: "Estágio"
 translationKey: "status"
+seo_title: "Estágio do DOP — o que foi entregue, o que está desenhado, o que vem a seguir"
 layout: "status"
 description: "Em que ponto está a plataforma DOP: os subprojetos e o seu estado, o que foi entregue e quando, o que vem a seguir."
 subprojects_title: "Os subprojetos"

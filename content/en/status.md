@@ -1,6 +1,7 @@
 ---
 title: "Status"
 translationKey: "status"
+seo_title: "DOP status — what shipped, what is designed, what comes next"
 layout: "status"
 description: "How far along the DOP platform is: the subprojects and their state, what shipped and when, what comes next."
 subprojects_title: "The subprojects"

@@ -261,7 +261,8 @@ svg { display: block; }
 @media (max-width: 720px) { .site-footer .wrap { grid-template-columns: minmax(0, 1fr); } }
 .site-footer .brand { font-size: 18px; }
 .site-footer__col { display: flex; flex-direction: column; gap: 10px; }
-.site-footer__col h4 { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); font-weight: 600; }
+.site-footer__h { margin: 0; }
+.site-footer__col .site-footer__h { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); font-weight: 600; }
 .site-footer__col a { color: var(--muted); }
 .site-footer__col a:hover { color: var(--text); }
 .site-footer .tagline { margin-top: 12px; }

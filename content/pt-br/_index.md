@@ -1,6 +1,8 @@
 ---
 title: "DOP"
 translationKey: "home"
+seo_title: "DOP — Você decide. O agente entrega. Orquestração de entrega com agentes de IA"
+description: "O DOP é um cockpit onde um desenvolvedor e um agente de IA levam uma demanda da spec ao pull request verde, com cada passo registrado. Código aberto, construído às claras."
 headline: "Você decide. O agente entrega."
 lead: "O DOP é um cockpit onde um desenvolvedor e um agente de IA trabalham na mesma demanda — da primeira linha da spec ao pull request que fica verde. As decisões continuam suas; o agente mantém o trabalho andando."
 note: "Pré-lançamento, construído às claras. O código já é público; o produto abre para os primeiros desenvolvedores em breve."

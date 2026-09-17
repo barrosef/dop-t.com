@@ -1,6 +1,7 @@
 ---
 title: "Arquitetura"
 translationKey: "architecture"
+seo_title: "Arquitetura do DOP — core em Go, BFF em Python, cockpit em React, eventos e uma sandbox por demanda"
 layout: "architecture"
 description: "Como a plataforma DOP é construída: os componentes, as cinco invariantes, a vida de um evento e o registro de decisões."
 components_title: "Os componentes"

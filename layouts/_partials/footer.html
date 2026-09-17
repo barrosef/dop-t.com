@@ -5,13 +5,13 @@
       <p class="tagline">{{ i18n "tagline" }}</p>
     </div>
     <div class="site-footer__col">
-      <h4>{{ i18n "footer_site" }}</h4>
+      <p class="site-footer__h">{{ i18n "footer_site" }}</p>
       <a href="{{ "/" | relLangURL }}">{{ i18n "nav_product" }}</a>
       <a href="{{ "architecture/" | relLangURL }}">{{ i18n "nav_architecture" }}</a>
       <a href="{{ "status/" | relLangURL }}">{{ i18n "nav_status" }}</a>
     </div>
     <div class="site-footer__col">
-      <h4>{{ i18n "footer_open" }}</h4>
+      <p class="site-footer__h">{{ i18n "footer_open" }}</p>
       {{ with .Site.Params.github.url }}<a href="{{ . }}" rel="noopener">GitHub</a><a href="{{ . }}/blob/main/docs/ROADMAP.md" rel="noopener">{{ i18n "doc_roadmap" }}</a><a href="{{ . }}/tree/main/docs/adr" rel="noopener">{{ i18n "doc_adrs" }}</a>{{ end }}
       {{ with .Site.Params.legal.privacyPath }}<a href="{{ . | relLangURL }}">{{ i18n "legal_privacy" }}</a>{{ end }}
       {{ with .Site.Params.legal.termsPath }}<a href="{{ . | relLangURL }}">{{ i18n "legal_terms" }}</a>{{ end }}

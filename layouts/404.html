@@ -1,0 +1,13 @@
+{{ define "main" }}
+<div class="wrap">
+  <article class="page-head block--last">
+    <span class="tag tag--soft">404</span>
+    <h1>{{ i18n "notfound_title" }}</h1>
+    <div class="prose">
+      <p>{{ i18n "notfound_text" }}</p>
+      <p><a href="{{ "/" | relLangURL }}">{{ i18n "notfound_home" }}</a> · <a href="{{ "architecture/" | relLangURL }}">{{ i18n "nav_architecture" }}</a> · <a href="{{ "status/" | relLangURL }}">{{ i18n "nav_status" }}</a></p>
+      <p lang="pt-BR">{{ i18n "notfound_pt" }} <a href="/pt-br/">dop-t.com/pt-br</a></p>
+    </div>
+  </article>
+</div>
+{{ end }}

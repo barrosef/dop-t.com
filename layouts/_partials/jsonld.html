@@ -1,0 +1,11 @@
+{{/* Structured data, and nothing the site cannot back: the software, its
+     author, the site. No ratings, no offers, no organization that does not
+     exist yet. */}}
+{{ $p := .page }}
+{{ $author := dict "@type" "Person" "name" $p.Site.Params.author.name "url" $p.Site.Params.author.url }}
+{{ $lang := $p.Site.Language.LanguageCode }}
+{{ $site := dict "@type" "WebSite" "@id" (printf "%s#website" $p.Site.BaseURL) "url" $p.Site.BaseURL "name" $p.Site.Title "inLanguage" (slice "en-US" "pt-BR") "author" $author }}
+{{ $app := dict "@type" "SoftwareApplication" "@id" (printf "%s#software" $p.Site.BaseURL) "name" "DOP" "url" $p.Site.BaseURL "applicationCategory" "DeveloperApplication" "operatingSystem" "Web" "description" (i18n "tagline") "author" $author "codeRepository" $p.Site.Params.github.url "isAccessibleForFree" true }}
+{{ $webpage := dict "@type" "WebPage" "@id" $p.Permalink "url" $p.Permalink "name" .title "description" .description "inLanguage" $lang "isPartOf" (dict "@id" (printf "%s#website" $p.Site.BaseURL)) "about" (dict "@id" (printf "%s#software" $p.Site.BaseURL)) "primaryImageOfPage" .image }}
+{{ $graph := dict "@context" "https://schema.org" "@graph" (slice $site $app $webpage) }}
+<script type="application/ld+json">{{ $graph | jsonify | safeJS }}</script>

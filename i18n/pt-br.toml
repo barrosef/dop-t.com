@@ -524,3 +524,15 @@ other = "construído por"
 
 [footer_and]
 other = "e"
+
+[notfound_title]
+other = "Não há nada neste endereço"
+
+[notfound_text]
+other = "A página pode ter mudado de lugar, ou o link nunca esteve certo. As três páginas que existem:"
+
+[notfound_home]
+other = "Início"
+
+[notfound_pt]
+other = "Em português:"

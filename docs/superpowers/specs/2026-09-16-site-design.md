@@ -119,8 +119,8 @@ and the legal links when `params.legal.*` are filled.
    dead-letter queue (2026-09-13); the QA environment on GCP, codified in
    Terraform (2026-09-08), with `api.qa.dop-t.com` and `auth.qa.dop-t.com`
    verified since (2026-09-09); the project's
-   knowledge as a git repository, ADR-0028 (2026-09-03); the core verifying its
-   callers, ADR-0029 (2026-09-03); the second factor end to end, ADR-0027
+   knowledge as a git repository, ADR-0021 (2026-09-03); the core verifying its
+   callers, ADR-0022 (2026-09-03); the second factor end to end, ADR-0020
    (2026-09-02).
 3. **Next.** The agreed order from the roadmap: the agent's tools and the
    cockpit; hosted Claude Code as the laboratory; then the user stories.

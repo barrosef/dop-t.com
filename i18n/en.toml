@@ -257,7 +257,7 @@ other = "sandboxes"
 other = "every call verified: a person's token,"
 
 [dcore_callauth2]
-other = "or a platform assertion (ADR-0029)"
+other = "or a platform assertion (ADR-0022)"
 
 [dcore_domain]
 other = "domain"
@@ -302,7 +302,7 @@ other = "translate, authorize, forward —"
 other = "nothing persists here"
 
 [dbff_assertion]
-other = "assertion (ADR-0029)"
+other = "assertion (ADR-0022)"
 
 [dbff_verifies]
 other = "verifies the person's token · resolves the account"
@@ -494,7 +494,7 @@ other = "and are rendered"
 other = "as they came"
 
 [dext_models_meta2]
-other = "Anthropic first (ADR-0022)"
+other = "Anthropic first (ADR-0016)"
 
 [dext_jira2]
 other = "planned · PRD 1.0"

@@ -1,7 +1,7 @@
 # The decision record, as data: the architecture page renders this list and
-# links each entry to its file in the umbrella repository. One line per ADR,
-# in the order of the numbers; the number gaps are real (some subjects were
-# folded into others — docs/adr/README.md explains the rule).
+# links each entry to its file in the umbrella repository. One entry per ADR,
+# 0001 to 0023, contiguous since the renumbering of 2026-09-17
+# (docs/adr/README.md in the umbrella carries the before/after table).
 
 [[adr]]
 number = "0001"
@@ -22,121 +22,121 @@ title_en = "An organization credential to act, human authorship on the commit"
 title_pt = "Uma credencial da organização para agir, autoria humana no commit"
 
 [[adr]]
-number = "0006"
-file = "0006-demand-as-event-log.md"
+number = "0004"
+file = "0004-demand-as-event-log.md"
 title_en = "The demand is an event log; everything else is a projection"
 title_pt = "A demanda é um log de eventos; todo o resto é projeção"
 
 [[adr]]
-number = "0007"
-file = "0007-no-green-no-pr.md"
+number = "0005"
+file = "0005-no-green-no-pr.md"
 title_en = "No green, no PR: native verification, and a merge queue per repository"
 title_pt = "Sem verde, sem PR: verificação nativa e uma fila de merge por repositório"
 
 [[adr]]
-number = "0009"
-file = "0009-context-as-subsystem.md"
+number = "0006"
+file = "0006-context-as-subsystem.md"
 title_en = "Context is a subsystem: a knowledge base and a package per demand"
 title_pt = "Contexto é um subsistema: uma base de conhecimento e um pacote por demanda"
 
 [[adr]]
-number = "0010"
-file = "0010-multi-agent-per-demand.md"
+number = "0007"
+file = "0007-multi-agent-per-demand.md"
 title_en = "Multi-agent per demand: addressable threads and published findings"
 title_pt = "Multiagente por demanda: threads endereçáveis e achados publicados"
 
 [[adr]]
-number = "0011"
-file = "0011-llm-cost-governance.md"
+number = "0008"
+file = "0008-llm-cost-governance.md"
 title_en = "The LLM's cost: measuring it, capping it, routing it, and spending less"
 title_pt = "O custo do LLM: medir, limitar, rotear e gastar menos"
 
 [[adr]]
-number = "0013"
-file = "0013-resource-as-unit-of-sharing.md"
+number = "0009"
+file = "0009-resource-as-unit-of-sharing.md"
 title_en = "The resource as the account's unit of ownership and sharing"
 title_pt = "O recurso como unidade de posse e compartilhamento da conta"
 
 [[adr]]
-number = "0014"
-file = "0014-dynamic-workflow.md"
+number = "0010"
+file = "0010-dynamic-workflow.md"
 title_en = "A dynamic, typed and inheritable workflow"
 title_pt = "Um fluxo dinâmico, tipado e herdável"
 
 [[adr]]
-number = "0015"
-file = "0015-project-orchestrator.md"
+number = "0011"
+file = "0011-project-orchestrator.md"
 title_en = "The project orchestrator: the techlead agent"
 title_pt = "O orquestrador do projeto: o agente techlead"
 
 [[adr]]
-number = "0016"
-file = "0016-stack-go-core-python-bff.md"
+number = "0012"
+file = "0012-stack-go-core-python-bff.md"
 title_en = "A core in Go, a BFF in Python, and the boundary between them"
 title_pt = "Um core em Go, um BFF em Python, e a fronteira entre eles"
 
 [[adr]]
-number = "0017"
-file = "0017-proto-as-source-of-truth.md"
+number = "0013"
+file = "0013-proto-as-source-of-truth.md"
 title_en = "The .proto is the contract's source of truth"
 title_pt = "O .proto é a fonte da verdade do contrato"
 
 [[adr]]
-number = "0018"
-file = "0018-postgres-persistence.md"
+number = "0014"
+file = "0014-postgres-persistence.md"
 title_en = "PostgreSQL as the single database, and the outbox that moves its events"
 title_pt = "PostgreSQL como banco único, e a outbox que move seus eventos"
 
 [[adr]]
-number = "0020"
-file = "0020-firebase-emulators-and-single-owner.md"
+number = "0015"
+file = "0015-firebase-emulators-and-single-owner.md"
 title_en = "Firebase emulators in the local environment; Terraform as the single owner"
 title_pt = "Emuladores do Firebase no ambiente local; Terraform como dono único"
 
 [[adr]]
-number = "0022"
-file = "0022-agent-provider-as-port.md"
+number = "0016"
+file = "0016-agent-provider-as-port.md"
 title_en = "The agent runtime: a port per vendor, running inside the core"
 title_pt = "O runtime do agente: um port por fornecedor, rodando dentro do core"
 
 [[adr]]
-number = "0024"
-file = "0024-sandbox-per-demand.md"
+number = "0017"
+file = "0017-sandbox-per-demand.md"
 title_en = "A microVM per demand, with a single shared worktree"
 title_pt = "Uma microVM por demanda, com um único worktree compartilhado"
 
 [[adr]]
-number = "0025"
-file = "0025-communication-trigger-and-channel.md"
+number = "0018"
+file = "0018-communication-trigger-and-channel.md"
 title_en = "Communication: the trigger and the channel are born together"
 title_pt = "Comunicação: o gatilho e o canal nascem juntos"
 
 [[adr]]
-number = "0026"
-file = "0026-invite-without-token.md"
+number = "0019"
+file = "0019-invite-without-token.md"
 title_en = "The invite has no secret: identity in place of a bearer"
 title_pt = "O convite não tem segredo: identidade no lugar de um bearer"
 
 [[adr]]
-number = "0027"
-file = "0027-second-factor-in-the-core.md"
+number = "0020"
+file = "0020-second-factor-in-the-core.md"
 title_en = "The second factor is the platform's, with three verifiers"
 title_pt = "O segundo fator é da plataforma, com três verificadores"
 
 [[adr]]
-number = "0028"
-file = "0028-project-knowledge-as-a-git-repository.md"
+number = "0021"
+file = "0021-project-knowledge-as-a-git-repository.md"
 title_en = "The project's knowledge is a git repository, hosted by the platform"
 title_pt = "O conhecimento do projeto é um repositório git, hospedado pela plataforma"
 
 [[adr]]
-number = "0029"
-file = "0029-the-core-verifies-its-callers.md"
+number = "0022"
+file = "0022-the-core-verifies-its-callers.md"
 title_en = "The core verifies a signature; it does not believe a header"
 title_pt = "O core verifica uma assinatura; não acredita num header"
 
 [[adr]]
-number = "0030"
-file = "0030-verification-runs-from-source.md"
+number = "0023"
+file = "0023-verification-runs-from-source.md"
 title_en = "Verification builds from source in a runner, not from an image"
 title_pt = "A verificação constrói da fonte num runner, não de uma imagem"

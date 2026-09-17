@@ -1,0 +1,19 @@
+{{/* The cockpit's title bar: the mark, then where you are, as a path. */}}
+<header class="titlebar">
+  <div class="titlebar__left">
+    <a class="brand" href="{{ "/" | relLangURL }}">{{ partial "icons/mark.html" . }}<span>DOP</span></a>
+    <nav class="crumbs" aria-label="{{ i18n "crumbs_label" }}">
+      <a href="{{ "/" | relLangURL }}">dop-t.com</a>
+      {{ if not .IsHome }}<span class="sep">/</span><span class="here">{{ .File.ContentBaseName }}</span>{{ end }}
+    </nav>
+  </div>
+  <div class="titlebar__right">
+    {{ with .Site.Params.app.signInURL }}<a class="btn btn--sm btn--primary" href="{{ . }}">{{ i18n "sign_in" }}</a>{{ end }}
+    {{ with .Site.Params.github.url }}<a class="chip" href="{{ . }}" rel="noopener">{{ partial "icons/github.html" . }} GitHub</a>{{ end }}
+    {{ partial "lang-switch.html" . }}
+    <details class="menu">
+      <summary class="chip" aria-label="{{ i18n "nav_label" }}">{{ partial "icons/menu.html" . }} {{ i18n "menu" }}</summary>
+      {{ partial "sidebar-nav.html" . }}
+    </details>
+  </div>
+</header>

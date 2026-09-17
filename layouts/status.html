@@ -1,45 +1,40 @@
 {{ define "main" }}
 {{ $p := .Params }}
-<div class="wrap">
-  <div class="page-head">
-    <span class="eyebrow">{{ i18n "nav_status" }}</span>
+<div class="doc">
+  <header class="doc-head">
+    <div class="doc-head__meta">
+      <span class="chip chip--key">{{ i18n "nav_status" }}</span>
+      <span class="chip">{{ i18n "meta_source" }} docs/ROADMAP.md</span>
+      {{ if not .Site.Params.app.signInURL }}<span class="chip chip--warn">{{ i18n "prerelease" }}</span>{{ end }}
+    </div>
     <h1>{{ .Title }}</h1>
-    {{ if not .Site.Params.app.signInURL }}<span class="notice">{{ i18n "prerelease" }}</span>{{ end }}
     <div class="prose">{{ .Content }}</div>
-  </div>
+  </header>
 
-  <section class="section" id="subprojects">
-    <div class="section__head"><h2>{{ $p.subprojects_title }}</h2><p class="lead">{{ $p.subprojects_lead }}</p></div>
+  <section class="block" id="subprojects">
+    <div class="block__head"><h2>{{ $p.subprojects_title }}</h2><p>{{ $p.subprojects_lead }}</p></div>
     {{ partial "subprojects.html" . }}
   </section>
 
   {{ with $p.shipped }}
-  <section class="section" id="shipped">
-    <div class="section__head"><h2>{{ $p.shipped_title }}</h2></div>
-    <div class="rows">
+  <section class="block" id="shipped">
+    <div class="block__head"><h2>{{ $p.shipped_title }}</h2></div>
+    <ul class="kv kv--3">
       {{ range . }}
-      <div class="row">
-        <div class="row__key">{{ .date }}</div>
-        <div class="row__body"><b>{{ .title }}</b><span>{{ .text }}</span></div>
-        <div class="row__aside">{{ .ref }}</div>
-      </div>
+      <li><span class="k">{{ .date }}</span><div class="v"><b>{{ .title }}</b><span>{{ .text }}</span></div><span class="aside">{{ .ref }}</span></li>
       {{ end }}
-    </div>
+    </ul>
   </section>
   {{ end }}
 
   {{ with $p.next }}
-  <section class="section" id="next">
-    <div class="section__head"><h2>{{ $p.next_title }}</h2></div>
-    <div class="rows">
+  <section class="block" id="next">
+    <div class="block__head"><h2>{{ $p.next_title }}</h2></div>
+    <ul class="kv">
       {{ range $i, $n := . }}
-      <div class="row">
-        <div class="row__key">{{ printf "%02d" (add $i 1) }}</div>
-        <div class="row__body"><b>{{ $n.title }}</b><span>{{ $n.text }}</span></div>
-        <div class="row__aside"></div>
-      </div>
+      <li><span class="k">{{ printf "%02d" (add $i 1) }}</span><div class="v"><b>{{ $n.title }}</b><span>{{ $n.text }}</span></div></li>
       {{ end }}
-    </div>
+    </ul>
   </section>
   {{ end }}
 </div>

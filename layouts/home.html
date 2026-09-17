@@ -1,83 +1,51 @@
 {{ define "main" }}
 {{ $p := .Params }}
-<section class="hero">
-  <div class="wrap">
-    <div class="hero__copy reveal">
-      <span class="eyebrow">{{ $p.eyebrow }}</span>
-      <h1>{{ $p.headline }}</h1>
-      <p class="lead">{{ $p.lead }}</p>
-      <div class="actions">
-        {{ with .Site.Params.github.url }}<a class="btn btn--primary" href="{{ . }}" rel="noopener">{{ i18n "cta_github" }} {{ partial "icons/arrow.html" . }}</a>{{ end }}
-        <a class="btn" href="{{ "architecture/" | relLangURL }}">{{ i18n "cta_architecture" }}</a>
-      </div>
+<div class="doc">
+  <header class="doc-head">
+    <div class="doc-head__meta"><span class="chip chip--key">{{ i18n "meta_product" }}</span><span class="chip">{{ $p.eyebrow }}</span></div>
+    <h1>{{ $p.headline }}</h1>
+    <p class="lead">{{ $p.lead }}</p>
+    <div class="actions">
+      {{ with .Site.Params.github.url }}<a class="btn btn--primary" href="{{ . }}" rel="noopener">{{ partial "icons/github.html" . }}{{ i18n "cta_github" }}</a>{{ end }}
+      <a class="btn" href="{{ "architecture/" | relLangURL }}">{{ i18n "cta_architecture" }}{{ partial "icons/arrow.html" . }}</a>
     </div>
-    {{ partial "timeline-panel.html" . }}
-  </div>
-</section>
+  </header>
 
-{{ with $p.values }}
-<section class="section" id="why">
-  <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow eyebrow--dim">{{ i18n "why_eyebrow" }}</span>
-      <h2>{{ $p.why_title }}</h2>
-    </div>
-    <ul class="cards">
+  {{ partial "reader.html" . }}
+
+  {{ with .Site.Params.status }}
+  <section class="block" id="stands">
+    <div class="block__head"><h2>{{ $p.stands_title }}</h2><a class="more" href="{{ "status/" | relLangURL }}">{{ i18n "stands_more" }} →</a></div>
+    <ul class="kpis">
+      <li class="kpi kpi--blue">{{ partial "icons/layers.html" . }}<b>{{ .subprojectsDesigned }}<small>/ {{ .subprojectsTotal }}</small></b><span>{{ i18n "stat_subprojects" }}</span></li>
+      <li class="kpi kpi--purple">{{ partial "icons/book.html" . }}<b>ADR-{{ .latestADR }}</b><span>{{ i18n "stat_adr" }}</span></li>
+      <li class="kpi kpi--warn">{{ partial "icons/file.html" . }}<b>{{ .adrCount }}</b><span>{{ i18n "stat_adr_count" }}</span></li>
+      <li class="kpi kpi--ok">{{ partial "icons/cloud.html" . }}<b>{{ i18n "stat_qa_value" }}</b><span>{{ i18n "stat_qa" }}</span></li>
+    </ul>
+  </section>
+  {{ end }}
+
+  {{ with $p.values }}
+  <section class="block" id="why">
+    <div class="block__head"><h2>{{ $p.why_title }}</h2></div>
+    <ul class="kv">
       {{ range . }}
-      <li class="card">
-        {{ partial (printf "icons/%s.html" .icon) . }}
-        <h3>{{ .title }}</h3>
-        <p>{{ .text }}</p>
-      </li>
+      <li><span class="k">{{ .key }}</span><div class="v"><b>{{ .title }}</b><span>{{ .text }}</span></div></li>
       {{ end }}
     </ul>
-  </div>
-</section>
-{{ end }}
+  </section>
+  {{ end }}
 
-{{ with $p.how }}
-<section class="section" id="how">
-  <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow eyebrow--dim">{{ i18n "how_eyebrow" }}</span>
-      <h2>{{ .title }}</h2>
-    </div>
+  {{ with $p.how }}
+  <section class="block" id="how">
+    <div class="block__head"><h2>{{ .title }}</h2><a class="more" href="{{ "architecture/" | relLangURL }}">{{ i18n "how_more" }} →</a></div>
     <div class="how">
       {{ partial "diagram-architecture.html" $ }}
-      <div>
-        <ul class="how__points">
-          {{ range .points }}<li><b>{{ .title }}</b><span>{{ .text }}</span></li>{{ end }}
-        </ul>
-        <p style="margin-top: 28px"><a class="more" href="{{ "architecture/" | relLangURL }}">{{ i18n "how_more" }} {{ partial "icons/arrow.html" . }}</a></p>
-      </div>
+      <ul class="how__points">
+        {{ range .points }}<li><b>{{ .title }}</b><span>{{ .text }}</span></li>{{ end }}
+      </ul>
     </div>
-  </div>
-</section>
-{{ end }}
-
-{{ with .Site.Params.status }}
-<section class="section" id="stands">
-  <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow eyebrow--dim">{{ i18n "stands_eyebrow" }}</span>
-      <h2>{{ $p.stands_title }}</h2>
-    </div>
-    <ul class="stats">
-      <li class="stat"><b>{{ .subprojectsDesigned }}<small>/ {{ .subprojectsTotal }}</small></b><span>{{ i18n "stat_subprojects" }}</span></li>
-      <li class="stat"><b>ADR-{{ .latestADR }}</b><span>{{ i18n "stat_adr" }}</span></li>
-      <li class="stat"><b>{{ i18n "stat_qa_value" }}</b><span>{{ i18n "stat_qa" }}</span></li>
-    </ul>
-    <p style="margin-top: 28px"><a class="more" href="{{ "status/" | relLangURL }}">{{ i18n "stands_more" }} {{ partial "icons/arrow.html" . }}</a></p>
-  </div>
-</section>
-{{ end }}
-
-<section class="section section--closing">
-  <div class="wrap">
-    <div class="closing">
-      <h2>{{ $p.closing }}</h2>
-      {{ with .Site.Params.github.url }}<a class="btn btn--primary" href="{{ . }}" rel="noopener">{{ i18n "cta_github" }} {{ partial "icons/arrow.html" . }}</a>{{ end }}
-    </div>
-  </div>
-</section>
+  </section>
+  {{ end }}
+</div>
 {{ end }}

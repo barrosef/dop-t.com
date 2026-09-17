@@ -41,13 +41,13 @@ other = "Por que existe"
 other = "Como é construído"
 
 [how_more]
-other = "A arquitetura inteira"
+other = "a arquitetura inteira"
 
 [stands_eyebrow]
 other = "Onde está"
 
 [stands_more]
-other = "O estágio em detalhe"
+other = "o estágio em detalhe"
 
 [stat_subprojects]
 other = "subprojetos desenhados"
@@ -80,10 +80,10 @@ other = "Evento"
 other = "Ator"
 
 [actor_user]
-other = "ator: usuário"
+other = "usuário"
 
 [actor_agent]
-other = "ator: agente"
+other = "agente"
 
 [panel_attempts]
 other = "tentativas"
@@ -131,7 +131,7 @@ other = "Core"
 other = "a única fonte da verdade"
 
 [diagram_core_meta2]
-other = "schema · vault · log de eventos"
+other = "schema · vault · eventos"
 
 [diagram_postgres_meta]
 other = "estado · outbox"
@@ -180,3 +180,51 @@ other = "Privacidade"
 
 [legal_terms]
 other = "Termos"
+
+[crumbs_label]
+other = "Onde você está"
+
+[menu]
+other = "Menu"
+
+[meta_product]
+other = "produto"
+
+[meta_source]
+other = "fonte:"
+
+[group_site]
+other = "Site"
+
+[group_repos]
+other = "Repositórios"
+
+[group_docs]
+other = "Documentos"
+
+[doc_roadmap]
+other = "Roadmap"
+
+[doc_adrs]
+other = "Decisões (ADRs)"
+
+[doc_prd]
+other = "PRD 1.0"
+
+[doc_glossary]
+other = "Glossário"
+
+[status_open]
+other = "construído às claras"
+
+[reader_title]
+other = "Linha do tempo da demanda"
+
+[reader_live]
+other = "ao vivo"
+
+[reader_caption]
+other = "O log de eventos de uma demanda, como o cockpit mostra"
+
+[stat_adr_count]
+other = "decisões registradas"

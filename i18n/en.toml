@@ -41,13 +41,13 @@ other = "Why it exists"
 other = "How it is built"
 
 [how_more]
-other = "The whole architecture"
+other = "the whole architecture"
 
 [stands_eyebrow]
 other = "Where it stands"
 
 [stands_more]
-other = "Status in detail"
+other = "status in detail"
 
 [stat_subprojects]
 other = "subprojects designed"
@@ -80,10 +80,10 @@ other = "Event"
 other = "Actor"
 
 [actor_user]
-other = "actor: user"
+other = "user"
 
 [actor_agent]
-other = "actor: agent"
+other = "agent"
 
 [panel_attempts]
 other = "attempts"
@@ -180,3 +180,51 @@ other = "Privacy"
 
 [legal_terms]
 other = "Terms"
+
+[crumbs_label]
+other = "Where you are"
+
+[menu]
+other = "Menu"
+
+[meta_product]
+other = "product"
+
+[meta_source]
+other = "source:"
+
+[group_site]
+other = "Site"
+
+[group_repos]
+other = "Repositories"
+
+[group_docs]
+other = "Documents"
+
+[doc_roadmap]
+other = "Roadmap"
+
+[doc_adrs]
+other = "Decisions (ADRs)"
+
+[doc_prd]
+other = "PRD 1.0"
+
+[doc_glossary]
+other = "Glossary"
+
+[status_open]
+other = "built in the open"
+
+[reader_title]
+other = "Demand timeline"
+
+[reader_live]
+other = "live"
+
+[reader_caption]
+other = "The event log of one demand, as the cockpit shows it"
+
+[stat_adr_count]
+other = "decisions on record"

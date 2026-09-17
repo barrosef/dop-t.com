@@ -1,0 +1,11 @@
+{{/* An IDE's status bar: small, monospaced, and every item true. */}}
+<footer class="statusbar">
+  <span><span class="dot"></span>{{ i18n "status_open" }}</span>
+  <span>main</span>
+  <span>hugo {{ hugo.Version }}</span>
+  <span class="spacer"></span>
+  {{ range sort .AllTranslations "Language.Weight" }}{{ if ne .Language.Lang $.Language.Lang }}<a href="{{ .RelPermalink }}" hreflang="{{ .Language.Lang }}" lang="{{ .Language.Lang }}">{{ .Language.LanguageName }}</a>{{ end }}{{ end }}
+  {{ with .Site.Params.legal.privacyPath }}<a href="{{ . | relLangURL }}">{{ i18n "legal_privacy" }}</a>{{ end }}
+  {{ with .Site.Params.legal.termsPath }}<a href="{{ . | relLangURL }}">{{ i18n "legal_terms" }}</a>{{ end }}
+  {{ with .Site.Params.github.url }}<a href="{{ . }}" rel="noopener">github.com/barrosef/dop</a>{{ end }}
+</footer>

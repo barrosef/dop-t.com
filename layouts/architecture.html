@@ -1,30 +1,30 @@
 {{ define "main" }}
 {{ $p := .Params }}
-<div class="wrap">
-  <div class="page-head">
-    <span class="eyebrow">{{ i18n "nav_architecture" }}</span>
+<div class="doc">
+  <header class="doc-head">
+    <div class="doc-head__meta"><span class="chip chip--key">{{ i18n "nav_architecture" }}</span><span class="chip">{{ i18n "meta_source" }} AGENTS.md · docs/adr</span></div>
     <h1>{{ .Title }}</h1>
     <div class="prose">{{ .Content }}</div>
-  </div>
+  </header>
 
   {{ with $p.components }}
-  <section class="section" id="components">
-    <div class="section__head"><h2>{{ $p.components_title }}</h2></div>
-    <div class="rows">
+  <section class="block" id="components">
+    <div class="block__head"><h2>{{ $p.components_title }}</h2></div>
+    <ul class="kv kv--3">
       {{ range . }}
-      <div class="row">
-        <div class="row__key">{{ .name }}<small>{{ .stack }}</small></div>
-        <div class="row__body"><b>{{ .role }}</b><span>{{ .text }}</span></div>
-        <div class="row__aside">{{ with .repo }}<a href="{{ $.Site.Params.github.org }}/{{ . }}" rel="noopener">{{ . }} ↗</a>{{ end }}</div>
-      </div>
+      <li>
+        <span class="k">{{ .name }}<small>{{ .stack }}</small></span>
+        <div class="v"><b>{{ .role }}</b><span>{{ .text }}</span></div>
+        <span class="aside">{{ with .repo }}<a href="{{ $.Site.Params.github.org }}/{{ . }}" rel="noopener">{{ . }} ↗</a>{{ end }}</span>
+      </li>
       {{ end }}
-    </div>
+    </ul>
   </section>
   {{ end }}
 
   {{ with $p.invariants }}
-  <section class="section" id="invariants">
-    <div class="section__head"><h2>{{ $p.invariants_title }}</h2><p class="lead">{{ $p.invariants_lead }}</p></div>
+  <section class="block" id="invariants">
+    <div class="block__head"><h2>{{ $p.invariants_title }}</h2><p>{{ $p.invariants_lead }}</p></div>
     <ol class="invariants">
       {{ range . }}<li><div><b>{{ .title }}</b><span>{{ .text }}</span></div></li>{{ end }}
     </ol>
@@ -32,21 +32,21 @@
   {{ end }}
 
   {{ with $p.event }}
-  <section class="section" id="event">
-    <div class="section__head"><h2>{{ .title }}</h2><p class="lead">{{ .lead }}</p></div>
+  <section class="block" id="event">
+    <div class="block__head"><h2>{{ .title }}</h2><p>{{ .lead }}</p></div>
     <ol class="flow">
       {{ range .steps }}<li{{ if .dlq }} class="is-dlq"{{ end }}><b>{{ .name }}</b><span>{{ .text }}</span></li>{{ end }}
     </ol>
     <div class="flow__facts">
-      <span>MaxDeliver <b>5</b></span>
-      <span>backoff <b>1s · 5s · 15s · 1min</b></span>
-      <span>{{ i18n "flow_dedup" }} <b>(event, consumer)</b></span>
+      <span class="chip">MaxDeliver 5</span>
+      <span class="chip">backoff 1s · 5s · 15s · 1min</span>
+      <span class="chip">{{ i18n "flow_dedup" }} (event, consumer)</span>
     </div>
   </section>
   {{ end }}
 
-  <section class="section" id="adrs">
-    <div class="section__head"><h2>{{ $p.adrs_title }}</h2><p class="lead">{{ $p.adrs_lead }}</p></div>
+  <section class="block" id="adrs">
+    <div class="block__head"><h2>{{ $p.adrs_title }}</h2><p>{{ $p.adrs_lead }}</p></div>
     {{ partial "adr-index.html" . }}
   </section>
 </div>

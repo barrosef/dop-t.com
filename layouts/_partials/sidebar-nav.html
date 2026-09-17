@@ -1,0 +1,34 @@
+{{/* The sidebar, grouped the way the cockpit groups its own: the site's pages,
+     then the repositories, then the documents — every link a real place. */}}
+{{ $current := .RelPermalink }}
+{{ $org := .Site.Params.github.org }}
+{{ $umbrella := .Site.Params.github.url }}
+<nav class="sidebar-nav">
+  <div class="sidebar-nav__group">
+    <div class="sidebar-nav__label">{{ i18n "group_site" }}</div>
+    {{ range $item := slice
+         (dict "key" "nav_product" "url" ("/" | relLangURL) "icon" "home")
+         (dict "key" "nav_architecture" "url" ("architecture/" | relLangURL) "icon" "layers")
+         (dict "key" "nav_status" "url" ("status/" | relLangURL) "icon" "activity") }}
+    <a href="{{ $item.url }}"{{ if eq $current $item.url }} aria-current="page"{{ end }}>{{ partial (printf "icons/%s.html" $item.icon) . }}{{ i18n $item.key }}</a>
+    {{ end }}
+  </div>
+  <div class="sidebar-nav__group">
+    <div class="sidebar-nav__label">{{ i18n "group_repos" }}</div>
+    {{ range $r := slice
+         (dict "name" "dop" "tag" "docs")
+         (dict "name" "dop-core" "tag" "go")
+         (dict "name" "dop-api" "tag" "python")
+         (dict "name" "dop-app" "tag" "react")
+         (dict "name" "dop-infra" "tag" "terraform") }}
+    <a href="{{ $org }}/{{ $r.name }}" rel="noopener">{{ partial "icons/repo.html" . }}<span class="mono">{{ $r.name }}</span><span class="tag">{{ $r.tag }}</span></a>
+    {{ end }}
+  </div>
+  <div class="sidebar-nav__group">
+    <div class="sidebar-nav__label">{{ i18n "group_docs" }}</div>
+    <a href="{{ $umbrella }}/blob/main/docs/ROADMAP.md" rel="noopener">{{ partial "icons/file.html" . }}{{ i18n "doc_roadmap" }}</a>
+    <a href="{{ $umbrella }}/tree/main/docs/adr" rel="noopener">{{ partial "icons/file.html" . }}{{ i18n "doc_adrs" }}</a>
+    <a href="{{ $umbrella }}/blob/main/docs/prd/dop-1.0-mvp/README.md" rel="noopener">{{ partial "icons/file.html" . }}{{ i18n "doc_prd" }}</a>
+    <a href="{{ $umbrella }}/blob/main/docs/GLOSSARY.md" rel="noopener">{{ partial "icons/file.html" . }}{{ i18n "doc_glossary" }}</a>
+  </div>
+</nav>

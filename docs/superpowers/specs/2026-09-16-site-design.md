@@ -1,6 +1,9 @@
 # dop-t.com — the product site, direction "Panel"
 
-**Status:** approved by the owner on 2026-09-16 (direction A, "Painel")
+**Status:** approved by the owner on 2026-09-16 (direction A, "Painel");
+**amended 2026-09-17** — the visual system in §5 is superseded by §9, "the
+site wears the product's chrome". §1–§4 (audience, information architecture,
+content rules) stand.
 **Replaces:** the proof-of-pipeline page shipped on 2026-09-09
 
 ## 1. What this is
@@ -275,3 +278,55 @@ already checks the links the new pages add.
   shift from the font swap.
 - The page reads at 390px wide with no horizontal scroll.
 - Every number on the site has a line in this spec's §3 pointing at its source.
+
+## 9. Amendment (2026-09-17) — the site wears the product's chrome
+
+The owner's review of the first build: *"muita cara de site feito por IA, sem
+uma identidade própria"*, with two instructions — use the cockpit's palette,
+and give the site an identity of its own. §5 is withdrawn; this section
+replaces it.
+
+**The identity is the product.** The cockpit calls itself *DOP IDE* and looks
+like one. The site borrows its chrome outright, so a visitor who later opens
+the product recognises where they are:
+
+- **A title bar** (56px): the mark and wordmark, then the location as a path
+  (`dop-t.com / status`); on the right, *Sign in* when configured, the GitHub
+  chip, the language switch, and on phones a *Menu* that is a `<details>` —
+  no script.
+- **A sidebar** (248px, sticky), grouped as the cockpit groups its own:
+  *Site* (Product, Architecture, Status), *Repositories* (the five, each
+  tagged with its stack), *Documents* (roadmap, ADRs, PRD, glossary — all
+  real links into the umbrella repository). On phones it becomes the menu.
+- **An editor pane** holding one document per page: a header with chips
+  (`product`, `source: docs/ROADMAP.md`, the pre-release warning), a
+  monospaced h1, a lead, then sections with a ruled heading.
+- **A status bar** (32px) at the bottom: *built in the open · main · hugo
+  <version>*, the other language, legal links when configured, the
+  repository. Small, monospaced, every item true.
+
+**Tokens are the cockpit's, verbatim** — the same hsl triplets from
+`repos/dop-app/artifacts/dop/src/index.css`, so the two never drift by a
+rounding: dark `hsl(222 25% 7%)` ground, `hsl(222 25% 9%)` panels,
+`hsl(220 20% 16%)` lines, `hsl(210 20% 90%)` text, `hsl(215 15% 60%)` muted,
+primary `hsl(212 100% 60%)`; light from its `:root` block. The semantic
+colours are the cockpit's KPI colours (emerald, amber, red, purple, blue —
+tailwind 400s in dark, 600s in light). Radius 0.3rem. Inter for the interface,
+JetBrains Mono for data — and for headlines, which is the one place the site
+departs from the product: a monospaced h1 is what a document looks like
+inside an editor.
+
+**Components replaced, and why:**
+
+| Was (§5) | Now | Because |
+|---|---|---|
+| Amber eyebrow in uppercase mono | Chips (`product`, `source: …`) | The eyebrow is the most recognisable AI-site trope; a chip carries a fact |
+| Timeline as a table in a raised panel | The cockpit's *reader strip*: event chips with time, name and actor | It is the product's own component, drawn with the product's own values |
+| Four equal icon cards | A key/value list, the shape of a front matter (`operators`, `events`, `sandbox`, `open`) | Four cards in a row is the second trope; a keyed list reads as a document |
+| Three big stats on rules | Four KPI tiles as the cockpit draws them (icon in a semantic colour, mono number, uppercase label) | Same information, in the product's vocabulary |
+| Centred closing call | None; the page ends in the status bar | A centred restatement with a second button is the third trope |
+| Footer with columns | The status bar | See above |
+
+**What did not change:** the three routes, the language switch landing on the
+same page, the `[params]` convention, the data files, the content, the
+accessibility requirements, the reduced-motion rule, and the done criteria.

@@ -59,6 +59,7 @@ disableKinds = ["taxonomy", "term"]
     subprojectsDesigned = "5"
     subprojectsTotal = "7"
     latestADR = "0030"
+    adrCount = "23"
 
   # The four plans. They are ALSO a catalog in the product's database, read by
   # the sign-up wizard — see the DOP platform's profile-onboarding spec.

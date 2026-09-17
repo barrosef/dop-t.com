@@ -1,21 +1,21 @@
 ---
 title: "DOP"
 translationKey: "home"
-eyebrow: "Orquestração de entrega · construído às claras"
+eyebrow: "orquestração de entrega · construído às claras"
 headline: "O desenvolvedor e o agente constroem juntos. Do workspace ao PR entregue."
 lead: "Um cockpit onde cada demanda vira uma sequência de eventos: o agente opera por baixo, o desenvolvedor acompanha e decide por cima. Nada acontece fora do registro."
 why_title: "Quatro coisas verdadeiras sobre o DOP — e sobre pouquíssimas outras ferramentas."
 values:
-  - icon: operators
+  - key: operadores
     title: "Dois operadores, um cockpit"
     text: "O agente executa a demanda; o desenvolvedor aprova a spec, dá contexto e decide. A divisão de responsabilidades está no fluxo, não num prompt."
-  - icon: events
+  - key: eventos
     title: "Tudo é evento"
     text: "Cada escrita emite um evento que carrega o seu contexto — ator, requisição, sessão. Uma falha vai para uma fila de dead letters com tudo o que é preciso para reprocessar, não para um log que ninguém lê."
-  - icon: sandbox
+  - key: sandbox
     title: "Uma sandbox por demanda"
     text: "Isolamento entre contas e entre demandas, com o conhecimento do projeto montado lá dentro como um repositório git."
-  - icon: open
+  - key: aberto
     title: "Construído às claras"
     text: "Cada decisão estruturante é uma ADR num repositório público, e o código que a implementa está ao lado."
 how:

@@ -35,7 +35,7 @@ same discipline runs in the cockpit, for the same reason.
 | Interface strings | `i18n/en.toml`, `i18n/pt-br.toml` |
 | Layouts and partials | `layouts/` |
 | Content that is configuration | `hugo.toml`, under `[params]` |
-| The design spec | `docs/superpowers/specs/2026-09-16-site-design.md` — direction "Panel" |
+| The design spec | `docs/superpowers/specs/2026-09-16-site-design.md` — the site wears the product's chrome (§9) |
 | The stylesheet | `assets/css/site.css` — tokens first, then components; served minified and fingerprinted |
 | Data the layouts render | `data/adrs.toml`, `data/subprojects.toml` — bilingual columns |
 | Specs for work on this site | `docs/superpowers/specs/` |

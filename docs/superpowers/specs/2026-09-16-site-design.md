@@ -88,7 +88,7 @@ and the legal links when `params.legal.*` are filled.
    with no database and no secret; a cockpit that consumes a committed
    contract. Link: *The whole architecture →*.
 4. **Where it stands** — three numbers that are true today and a line each:
-   subprojects designed (5 of 7), the latest ADR (0030), the QA environment on
+   subprojects designed (5 of 7), the latest ADR (0023 after the 2026-09-17 renumbering), the QA environment on
    GCP (live). Link: *Status in detail →*. The numbers are `[params.status]`
    values so they can be updated without touching a layout.
 5. **Closing call** — the headline's promise restated in one line and the

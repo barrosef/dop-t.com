@@ -13,6 +13,24 @@ disableKinds = ["taxonomy", "term"]
 [outputs]
   home = ["HTML"]
 
+# ── Search and measurement ───────────────────────────────────────────────────
+# Both follow the [params] convention: empty means nothing is emitted — no
+# verification tag, no analytics script, no request to Google. Fill the two
+# values below and the site starts reporting on the next deploy.
+
+[services.googleAnalytics]
+  # The GA4 measurement id, "G-XXXXXXXXXX". Empty: the snippet is not rendered.
+  id = ""
+
+[privacy.googleAnalytics]
+  # A visitor who sends Do-Not-Track is not measured. GA4 already truncates
+  # the IP; this is the part the browser lets the person decide.
+  respectDoNotTrack = true
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+
 # ── Languages ────────────────────────────────────────────────────────────────
 # Both are first-class. The translation check in `make check` refuses a page
 # that exists in one language and not the other, so a half-translated site
@@ -87,6 +105,12 @@ disableKinds = ["taxonomy", "term"]
   [params.legal]
     privacyPath = ""
     termsPath = ""
+
+  # Google Search Console — the `content` of the verification <meta> tag
+  # offered under "HTML tag". Alternative: verify the whole domain with a DNS
+  # TXT record at the registrar, and leave this empty.
+  [params.google]
+    siteVerification = ""
 
   # Where the product lives. Empty until the environment answers.
   [params.app]

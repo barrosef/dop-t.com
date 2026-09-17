@@ -517,8 +517,10 @@ other = "Site"
 [footer_open]
 other = "Às claras"
 
-[footer_credit_by]
-other = "idealizado e construído por"
 
-[footer_credit_with]
-other = "em coautoria com o Claude Code"
+
+[footer_built_by]
+other = "construído por"
+
+[footer_and]
+other = "e"

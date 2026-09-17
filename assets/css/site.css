@@ -171,7 +171,7 @@ a.chip:hover { color: var(--text); border-color: var(--muted); text-decoration: 
 
 /* editor pane */
 .editor { padding: 40px var(--pad) 72px; }
-.doc { max-width: 920px; display: flex; flex-direction: column; gap: 56px; }
+.doc { display: flex; flex-direction: column; gap: 56px; }
 @media (max-width: 720px) { .editor { padding-top: 24px; } .doc { gap: 44px; } }
 
 /* status bar */
@@ -191,16 +191,16 @@ a.chip:hover { color: var(--text); border-color: var(--muted); text-decoration: 
 .doc-head__meta { display: flex; flex-wrap: wrap; gap: 8px; }
 .doc-head h1 {
   font-family: var(--font-mono); font-weight: 500; font-size: 40px; line-height: 1.15; letter-spacing: -0.03em;
-  text-wrap: balance; max-width: 22ch;
+  text-wrap: balance;
 }
 @media (max-width: 720px) { .doc-head h1 { font-size: 27px; } }
-.lead { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 62ch; text-wrap: pretty; }
+.lead { font-size: 17px; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
 .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
 
 .block { display: flex; flex-direction: column; gap: 18px; }
 .block__head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 4px 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
 .block__head h2 { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
-.block__head p { grid-column: 1 / -1; font-size: 13px; color: var(--muted); max-width: 70ch; }
+.block__head p { grid-column: 1 / -1; font-size: 13px; color: var(--muted); }
 .block__head .more { font-size: 13px; font-family: var(--font-mono); white-space: nowrap; }
 @media (max-width: 720px) { .block__head { grid-template-columns: minmax(0, 1fr); } .block__head .more { justify-self: start; } }
 
@@ -244,7 +244,7 @@ a.chip:hover { color: var(--text); border-color: var(--muted); text-decoration: 
 @media (max-width: 720px) { .kv > li { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
 .kv .k { font-family: var(--font-mono); font-size: 13px; color: var(--primary); }
 .kv .k small { display: block; color: var(--muted); font-size: 11.5px; margin-top: 3px; }
-.kv .v { display: flex; flex-direction: column; gap: 4px; max-width: 64ch; }
+.kv .v { display: flex; flex-direction: column; gap: 4px; }
 .kv .v b { font-weight: 600; }
 .kv .v span { color: var(--muted); line-height: 1.55; }
 .kv .aside { font-family: var(--font-mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
@@ -271,7 +271,7 @@ a.chip:hover { color: var(--text); border-color: var(--muted); text-decoration: 
 .diagram .head { fill: var(--muted); }
 
 /* prose from Markdown bodies */
-.prose { max-width: 66ch; color: var(--muted); display: flex; flex-direction: column; gap: 14px; }
+.prose { color: var(--muted); display: flex; flex-direction: column; gap: 14px; }
 .prose p { line-height: 1.65; }
 .prose code { color: var(--text); }
 

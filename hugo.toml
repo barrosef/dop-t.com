@@ -20,7 +20,7 @@ disableKinds = ["taxonomy", "term"]
 
 [services.googleAnalytics]
   # The GA4 measurement id, "G-XXXXXXXXXX". Empty: the snippet is not rendered.
-  id = ""
+  id = "G-HX9SC4SKZ1"
 
 [privacy.googleAnalytics]
   # A visitor who sends Do-Not-Track is not measured. GA4 already truncates

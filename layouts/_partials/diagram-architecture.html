@@ -24,6 +24,11 @@
   <text class="name" x="36" y="177">{{ i18n "diagram_cockpit" }}</text>
   <text class="meta" x="36" y="196">dop-app · React</text>
 
+  <!-- cli -->
+  <rect class="box" x="20" y="262" width="160" height="64" rx="8"></rect>
+  <text class="name" x="36" y="289">{{ i18n "diagram_cli" }}</text>
+  <text class="meta" x="36" y="308">dop-cli</text>
+
   <!-- bff -->
   <rect class="box" x="250" y="150" width="150" height="64" rx="8"></rect>
   <text class="name" x="266" y="177">{{ i18n "diagram_bff" }}</text>
@@ -50,12 +55,14 @@
   <path class="edge" d="M515 234 V296" marker-end="url(#head)"></path>
   <path class="edge" d="M624 234 V296" marker-end="url(#head)"></path>
   <path class="edge" d="M565 130 V76" marker-end="url(#head)"></path>
+  <path class="edge" d="M180 294 H325 V214" marker-end="url(#head)"></path>
   <path class="edge edge--dashed" d="M110 76 V150" marker-end="url(#head)"></path>
   <path class="edge edge--dashed" d="M200 48 H325 V150" marker-end="url(#head)"></path>
 
   <!-- edge labels -->
   <text class="meta" x="215" y="172" text-anchor="middle">REST · SSE</text>
   <text class="meta" x="430" y="172" text-anchor="middle">gRPC</text>
+  <text class="meta" x="252" y="286" text-anchor="middle">gRPC</text>
   <text class="meta" x="523" y="270">{{ i18n "diagram_edge_state" }}</text>
   <text class="meta" x="632" y="270">{{ i18n "diagram_edge_events" }}</text>
   <text class="meta" x="573" y="108">{{ i18n "diagram_edge_sandbox" }}</text>

@@ -104,7 +104,7 @@ other = "transacional"
 other = "A arquitetura da plataforma DOP"
 
 [diagram_desc]
-other = "O cockpit fala REST e SSE com o BFF; o BFF fala gRPC com o core; o core é dono do Postgres para o estado e do NATS JetStream para os eventos, e provisiona uma sandbox por demanda. O Identity Platform autentica o usuário na borda."
+other = "O cockpit fala REST e SSE com o BFF, e a CLI fala gRPC com ele; o BFF fala gRPC com o core; o core é dono do Postgres para o estado e do NATS JetStream para os eventos, e provisiona uma sandbox por demanda. O Identity Platform autentica o usuário na borda."
 
 [diagram_identity]
 other = "Identity Platform"
@@ -228,3 +228,6 @@ other = "O log de eventos de uma demanda, como o cockpit mostra"
 
 [stat_adr_count]
 other = "decisões registradas"
+
+[diagram_cli]
+other = "CLI"

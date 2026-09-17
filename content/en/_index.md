@@ -39,6 +39,13 @@ hood:
       text: "The architecture decisions are written down, numbered, and published next to the code that implements them."
 stands_title: "Where the project stands"
 stands_lead: "Pre-release, and honest about it. The numbers below come from the repository, not from a slide."
+makers:
+  title: "Who builds it"
+  lead: "A person with a vision and an agent that writes most of the code — the same pairing DOP is built to make ordinary."
+  creator_role: "creator"
+  creator_text: "Ed conceived DOP from years of shipping software for other people, and decides what it is, who it is for and what it will not do. Every decision on this site is his; the architecture record carries his signature."
+  coauthor_role: "co-author"
+  coauthor_text: "Claude Code writes most of the code, the specs and the documentation, working from the decisions above — and every commit it touches says so. DOP is built the way it is meant to be used: a developer deciding, an agent delivering, nothing off the record."
 closing: "Follow the build, or read the decisions behind it."
 closing_lead: "Everything is on GitHub: the code, the roadmap, and the record of why it is built this way."
 ---

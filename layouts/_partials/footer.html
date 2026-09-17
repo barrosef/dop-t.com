@@ -18,6 +18,7 @@
     </div>
     <div class="fine">
       <span>{{ i18n "status_open" }}</span>
+      <span>{{ i18n "footer_credit_by" }} <a href="{{ .Site.Params.author.url }}" rel="me noopener">{{ .Site.Params.author.name }}</a> · {{ i18n "footer_credit_with" }}</span>
       {{ range sort .AllTranslations "Language.Weight" }}{{ if ne .Language.Lang $.Language.Lang }}<a href="{{ .RelPermalink }}" hreflang="{{ .Language.Lang }}" lang="{{ .Language.Lang }}">{{ .Language.LanguageName }}</a>{{ end }}{{ end }}
     </div>
   </div>

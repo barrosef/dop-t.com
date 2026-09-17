@@ -52,6 +52,12 @@ disableKinds = ["taxonomy", "term"]
     org = "https://github.com/barrosef"
     adrBase = "https://github.com/barrosef/dop/blob/main/docs/adr"
 
+  # Who builds it. The name and the link are facts; the copy that goes with
+  # them lives in each language's home page.
+  [params.author]
+    name = "Ed Barros"
+    url = "https://barrosef.com"
+
   # The three numbers on the home's "where it stands" block. Each has a source
   # in the umbrella repository (docs/ROADMAP.md, docs/adr/); update them here,
   # never in a layout.

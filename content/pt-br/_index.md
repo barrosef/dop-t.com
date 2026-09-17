@@ -39,6 +39,13 @@ hood:
       text: "As decisões de arquitetura estão escritas, numeradas e publicadas ao lado do código que as implementa."
 stands_title: "Em que ponto o projeto está"
 stands_lead: "Pré-lançamento, e honesto sobre isso. Os números abaixo vêm do repositório, não de um slide."
+makers:
+  title: "Quem faz"
+  lead: "Uma pessoa com uma visão e um agente que escreve a maior parte do código — a mesma dupla que o DOP existe para tornar comum."
+  creator_role: "idealizador"
+  creator_text: "Ed idealizou o DOP a partir de anos entregando software para outras pessoas, e decide o que ele é, para quem é e o que ele não vai fazer. Toda decisão neste site é dele; o registro de arquitetura leva a sua assinatura."
+  coauthor_role: "coautor"
+  coauthor_text: "O Claude Code escreve a maior parte do código, das specs e da documentação, a partir das decisões acima — e todo commit em que ele toca diz isso. O DOP é construído do jeito que foi pensado para ser usado: um desenvolvedor decidindo, um agente entregando, nada fora do registro."
 closing: "Acompanhe a construção, ou leia as decisões por trás dela."
 closing_lead: "Está tudo no GitHub: o código, o roadmap e o registro de por que é construído assim."
 ---

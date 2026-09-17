@@ -64,7 +64,7 @@
 {{ end }}
 
 {{ with .Site.Params.status }}
-<section class="section section--last" id="stands">
+<section class="section" id="stands">
   <div class="wrap">
     <div class="section__head"><h2>{{ $p.stands_title }}</h2><p>{{ $p.stands_lead }}</p><a class="more" href="{{ "status/" | relLangURL }}">{{ i18n "stands_more" }}{{ partial "icons/arrow.html" . }}</a></div>
     <ul class="stats">
@@ -73,6 +73,28 @@
       <li class="stat"><b>ADR-{{ .latestADR }}</b><span>{{ i18n "stat_adr" }}</span></li>
       <li class="stat"><b>{{ i18n "stat_qa_value" }}</b><span>{{ i18n "stat_qa" }}</span></li>
     </ul>
+  </div>
+</section>
+{{ end }}
+
+{{ with $p.makers }}
+<section class="section section--last" id="makers">
+  <div class="wrap">
+    <div class="section__head"><h2>{{ .title }}</h2><p>{{ .lead }}</p></div>
+    <div class="makers">
+      <div class="maker">
+        <span class="maker__role">{{ .creator_role }}</span>
+        <h3><a href="{{ $.Site.Params.author.url }}" rel="me noopener">{{ $.Site.Params.author.name }}</a></h3>
+        <p>{{ .creator_text }}</p>
+        <a class="more" href="{{ $.Site.Params.author.url }}" rel="me noopener">barrosef.com{{ partial "icons/arrow.html" . }}</a>
+      </div>
+      <div class="maker">
+        <span class="maker__role">{{ .coauthor_role }}</span>
+        <h3>Claude Code</h3>
+        <p>{{ .coauthor_text }}</p>
+        <span class="tag tag--soft">Co-Authored-By: Claude</span>
+      </div>
+    </div>
   </div>
 </section>
 {{ end }}

@@ -516,3 +516,9 @@ other = "Site"
 
 [footer_open]
 other = "In the open"
+
+[footer_credit_by]
+other = "conceived and built by"
+
+[footer_credit_with]
+other = "co-authored with Claude Code"

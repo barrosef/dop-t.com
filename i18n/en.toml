@@ -536,3 +536,6 @@ other = "Home"
 
 [notfound_pt]
 other = "Em português:"
+
+[updated]
+other = "updated"

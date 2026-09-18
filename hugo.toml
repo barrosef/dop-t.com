@@ -108,8 +108,11 @@ disableKinds = ["taxonomy", "term"]
   # hosted on a domain the applicant owns. So this site is a hard dependency of
   # the platform's production sign-in, not a marketing side quest.
   [params.legal]
-    privacyPath = ""
+    privacyPath = "privacy/"
     termsPath = ""
+    # Who answers a privacy request. A person, not a queue.
+    contactEmail = "ed.barros@digitalbusinessone.com"
+    privacyUpdated = "2026-09-18"
 
   # Google Search Console — the `content` of the verification <meta> tag
   # offered under "HTML tag". Alternative: verify the whole domain with a DNS

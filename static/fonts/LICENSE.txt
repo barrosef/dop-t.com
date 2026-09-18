@@ -1,0 +1,11 @@
+The font files in this directory are the builds Google Fonts serves, stored
+here so the site makes no request to a third party to render text.
+
+- Bricolage Grotesque — Copyright 2022 The Bricolage Grotesque Project Authors
+  (https://github.com/ateliertriay/bricolage)
+- Inter — Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter)
+- JetBrains Mono — Copyright 2020 The JetBrains Mono Project Authors
+  (https://github.com/JetBrains/JetBrainsMono)
+
+All three are licensed under the SIL Open Font License, Version 1.1:
+https://openfontlicense.org

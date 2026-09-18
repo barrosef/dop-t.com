@@ -1,0 +1,9 @@
+{{ define "main" }}
+<div class="wrap">
+  <article class="page-head block--last">
+    <div class="page-head__meta"><span class="tag">{{ i18n "legal_privacy" }}</span><span class="tag tag--soft">{{ i18n "updated" }} {{ .Site.Params.legal.privacyUpdated }}</span></div>
+    <h1>{{ .Title }}</h1>
+    <div class="prose prose--long">{{ .Content }}</div>
+  </article>
+</div>
+{{ end }}

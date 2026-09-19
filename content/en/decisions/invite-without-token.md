@@ -82,5 +82,5 @@ verified makes every acceptance fail the safe way: noisily.
 The pattern set here — no bearer travelling in an inbox — is what the second
 factor ([ADR-0020](../second-factor-in-the-core/)) used the next day to
 refuse magic links: a code must be typed into the session that asked for it.
-The acceptance screen the link points at was still to be built when this was
-decided; it is recorded in the roadmap.
+The acceptance screen the link points at did not exist when this was decided;
+it was built the next day, together with the second factor.

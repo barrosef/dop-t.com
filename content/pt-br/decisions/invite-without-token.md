@@ -83,5 +83,5 @@ aceitação falhar do jeito seguro: com barulho.
 O padrão fixado aqui — nenhum *bearer* viajando numa caixa de entrada — foi o
 que o segundo fator ([ADR-0020](../second-factor-in-the-core/)) usou no dia
 seguinte para recusar *magic links*: um código precisa ser digitado na sessão
-que o pediu. A tela de aceitação para a qual o link aponta ainda estava por
-construir quando isto foi decidido; está registrada no roadmap.
+que o pediu. A tela de aceitação para a qual o link aponta não existia quando
+isto foi decidido; foi construída no dia seguinte, junto com o segundo fator.

@@ -73,8 +73,8 @@ construction — deliberately.
 
 ## Since then
 
-The rule was tested for real on 2026-09-04, and it held in the direction we
-had not planned for. `SecretStore` promises read-after-write. The promise was
+The rule was tested for real, and written up on 2026-09-04; it held in the
+direction we had not planned for. `SecretStore` promises read-after-write. The promise was
 born from the Kubernetes adapter, where it is trivially true. The Google
 adapter could not keep it: Secret Manager is strongly consistent only when you
 read a version *by number*, and `latest` converges "typically within minutes,

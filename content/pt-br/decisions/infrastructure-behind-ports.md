@@ -75,8 +75,8 @@ construção — de propósito.
 
 ## Desde então
 
-A regra foi testada de verdade em 2026-09-04, e segurou na direção que não
-tínhamos planejado. O `SecretStore` promete *read-after-write*. A promessa
+A regra foi testada de verdade, e registrada em 2026-09-04; segurou na
+direção que não tínhamos planejado. O `SecretStore` promete *read-after-write*. A promessa
 nasceu do adaptador Kubernetes, onde é trivialmente verdadeira. O adaptador do
 Google não conseguia cumprir: o Secret Manager só é fortemente consistente
 quando você lê uma versão *pelo número*, e o `latest` converge "tipicamente em

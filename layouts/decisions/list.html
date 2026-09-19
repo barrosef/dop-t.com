@@ -1,0 +1,36 @@
+{{ define "main" }}
+{{/* The decisions, grouped by subject in a fixed order — the same grouping
+     the umbrella's docs/adr/README.md uses — and by number inside a group. */}}
+<div class="wrap">
+  <header class="page-head">
+    <div class="page-head__meta"><span class="tag">{{ i18n "nav_decisions" }}</span><span class="tag tag--soft">{{ i18n "decisions_count" (len .Pages) }}</span></div>
+    <h1>{{ .Title }}</h1>
+    <div class="prose">{{ .Content }}</div>
+  </header>
+
+  {{ $pages := .Pages.ByWeight }}
+  {{ range $g := slice "foundations" "identity" "resources" "events" "agents" "knowledge" "delivery" }}
+  {{ $in := where $pages "Params.group" $g }}
+  {{ with $in }}
+  <section class="block" id="{{ $g }}">
+    <div class="block__head"><h2>{{ i18n (printf "group_%s" $g) }}</h2></div>
+    <ol class="decisions">
+      {{ range . }}
+      <li class="decision-row">
+        <a class="decision-row__link" href="{{ .RelPermalink }}">
+          <span class="decision-row__n">ADR-{{ .Params.adr }}</span>
+          <span class="decision-row__body">
+            <b>{{ .Title }}</b>
+            <span>{{ .Description }}</span>
+          </span>
+          <span class="decision-row__date">{{ .Date.Format "2006-01-02" }}</span>
+        </a>
+      </li>
+      {{ end }}
+    </ol>
+  </section>
+  {{ end }}
+  {{ end }}
+  <div class="block block--last"></div>
+</div>
+{{ end }}

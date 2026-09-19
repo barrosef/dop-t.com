@@ -364,3 +364,41 @@ switch, the `<details>` phone menu.
   `[params.status]`, and a closing band with the one call to action.
 - **The technique moves down** to the architecture and status pages, which
   keep their document structure under the new chrome.
+
+## 11. Amendment (2026-09-19) — the decisions, told as they were made
+
+The owner's ask: not the ADRs republished, but *how* each decision was taken —
+"o pensamento que levou à ADR", with the ADR as the formal record, not the
+product. It is the site's first content section, and its largest.
+
+**Route:** `/decisions/` and `/pt-br/decisions/`, one article per ADR
+(`/decisions/<adr-slug>/`), paired by `translationKey: decision-<number>`.
+The list page groups them by subject in the order the umbrella's
+`docs/adr/README.md` uses — foundations; accounts, identity and access;
+resources, integrations and credentials; state, events and communication;
+the agents and their cost; knowledge and context; the work, its verification
+and its delivery — and by number inside a group.
+
+**Every article has the same five parts**, so the reader learns the shape
+once: *what was on the table* (the question as it arrived), *the paths we
+weighed* (each option and why it lost), *what we chose, and why*, *what it
+cost* (the consequences the record admits), *since then* (amendments, later
+decisions that changed it, what was built or not). Where the record admits a
+mistake — a briefing that was wrong, a recommendation the owner vetoed, a
+sentence that contradicted its own argument, a queue described as existing
+that did not — the article says so in the same words. Nothing is claimed that
+the ADR does not back; dates and numbers are the record's.
+
+**Voice:** first person plural — the developer and the agent who made them —
+addressed to a technical reader who does not have the ADR open.
+
+**Each article ends with the formal record**: a box linking the ADR file on
+GitHub, then the decisions it leans on (`related:` numbers resolved to
+articles), then previous/next by number. The architecture page's ADR index now
+links each row to its article first and to the file second. *Decisions* joins
+the menu as the fourth item.
+
+**Front matter carries the facts a layout needs**: `adr`, `adr_title`,
+`adr_file`, `date` (the decision's), `group`, `weight` (the number),
+`related`, and a `seo_title`-free `title` that names the story, not the
+decision — the ADR's title is in the box.

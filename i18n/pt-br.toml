@@ -539,3 +539,45 @@ other = "Em português:"
 
 [updated]
 other = "atualizada em"
+
+[nav_decisions]
+other = "Decisões"
+
+[decisions_count]
+other = "{{ .Count }} decisões"
+
+[group_foundations]
+other = "Fundações"
+
+[group_identity]
+other = "Contas, identidade e acesso"
+
+[group_resources]
+other = "Recursos, integrações e credenciais"
+
+[group_events]
+other = "Estado, eventos e comunicação"
+
+[group_agents]
+other = "Os agentes e o seu custo"
+
+[group_knowledge]
+other = "Conhecimento e contexto"
+
+[group_delivery]
+other = "O trabalho, a sua verificação e a sua entrega"
+
+[record_title]
+other = "o registro formal"
+
+[record_text]
+other = "Esta é a história da decisão. A decisão em si — contexto, opções, consequências, emendas — é uma ADR no repositório guarda-chuva, e é a ela que o código responde."
+
+[related_title]
+other = "Decisões em que esta se apoia"
+
+[pager_label]
+other = "Decisão anterior e próxima"
+
+[adr_file_label]
+other = "o arquivo da ADR no GitHub"

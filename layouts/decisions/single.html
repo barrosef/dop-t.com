@@ -1,0 +1,46 @@
+{{ define "main" }}
+{{ $p := .Params }}
+{{ $base := .Site.Params.github.adrBase }}
+<div class="wrap">
+  <article class="decision">
+    <header class="page-head">
+      <div class="page-head__meta">
+        <a class="tag" href="{{ "decisions/" | relLangURL }}">{{ i18n "nav_decisions" }}</a>
+        <span class="tag tag--soft">ADR-{{ $p.adr }}</span>
+        <span class="tag tag--soft">{{ .Date.Format "2006-01-02" }}</span>
+      </div>
+      <h1>{{ .Title }}</h1>
+      <p class="lead">{{ .Description }}</p>
+    </header>
+
+    <div class="decision__body prose prose--long">{{ .Content }}</div>
+
+    <aside class="record">
+      <div class="record__head">{{ i18n "record_title" }}</div>
+      <p>{{ i18n "record_text" }}</p>
+      <a class="btn btn--sm" href="{{ $base }}/{{ $p.adr_file }}" rel="noopener">{{ partial "icons/github.html" . }}ADR-{{ $p.adr }} — {{ $p.adr_title }}</a>
+    </aside>
+
+    {{ with $p.related }}
+    <section class="related">
+      <div class="block__head"><h2>{{ i18n "related_title" }}</h2></div>
+      <ul class="kv">
+        {{ range $n := . }}
+        {{ range where $.Site.RegularPages "Params.adr" $n }}
+        <li><span class="k">ADR-{{ $n }}</span><div class="v"><b><a href="{{ .RelPermalink }}">{{ .Title }}</a></b><span>{{ .Description }}</span></div></li>
+        {{ end }}
+        {{ end }}
+      </ul>
+    </section>
+    {{ end }}
+
+    <nav class="pager" aria-label="{{ i18n "pager_label" }}">
+      {{/* Hugo's Next/Prev follow its default sort (weight ascending, then date
+           descending), which reads backwards for a numbered series: Next is
+           the lower number. Swapped here so "next" means the higher ADR. */}}
+      {{ with .NextInSection }}<a class="pager__link" href="{{ .RelPermalink }}"><small>← ADR-{{ .Params.adr }}</small><b>{{ .Title }}</b></a>{{ else }}<span></span>{{ end }}
+      {{ with .PrevInSection }}<a class="pager__link pager__link--next" href="{{ .RelPermalink }}"><small>ADR-{{ .Params.adr }} →</small><b>{{ .Title }}</b></a>{{ end }}
+    </nav>
+  </article>
+</div>
+{{ end }}

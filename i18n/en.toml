@@ -539,3 +539,45 @@ other = "Em português:"
 
 [updated]
 other = "updated"
+
+[nav_decisions]
+other = "Decisions"
+
+[decisions_count]
+other = "{{ .Count }} decisions"
+
+[group_foundations]
+other = "Foundations"
+
+[group_identity]
+other = "Accounts, identity and access"
+
+[group_resources]
+other = "Resources, integrations and credentials"
+
+[group_events]
+other = "State, events and communication"
+
+[group_agents]
+other = "The agents and their cost"
+
+[group_knowledge]
+other = "Knowledge and context"
+
+[group_delivery]
+other = "The work, its verification and its delivery"
+
+[record_title]
+other = "the formal record"
+
+[record_text]
+other = "This is the story of the decision. The decision itself — context, options, consequences, amendments — is an ADR in the umbrella repository, and it is what the code answers to."
+
+[related_title]
+other = "Decisions this one leans on"
+
+[pager_label]
+other = "Previous and next decision"
+
+[adr_file_label]
+other = "the ADR file on GitHub"

@@ -3,7 +3,8 @@
   {{ range $item := slice
        (dict "key" "nav_product" "url" ("/" | relLangURL))
        (dict "key" "nav_architecture" "url" ("architecture/" | relLangURL))
+       (dict "key" "nav_decisions" "url" ("decisions/" | relLangURL))
        (dict "key" "nav_status" "url" ("status/" | relLangURL)) }}
-  <a href="{{ $item.url }}"{{ if eq $current $item.url }} aria-current="page"{{ end }}>{{ i18n $item.key }}</a>
+  <a href="{{ $item.url }}"{{ if or (eq $current $item.url) (and (ne $item.url ("/" | relLangURL)) (hasPrefix $current $item.url)) }} aria-current="page"{{ end }}>{{ i18n $item.key }}</a>
   {{ end }}
 </nav>

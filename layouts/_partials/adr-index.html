@@ -3,9 +3,11 @@
 <ol class="adrs">
   {{ range .Site.Data.adrs.adr }}
   {{ $title := index . (cond (eq $lang "en") "title_en" "title_pt") }}
+  {{ $slug := replaceRE "^\\d{4}-(.*)\\.md$" "$1" .file }}
+  {{ $article := $.Site.GetPage (printf "decisions/%s" $slug) }}
   <li>
     <span class="n">{{ .number }}</span>
-    <a href="{{ $base }}/{{ .file }}" rel="noopener">{{ $title }}{{ partial "icons/external.html" . }}</a>
+    <span>{{ with $article }}<a href="{{ .RelPermalink }}">{{ $title }}</a>{{ else }}{{ $title }}{{ end }} <a class="adrs__file" href="{{ $base }}/{{ .file }}" rel="noopener" aria-label="{{ i18n "adr_file_label" }}">{{ partial "icons/external.html" . }}</a></span>
   </li>
   {{ end }}
 </ol>

@@ -356,7 +356,7 @@ other = "stages (typed)"
 other = "each stage carries actions on enter and on exit;"
 
 [dev_rules]
-other = "rules table"
+other = "rules"
 
 [dev_rules_meta]
 other = "platform → account → workspace → project;"
@@ -698,3 +698,54 @@ other = "signs the assertion"
 
 [dca_noperson_meta2]
 other = "assertion only · actor = platform"
+
+[dca_transport_short]
+other = "transport"
+
+[dca_signin]
+other = "sign-in"
+
+[dca_interceptor_short]
+other = "interceptor"
+
+[dca_s1]
+other = "verify token"
+
+[dca_s2]
+other = "verify HMAC"
+
+[dca_s3]
+other = "same actor?"
+
+[dca_s3_meta]
+other = "else: refused"
+
+[dca_s4]
+other = "mode"
+
+[dca_s5]
+other = "authorization"
+
+[dext_planned]
+other = "planned"
+
+[dev_same_tx]
+other = "same tx"
+
+[dev_projection]
+other = "projection"
+
+[dev_rules_chain]
+other = "platform → demand"
+
+[dev_rules_short]
+other = "accumulate"
+
+[dev_envelope_short]
+other = "full envelope"
+
+[dev_retries]
+other = "retries"
+
+[dev_classify_short]
+other = "classify"

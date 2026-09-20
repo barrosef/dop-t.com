@@ -356,7 +356,7 @@ other = "estágios (tipados)"
 other = "cada estágio carrega ações na entrada e na saída;"
 
 [dev_rules]
-other = "tabela de regras"
+other = "regras"
 
 [dev_rules_meta]
 other = "plataforma → conta → workspace → projeto;"
@@ -698,3 +698,54 @@ other = "assina a asserção"
 
 [dca_noperson_meta2]
 other = "só a asserção · ator = platform"
+
+[dca_transport_short]
+other = "transporte"
+
+[dca_signin]
+other = "login"
+
+[dca_interceptor_short]
+other = "interceptor"
+
+[dca_s1]
+other = "verifica token"
+
+[dca_s2]
+other = "verifica HMAC"
+
+[dca_s3]
+other = "mesmo ator?"
+
+[dca_s3_meta]
+other = "senão: recusada"
+
+[dca_s4]
+other = "modo"
+
+[dca_s5]
+other = "autorização"
+
+[dext_planned]
+other = "planejado"
+
+[dev_same_tx]
+other = "mesma tx"
+
+[dev_projection]
+other = "projeção"
+
+[dev_rules_chain]
+other = "plataforma → demanda"
+
+[dev_rules_short]
+other = "acumulam"
+
+[dev_envelope_short]
+other = "envelope inteiro"
+
+[dev_retries]
+other = "retentativas"
+
+[dev_classify_short]
+other = "classificar"

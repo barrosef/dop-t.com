@@ -1,74 +1,63 @@
-{{/* The platform and what it talks to. Everything drawn solid has an adapter
-     in repos/dop-core/internal/adapter or a resource in repos/dop-infra;
-     dashed is planned (PRD 1.0) and not built. */}}
-<svg class="diagram" viewBox="0 0 900 470" role="img" aria-labelledby="ext-title ext-desc">
+{{/* The platform and what it talks to — names only; the caption carries
+     the sentences. Solid: an adapter exists. Dashed: planned. */}}
+<svg class="diagram" viewBox="0 0 900 420" role="img" aria-labelledby="ext-title ext-desc">
   <title id="ext-title">{{ i18n "dext_title" }}</title>
   <desc id="ext-desc">{{ i18n "dext_desc" }}</desc>
   <defs><marker id="head-ext" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="head" d="M0 0L8 4L0 8z"></path></marker></defs>
 
   <!-- centre -->
-  <rect class="box box--core" x="330" y="180" width="240" height="100" rx="8"></rect>
-  <text class="name" x="450" y="212" text-anchor="middle">DOP</text>
-  <text class="mono" x="450" y="236" text-anchor="middle">core · BFF · cockpit</text>
-  <text class="meta" x="450" y="258" text-anchor="middle">{{ i18n "dext_center_meta" }}</text>
+  <rect class="box box--core" x="340" y="160" width="220" height="100" rx="8"></rect>
+  <text class="name" x="450" y="200" text-anchor="middle">DOP</text>
+  <text class="meta" x="450" y="224" text-anchor="middle">core · BFF · cockpit</text>
 
   <!-- Google Cloud -->
-  <rect class="box box--group" x="20" y="20" width="300" height="120" rx="8"></rect>
-  <text class="label" x="36" y="46">Google Cloud</text>
-  <text class="mono" x="36" y="70">Cloud Run · core + BFF</text>
-  <text class="mono" x="36" y="90">Secret Manager · Cloud Storage</text>
-  <text class="mono" x="36" y="110">Identity Platform · Firebase Auth</text>
-  <text class="mono" x="36" y="130">Firebase Hosting · auth.qa.dop-t.com</text>
-  <path class="edge" d="M330 200 H240 V140" marker-end="url(#head-ext)"></path>
-  <text class="meta" x="248" y="168">{{ i18n "dext_runs" }}</text>
+  <rect class="box box--group" x="20" y="20" width="300" height="100" rx="8"></rect>
+  <text class="label" x="36" y="44">Google Cloud</text>
+  <text class="mono" x="36" y="68">Cloud Run · Secret Manager</text>
+  <text class="mono" x="36" y="88">Cloud Storage · Identity Platform</text>
+  <text class="mono" x="36" y="108">Firebase Hosting</text>
+  <path class="edge" d="M340 180 H240 V120" marker-end="url(#head-ext)"></path>
 
   <!-- communication -->
-  <rect class="box box--group" x="580" y="20" width="300" height="120" rx="8"></rect>
-  <text class="label" x="596" y="46">{{ i18n "dext_comm" }}</text>
-  <text class="mono" x="596" y="70">OneSignal · e-mail · push · SMS</text>
-  <text class="mono" x="596" y="90">SendGrid · SMTP</text>
-  <text class="mono" x="596" y="110">Twilio · Zenvia · SMS</text>
-  <text class="meta" x="596" y="130">Mailer · SMSer · {{ i18n "dext_ports" }}</text>
-  <path class="edge" d="M570 200 H660 V140" marker-end="url(#head-ext)"></path>
-  <text class="meta" x="668" y="168">{{ i18n "dext_sends" }}</text>
+  <rect class="box box--group" x="580" y="20" width="300" height="100" rx="8"></rect>
+  <text class="label" x="596" y="44">{{ i18n "dext_comm" }}</text>
+  <text class="mono" x="596" y="68">OneSignal · SendGrid · SMTP</text>
+  <text class="mono" x="596" y="88">Twilio · Zenvia</text>
+  <text class="meta" x="596" y="108">Mailer · SMSer</text>
+  <path class="edge" d="M560 180 H660 V120" marker-end="url(#head-ext)"></path>
 
   <!-- data, ours -->
-  <rect class="box box--group" x="20" y="180" width="240" height="100" rx="8"></rect>
-  <text class="label" x="36" y="206">{{ i18n "dext_data" }}</text>
-  <text class="mono" x="36" y="230">Postgres · pgvector</text>
-  <text class="mono" x="36" y="250">NATS JetStream</text>
-  <text class="meta" x="36" y="270">{{ i18n "dext_data_meta" }}</text>
-  <path class="edge" d="M330 240 H260" marker-end="url(#head-ext)"></path>
+  <rect class="box box--group" x="20" y="160" width="240" height="100" rx="8"></rect>
+  <text class="label" x="36" y="184">{{ i18n "dext_data" }}</text>
+  <text class="mono" x="36" y="208">Postgres · pgvector</text>
+  <text class="mono" x="36" y="228">NATS JetStream</text>
+  <path class="edge" d="M340 210 H260" marker-end="url(#head-ext)"></path>
 
   <!-- sandbox runtime -->
-  <rect class="box box--group" x="620" y="180" width="260" height="100" rx="8"></rect>
-  <text class="label" x="636" y="206">{{ i18n "dext_runtime" }}</text>
-  <text class="mono" x="636" y="230">Docker · Kubernetes</text>
-  <text class="mono" x="636" y="250">k3d {{ i18n "dext_local" }} · GKE / k3s</text>
-  <text class="meta" x="636" y="270">SandboxLauncher · VerificationRunner</text>
-  <path class="edge" d="M570 240 H620" marker-end="url(#head-ext)"></path>
+  <rect class="box box--group" x="640" y="160" width="240" height="100" rx="8"></rect>
+  <text class="label" x="656" y="184">{{ i18n "dext_runtime" }}</text>
+  <text class="mono" x="656" y="208">Docker · Kubernetes</text>
+  <text class="meta" x="656" y="228">SandboxLauncher</text>
+  <text class="meta" x="656" y="246">VerificationRunner</text>
+  <path class="edge" d="M560 210 H640" marker-end="url(#head-ext)"></path>
 
   <!-- code hosts -->
-  <rect class="box box--group" x="20" y="320" width="300" height="100" rx="8"></rect>
-  <text class="label" x="36" y="346">{{ i18n "dext_code" }}</text>
-  <text class="mono" x="36" y="370">GitHub · GitLab</text>
-  <text class="meta" x="36" y="390">GitProvider · {{ i18n "dext_code_meta" }}</text>
-  <text class="meta" x="36" y="408">{{ i18n "dext_oauth" }}</text>
-  <path class="edge" d="M330 260 H240 V320" marker-end="url(#head-ext)"></path>
+  <rect class="box box--group" x="20" y="300" width="300" height="100" rx="8"></rect>
+  <text class="label" x="36" y="324">{{ i18n "dext_code" }}</text>
+  <text class="mono" x="36" y="348">GitHub · GitLab</text>
+  <text class="meta" x="36" y="368">GitProvider</text>
+  <path class="edge" d="M340 240 H240 V300" marker-end="url(#head-ext)"></path>
 
   <!-- model providers -->
-  <rect class="box box--group" x="580" y="320" width="300" height="118" rx="8"></rect>
-  <text class="label" x="596" y="346">{{ i18n "dext_models" }}</text>
-  <text class="mono" x="596" y="370">Anthropic · Claude</text>
-  <text class="mono" x="596" y="390">OpenAI</text>
-  <text class="meta" x="596" y="408">AgentProvider · {{ i18n "dext_models_meta" }}</text>
-  <text class="meta" x="596" y="426">{{ i18n "dext_models_meta2" }}</text>
-  <path class="edge" d="M570 260 H660 V320" marker-end="url(#head-ext)"></path>
+  <rect class="box box--group" x="580" y="300" width="300" height="100" rx="8"></rect>
+  <text class="label" x="596" y="324">{{ i18n "dext_models" }}</text>
+  <text class="mono" x="596" y="348">Anthropic · OpenAI</text>
+  <text class="meta" x="596" y="368">AgentProvider</text>
+  <path class="edge" d="M560 240 H660 V300" marker-end="url(#head-ext)"></path>
 
   <!-- planned -->
-  <rect class="box box--dashed" x="340" y="340" width="220" height="74" rx="8"></rect>
-  <text class="name" x="450" y="364" text-anchor="middle">Jira</text>
-  <text class="meta" x="450" y="382" text-anchor="middle">{{ i18n "dext_jira" }}</text>
-  <text class="meta" x="450" y="398" text-anchor="middle">{{ i18n "dext_jira2" }}</text>
-  <path class="edge edge--dashed" d="M450 280 V340" marker-end="url(#head-ext)"></path>
+  <rect class="box box--dashed" x="380" y="320" width="140" height="48" rx="8"></rect>
+  <text class="name" x="450" y="340" text-anchor="middle">Jira</text>
+  <text class="meta" x="450" y="358" text-anchor="middle">{{ i18n "dext_planned" }}</text>
+  <path class="edge edge--dashed" d="M450 260 V320" marker-end="url(#head-ext)"></path>
 </svg>

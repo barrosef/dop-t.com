@@ -1,5 +1,5 @@
 ---
-title: "One owner, and a company proves itself by DNS"
+title: "The account owns everything"
 translationKey: "decision-0002"
 adr: "0002"
 adr_title: "Tenancy: the account owns everything, and an organization proves itself by domain"
@@ -7,106 +7,77 @@ adr_file: "0002-account-as-unit-of-ownership.md"
 date: 2026-08-29
 weight: 2
 group: "identity"
-description: "Three questions arrived together — who owns things, when tenancy gets built, how an organization proves it is one — and answering them apart had produced three documents. One model answered all three."
+description: "One entity, personal or organization, owns every integration, workspace and project; every table carries its id from the first migration. An organization is created instantly and proves itself later, by a DNS record."
 related: ["0009", "0019", "0020"]
 ---
 
 ## What was on the table
 
-Three questions arrived at once, and the first attempt answered them in three
-separate records.
-
-**Who owns things.** An individual owns integrations, workspaces and
-projects; so does an organization. The requirements carried a tension: an
-integration "can be seen and manipulated only by that user", yet a member of
-an organization "has controlled access to all" of its integrations. We needed
-a model in which both sentences are true at the same time, with no special
-case per situation.
-
-**When tenancy gets built.** The earlier documentation fixed the product as
-single-user, many projects in parallel, no RBAC — one developer's local tool.
-The direction had changed: users with their own authentication, organizations
-with members, roles, per-integration access, running on a cluster or in the
-cloud.
-
-**How an organization proves it is one.** The original requirement asked, at
-creation, to validate whether the signed-in person's national ID is the
-company's owner or holds a power of attorney — citing GitHub and Google Cloud
-as references for fluidity, with the instruction "do not invent, do not make
-it hard". So we went to check what those references actually do. GitHub
-creates an organization instantly, free, with no ownership check at all; the
-verification comes later, is of the *domain* (a TXT record), and earns a
-badge. Google Cloud requires a verified domain — also through DNS. Neither
-asks for an ID or a power of attorney. The requirement's two halves pulled in
-opposite directions.
+The platform is multi-tenant from the start: people with their own
+authentication; organizations with members, roles and per-resource
+access; both individuals and organizations owning integrations,
+workspaces and projects. Two constraints shaped the model: a personal
+account's integration must be private while an organization's is shared
+under control — with no special case per situation — and creating an
+organization must not require paperwork, while still letting it prove it
+is the company it claims to be.
 
 ## The paths we weighed
 
-**A polymorphic owner** — `ownerType: user | org` plus an id on every
-resource. It models the requirement's text literally. Rejected: every query
-needs two fields and a branch, access rules get written twice, and moving a
-resource from a person to an organization becomes a migration instead of an
-update. GitLab had this model and migrated away from it.
+**A polymorphic owner** — `owner_type` plus `owner_id` on every resource.
+Rejected: two fields and a branch in every query, access rules written
+twice, and a transfer that becomes a migration.
 
-**Nestable namespaces** — a generic tree with inheritance at any depth.
-Rejected on YAGNI: the hierarchy asked for is fixed and three levels deep.
+**Nestable namespaces** with inheritance at any depth. Rejected: the
+hierarchy is fixed and three levels deep.
 
-**Stay single-user, add tenancy later.** Faster to the product. Rejected:
-retrofitting isolation is among the most expensive migrations there are —
-every query written without an account filter is a potential leak, and the
-cost grows with the code.
+**Single-user first, tenancy later.** Rejected: retrofitting isolation is
+the expensive migration.
 
-**Build all of it before returning to the product.** Rejected for the
-opposite reason: it delays the product that justifies the platform.
+**Everything built before returning to the product.** Rejected: it delays
+the product that justifies the platform.
 
-**Validate ownership by national ID.** Rejected: it needs an integration with
-a corporate registry, handles a power of attorney badly (a document a human
-must read), and creates friction exactly where fluidity was asked for.
+**Ownership validated by national ID or a power of attorney at creation.**
+Rejected: friction, a registry integration, and no reference product does
+it — GitHub and Google Cloud verify a domain, later.
 
-**Free creation with no verification at all.** Rejected because it leaves the
-handle dispute unanswered — and the shared namespace makes that dispute
-inevitable.
+**No verification at all.** Rejected: a shared handle namespace needs a
+dispute path.
 
 ## What we chose, and why
 
-An **`Account`**, personal or organization, is the single unit of ownership.
-Everything owned carries an `accountId` and nothing else; a person is linked
-to an account through a `Membership` with a role; a personal account is born
-with the user. The requirements' tension dissolves by construction: a
-personal account's integration is private because the account has one member;
-an organization's is shared because it has several. No code needs to know the
-difference.
+An **`Account`**, personal or organization, is the single unit of
+ownership. Everything owned carries an `account_id` and no other owner
+field; a person is linked to an account by a `Membership` with a role; a
+personal account is created with the user. A personal account's
+integration is private because the account has one member; an
+organization's is shared because it has several — no code needs to know
+the difference.
 
-The model is **born complete from the first migration** — every entity
-carries account, workspace and project; every call resolves an active account
-— while only authentication and the personal account are built now.
-Organizations arrive later *with no migration*, because the schema already
-expected them. And phase one exercises tenancy for real: every query filters
-by account from day one; the account simply is always personal.
+The model is **complete from the first migration** — every entity carries
+account, workspace and project; every call resolves an active account —
+while phase one builds authentication, the personal account and the
+workspace → project hierarchy. Organizations, members, roles and grants
+arrive later without a migration.
 
-An organization is **created instantly** — a name and a registration number
-that autofills the legal name — and **verifies its domain later**, optionally,
-by publishing a TXT record. Verification unlocks deliberately few things:
-automatic entry for anyone with an `@domain` e-mail, the verified badge, and
-the right to contest a handle somebody else took. Everything else works
-without it.
+An organization is **created instantly**: a name and a company
+registration number, which autofills the legal name and address. It
+**verifies its domain later**, optionally, by publishing a DNS TXT record.
+Verification unlocks exactly three things: automatic entry for anyone
+with an e-mail at that domain, the verified badge, and the right to
+contest a handle someone else holds. Everything else works unverified.
 
 ## What it cost
 
-An implicit personal account the person never asked for. A shared handle
-namespace: if somebody takes `acme` as a personal account, the Acme
-organization cannot — mitigated by verification, not removed. A larger scope
-before any product value: authentication, accounts, roles, grants. Personal
-and company registration numbers enter the system, with the data-protection
-obligations that implies. And a line we wrote down so nobody mistakes it:
-controlling a DNS zone does not prove legal representation. If a contractual
-obligation ever needs that, it is another decision, in another layer.
+An implicit personal account. A shared handle namespace, where
+verification mitigates contention but does not remove it. A larger scope
+before any product value — authentication, accounts, roles, grants.
+Personal and company registration numbers in the system, with the data
+protection obligations that follow. And a line worth keeping in view:
+controlling a DNS zone proves control of DNS, not legal representation.
 
 ## Since then
 
-On 2026-09-04 the three records were folded into one — the two absorbed
-numbers were retired, and on 2026-09-17 the whole sequence was renumbered so
-the gaps would not read as mistakes. The invite ([ADR-0019](../invite-without-token/))
-and the second factor ([ADR-0020](../second-factor-in-the-core/)) both lean
-on the account being the boundary: it is what a membership grants, and what a
-policy can require a second factor for.
+The model was consolidated into one record on 2026-09-04. The invite and
+the second factor both rest on the account being the boundary: it is what
+a membership grants, and what a policy can require a second factor for.

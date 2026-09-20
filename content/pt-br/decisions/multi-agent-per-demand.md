@@ -1,5 +1,5 @@
 ---
-title: "Um subagente com quem se pode conversar"
+title: "Threads que se endereçam, achados que se publicam"
 translationKey: "decision-0007"
 adr: "0007"
 adr_title: "Multi-agent per demand: addressable threads and published findings"
@@ -7,75 +7,56 @@ adr_file: "0007-multi-agent-per-demand.md"
 date: 2026-08-29
 weight: 7
 group: "agents"
-description: "No mercado um subagente é uma caixa-preta: você despacha e espera. Queríamos um com thread própria, interrogável em voo — e um jeito de os especialistas compartilharem o que acharam sem despejar o contexto inteiro uns nos outros."
+description: "A conversa de uma demanda é um conjunto de threads — o agente principal e uma por especialista — cada uma com histórico e card próprios. Os especialistas compartilham o que acharam como achados estruturados, não copiando o contexto inteiro uns nos outros."
 related: ["0004", "0006", "0008", "0017"]
 ---
 
 ## O que estava na mesa
 
-Uma demanda real pode precisar de especialistas ao mesmo tempo. O caso que
-deu forma a isto veio da própria história do produto: o agente principal
-implementa; um subagente faz uma leitura forense do banco pela ferramenta
-MySQL do workspace; outro vasculha os logs do servidor. O desenvolvedor
-precisa falar com os três sem misturar as linhas do tempo, e os três precisam
-usar as conversas uns dos outros como conhecimento.
-
-Dois eixos tinham que ficar separados. Entre demandas, a fronteira é dura —
-uma demanda, uma microVM. Dentro de uma demanda, N agentes dividem uma sandbox
-e colaboram. Esta decisão é sobre o segundo. E não havia o que copiar: um
-subagente endereçável, com thread própria e interrogável em voo, não existia
-nas ferramentas da época.
+Uma demanda pode precisar de vários agentes ao mesmo tempo: um
+implementando, um lendo um banco forensicamente, um vasculhando logs. O
+desenvolvedor precisa falar com cada um sem misturar as linhas do tempo, e
+cada um precisa usar o que os outros acharam. Dentro de uma demanda os
+agentes dividem uma sandbox e cooperam; entre demandas a fronteira é dura.
 
 ## Os caminhos que pesamos
 
-**Um único agente sequencial.** Rejeitado: perde a especialização e não
-paraleliza nada.
+**Um único agente sequencial.** Rejeitado: sem especialização, sem
+paralelismo.
 
-**Uma sandbox por subagente.** Rejeitado: quebra o workspace compartilhado — o
-agente forense precisa do mesmo banco que o agente principal sobe —,
-multiplica custo, e não compra isolamento que importe, porque os agentes
+**Uma sandbox por subagente.** Rejeitado: quebra o workspace compartilhado
+de que os especialistas precisam, multiplica custo e isola agentes que
 cooperam.
 
-**Uma única linha do tempo compartilhada.** Rejeitado: é o problema que o
-requisito veio resolver.
+**Uma linha do tempo compartilhada.** Rejeitado: linhas do tempo separadas
+são o requisito.
 
 ## O que escolhemos, e por quê
 
-A conversa da demanda é um **conjunto de threads**, não uma linha do tempo:
-`#main` mais uma por subagente, cada uma com o próprio histórico; o
-desenvolvedor entra numa e fala com aquele agente em isolamento. Todo
-subagente nasce com um **card** — propósito, ferramentas concedidas, o modelo
-que o roteador escolheu, uma fatia do orçamento da demanda.
+**A conversa da demanda é um conjunto de threads:** `#main` mais uma por
+subagente, cada uma com o próprio histórico; o desenvolvedor endereça uma
+thread de cada vez. **Todo subagente tem um card** — propósito, ferramentas
+concedidas, o modelo que o roteador escolheu, uma fatia do orçamento da
+demanda.
 
-**Conhecimento cruzado por consulta, não por despejo.** As threads são
-legíveis pelas irmãs como uma ferramenta — ler uma thread, fazer uma
-pergunta. Despejar linhas do tempo inteiras no contexto de todo agente não
-escala nem é seguro; amplia a superfície para instruções injetadas.
+**Conhecimento entre threads é por consulta, não por despejo.** As threads
+são legíveis pelas irmãs por ferramentas; nenhuma linha do tempo é copiada
+no contexto de outra. **Uma conclusão é um achado publicado** — um resultado
+estruturado no quadro da demanda que entra no contexto das irmãs, é um
+evento, e é escrito na memória do projeto.
 
-**Uma conclusão vira um achado publicado** — um resultado estruturado no
-quadro comum da demanda: "um deadlock na tabela X entre 14:02 e 14:07, causado
-pela migration Y". Os achados entram automaticamente no contexto das irmãs,
-são eventos, e alimentam a memória do projeto.
-
-Tanto o humano quanto o agente principal podem lançar subagentes — o agente
-por iniciativa própria quando julgar necessário, a thread aparecendo na hora
-para o desenvolvedor acompanhar ou entrar. Essa iniciativa é uma premissa
-registrada, adotada por coerência com a autonomia; o produto pode
-restringi-la. E a fronteira de segurança continua sendo a demanda: os
-subagentes dividem a microVM, o workspace, a credencial e a cota. São
-colaboradores, não estranhos.
+Os subagentes são lançados pelo humano, pelo chat, ou pelo agente principal
+por iniciativa própria — uma premissa que o produto pode restringir. A
+fronteira de segurança continua sendo a demanda: os subagentes dividem a
+sandbox, o workspace, a credencial e a cota.
 
 ## O que custou
 
-O runtime precisa suportar N sessões por sandbox. E mais threads significa
-mais pontos de atenção: a caixa de atenção deixa de ser opcional e vira
-pré-requisito de escala.
+O runtime suporta várias sessões por sandbox, e a caixa de atenção vira
+pré-requisito de escala em vez de opção.
 
 ## Desde então
 
-O achado se revelou mais que um recurso de UX. Quando a decisão de custo
-([ADR-0008](../llm-cost-governance/)) procurou onde um loop de agente
-desperdiça dinheiro, a maior economia já estava aqui: logs, dumps e leituras
-volumosas ficam em quarentena na thread do especialista, e o agente principal
-recebe o achado. Metade da economia de tokens veio de uma decisão tomada por
-outra razão.
+A quarentena da saída crua de ferramentas na thread do especialista é também
+a maior economia da [decisão de custo](../llm-cost-governance/): o agente
+principal recebe o achado, nunca o despejo.

@@ -1,5 +1,5 @@
 ---
-title: "The largest cost line nobody had written down"
+title: "Measure, cap, route — and design the prompt for the cache"
 translationKey: "decision-0008"
 adr: "0008"
 adr_title: "The LLM's cost: measuring it, capping it, routing it, and spending less"
@@ -7,93 +7,66 @@ adr_file: "0008-llm-cost-governance.md"
 date: 2026-08-29
 weight: 8
 group: "agents"
-description: "N agents, long sessions, many tenants — and not a line about what it costs. Measure it, cap it, route it; and notice that half the saving came from decisions already taken for other reasons."
+description: "Every model call emits a cost event; every demand has a budget that pauses rather than kills; a router picks the class of model per kind of work — never cheaper for the critic. And the prompt is laid out so the expensive part is cached."
 related: ["0004", "0005", "0007", "0016"]
 ---
 
 ## What was on the table
 
-N autonomous agents, times long sessions, times many tenants: the product's
-largest variable cost — and no document had a line about it. With no
-per-account measurement there is no business model. With no per-demand
-budget, a pathological demand burns money in a loop. With no routing,
-everything runs on the most expensive model.
-
-Underneath all three sits the mechanic of an agent loop: **the whole
-conversation is resent on every turn.** A forty-turn agent pays for its
-transcript forty times. The API offers discounts of up to ninety percent
-through caching and fifty through batching, but none of them is a flag; they
-all require engineering discipline.
+Model usage is the product's largest variable cost. Without measurement
+per account there is no business model; without a budget per demand, a
+demand can burn money in a loop; without routing, everything runs on the
+most expensive model. Underneath: an agent loop resends the conversation
+on every turn, and the discounts the APIs offer — prefix caching,
+batching — require the prompt to be designed for them.
 
 ## The paths we weighed
 
-**One strong model for everything.** Simple and expensive; it becomes a
-ceiling on the margin.
+**One strong model for everything.** Rejected: a ceiling on the margin.
 
-**Route by prompt size.** Rejected: what matters is the nature of the task,
-not its length.
+**Routing by prompt size.** Rejected: the task's nature decides.
 
-**A model router alone.** Not enough: the biggest waste is resending the
-transcript, and the router does not touch it.
+**A router alone.** Rejected: it does not address the transcript being
+resent.
 
 **Compaction as the way to resume a demand.** Rejected: rebuilding the
-context from events is cheaper, cleaner, and we already had the material.
+context from events is cheaper.
 
 ## What we chose, and why
 
-**Measure from day one.** Every model use emits a cost event — tokens,
-model, demand, thread, account — into the demand's log; measurement is a
-projection, not a parallel system. The event carries cache reads and cache
-writes, so a recurring miss on a stable prefix is an alert, not a mystery.
+**Measure.** Every model use emits a cost event — tokens, cache reads and
+writes, model, demand, thread, account — into the demand's log; a
+recurring cache miss on a stable prefix is an alert.
 
-**A per-demand budget with a soft cut.** On overrun the demand pauses and
-asks, through the attention box; it never dies mid-way and never keeps
-burning. The agent sees the ceiling and paces itself.
+**Cap.** A per-demand budget with a soft cut: on overrun the demand pauses
+and opens an attention item; the agent is told its ceiling and paces
+itself. A subagent's card carries its slice.
 
-**A router that chooses model and effort per kind of work** — mechanical
-work on the cheap class, investigation on the medium, planning and
-implementation on the strong — with the table marked *draft*, to be
-calibrated with telemetry. One rule limits all the others: **there is no
-saving on the critic.** A strong model, maximum effort. Saving on the brake
-returns the cost as a rejected pull request, the most expensive rework in
-the flow.
+**Route.** A router chooses a class and an effort per kind of work —
+cheap for mechanical work, medium for investigation, strong for planning
+and implementation — and the active provider's catalogue resolves the
+concrete model. **The critic is never routed cheaper**: a strong model at
+maximum effort, because saving on the brake returns as a rejected pull
+request.
 
-**Cache-first.** The prompt is laid out for a stable prefix — system, tools,
-context package, then the conversation — and the package is serialised
-deterministically: a stable order, no timestamps, no volatile ids, because a
-changed byte invalidates everything after it. An operator's intervention
-enters as a message in the middle, never by editing the top.
-
-**Dirty context does not enter the main agent.** The specialist's thread
-keeps the logs and dumps; the main agent receives the finding. Where it
-fits, the filter runs as code in the sandbox and only the result passes
-through the model.
-
-**Resume by reconstruction, not by replay.** A demand that resumes days
-later does not resend its transcript — the cache has expired anyway. The
-context is rebuilt from the package, the findings and a summary of the
-trace.
-
-**Do not use a model where code does the job.** The dossier, the metrics,
-the auditing and the attention box are projections of the log, computed in
-code, at zero token cost. Asynchronous work — the index after a merge,
-nightly metrics — goes to the batch API.
+**Design for the cache.** The prompt is laid out as system, tools, context
+package, then the conversation; the package is serialised
+deterministically so the prefix stays byte-identical. Raw tool output
+stays in the specialist's thread; filters run as code where possible;
+findings use structured outputs. A resumed demand rebuilds its context
+from the package, the findings and a trace summary rather than resending
+the transcript. Projections are computed in code, never by a model;
+non-interactive work goes to the batch API; tools are loaded on demand.
 
 ## What it cost
 
-The routing table is a guess until there is data — hence its draft status.
-The package's deterministic serialisation is a permanent constraint on the
-context subsystem. And reconstruction on resume has to be demonstrably
-sufficient: if the agent "forgets" what mattered, the trace's summary is
-what is weak.
+The routing table is a starting point until telemetry calibrates it. The
+package's deterministic serialisation is a permanent constraint on the
+context subsystem. Reconstruction on resume must be shown to be sufficient.
 
 ## Since then
 
-The record was written as two — one to measure and cap, one to spend less —
-and folded into one on 2026-09-04, because the second had always declared
-itself a complement of the first. When the agent runtime became a port per
-vendor ([ADR-0016](../agent-provider-as-port/)), the split between *policy*
-(which class) and *catalogue* (which concrete model) was what let the cost
-rules keep holding for every vendor without knowing any of them — and the
-same record warned that prefix-cache semantics differ between vendors, which
-is the most expensive divergence this decision depends on.
+Two records were consolidated into this one on 2026-09-04. The split
+between policy (which class) and catalogue (which model) is what lets the
+rules hold for every vendor behind
+[the agent provider port](../agent-provider-as-port/).

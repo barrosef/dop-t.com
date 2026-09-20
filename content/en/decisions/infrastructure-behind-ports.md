@@ -1,5 +1,5 @@
 ---
-title: "Two adapters, or it is not a port"
+title: "Every port has two adapters and one contract"
 translationKey: "decision-0001"
 adr: "0001"
 adr_title: "Infrastructure behind ports with pluggable adapters"
@@ -7,89 +7,73 @@ adr_file: "0001-infrastructure-behind-ports.md"
 date: 2026-08-29
 weight: 1
 group: "foundations"
-description: "The first decision, and the one every other decision leans on: the domain never touches a vendor, and a port with a single adapter is a guess shaped like that vendor."
+description: "The domain never touches a vendor. Each piece of infrastructure is a port the domain defines, with at least two adapters and a contract suite both must pass — which is what lets the same binary run on Google Cloud and on a laptop cluster."
 related: ["0012", "0016", "0020"]
 ---
 
 ## What was on the table
 
-The platform had to run in two places from the start: on Google Cloud Run, and
-on a Kubernetes cluster somebody else operates — k3s, Rancher, OKD. The list of
-things it would need from its surroundings was going to grow: secrets,
-identity, object storage, persistence, messaging. And in each place the same
-need is met by a different service. Secret Manager on one side; a Kubernetes
-Secret on the other.
-
-The tempting move was to pick Google, ship, and "port later". We had watched
-what that does: *later* is the moment the coupling is already everywhere, and
-the first choice — made under pressure, on day one — becomes the design.
+The platform runs in two kinds of place from the start: on Google Cloud
+Run, and on a Kubernetes cluster somebody else operates — k3s, Rancher,
+OKD. Each place offers a different service for the same need: Secret
+Manager or a Kubernetes Secret; Cloud Storage or a filesystem; Identity
+Platform or an OIDC provider. The domain could not be written against any
+of them.
 
 ## The paths we weighed
 
-**Couple to GCP now, abstract later.** Faster to a first result. Rejected,
-because running on a laptop cluster was not a future ambition, it was a
-development requirement from the first week.
+**Couple to one cloud now, abstract later.** Faster to a first result;
+rejected because running on a laptop cluster is a development requirement,
+not a future ambition.
 
-**A generic multi-cloud library.** Rejected for a subtler reason: such a
-library gives you the common denominator *of the library's vendors*, not of
-your domain. It trades one coupling for another, and the new one is harder to
-see.
+**A generic multi-cloud library.** Rejected: it abstracts the library's
+vendors, not the domain, and trades one coupling for another.
 
-**Ports and adapters — with rules attached.** This won, but only because we
-were honest that "hexagonal" is usually the name of a folder. The word does
-nothing by itself.
+**Ports and adapters, with disciplines attached.** The choice — with the
+rules that keep "hexagonal" from being just the name of a folder.
 
 ## What we chose, and why
 
-The domain reaches infrastructure only through a port it defines itself, in
-its own language: `SecretStore.get(ref)`, not `accessSecretVersion`. Adapters
-are chosen in one composition root, by configuration, and the domain imports no
-vendor SDK.
+The domain reaches infrastructure only through a port it defines, in its
+own vocabulary — `SecretStore.Get(ref)`, not `AccessSecretVersion`. Adapters
+are bound in one composition root and selected by configuration; no
+conditional on the environment exists anywhere else.
 
-Three disciplines make that real rather than decorative:
+Three rules make it real:
 
-1. **Two adapters per port, from day one.** The local adapter is not "for
-   later" — it is the proof that the port is right. A port with a single
-   adapter comes out shaped like the vendor that inspired it.
-2. **One contract test suite per port**, which every adapter has to pass.
-   Substitutability in fact, not in intention.
-3. **Whatever an adapter cannot promise stays out of the port.** Secret
-   versioning stays out (Kubernetes has none). Firebase claims never cross the
-   boundary; the identity port returns a normalised principal.
+1. **Two adapters per port, from day one** — a production one and a local
+   one. The local adapter is the proof that the port is shaped by the
+   domain and not by the first vendor.
+2. **One contract test suite per port**, which every adapter passes.
+3. **A port carries only what every adapter can guarantee.** Secret
+   versions stay out; provider-specific token claims stay out; the identity
+   port returns a normalised principal.
 
-We also noticed that "port" hides two different things. Infrastructure ports —
-secrets, identity, storage, the bus — are chosen once, at boot, by the
-environment. Provider ports — git, task managers, later the model vendors —
-are chosen on every request by the account's configuration, and several are
-active at once. Confusing the two families is this design's typical mistake,
-so the record names them separately.
+Ports come in two families, and the difference matters for the wiring:
+infrastructure ports — secrets, identity, storage, the event bus — are
+chosen once, at boot, by the deployment; provider ports — git hosts, task
+managers, model vendors — are chosen per request by the account's
+configuration, with several active at once.
+
+And one rule for the day an adapter cannot meet a guarantee natively: **the
+adapter pays; the port's guarantee is not lowered.** The secret store
+promises read-after-write. Google's Secret Manager only guarantees that
+when reading a version by number, so its adapter confirms the write by
+version, waits for the `latest` alias to converge, and refuses with an
+explicit error if it does not — rather than answering "not found" for a
+credential that was just written.
 
 ## What it cost
 
-Two adapters for every port, written and maintained, before any of them was
-strictly needed. One more indirection on every infrastructure call. And a
-vendor's strongest capability becomes inaccessible to the domain by
-construction — deliberately.
+Two adapters for every port, written and maintained before either is
+strictly needed. One more indirection on every infrastructure call. A
+vendor's strongest capability is unreachable from the domain by
+construction. And a write to Secret Manager is slower than a write to a
+Kubernetes Secret, with a failure mode the local emulator does not
+reproduce.
 
 ## Since then
 
-The rule was tested for real, and written up on 2026-09-04; it held in the
-direction we had not planned for. `SecretStore` promises read-after-write. The promise was
-born from the Kubernetes adapter, where it is trivially true. The Google
-adapter could not keep it: Secret Manager is strongly consistent only when you
-read a version *by number*, and `latest` converges "typically within minutes,
-but may take a few hours". On real GCP a `Get` right after a `Put` could answer
-"this does not exist" — for a credential just written — and the local emulator
-would never show it.
-
-Loosening the promise to "eventually consistent" was rejected: it pushes the
-retry logic onto every caller, who cannot tell "not yet" from "never". Caching
-the value in the process was rejected: a second place where a credential
-lives. **The guarantee held and the adapter paid**: it confirms the write by
-version, waits for the alias to catch up, and refuses loudly if it does not.
-A `Put` that succeeds while the next `Get` says "not found" is worse than a
-`Put` that fails — the first produces a silently broken integration, the
-second an error somebody reads.
-
-That episode was first written up as its own ADR and later folded into this
-one: it is not a new decision, it is what this decision means when it hurts.
+The read-after-write rule for Secret Manager was added on 2026-09-04. Every
+later port — the agent provider, the SMS channel, the project repository,
+the verification runner — was born under these three rules.

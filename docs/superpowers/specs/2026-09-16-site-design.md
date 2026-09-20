@@ -381,13 +381,15 @@ and its delivery — and by number inside a group.
 
 **Every article has the same five parts**, so the reader learns the shape
 once: *what was on the table* (the question as it arrived), *the paths we
-weighed* (each option and why it lost), *what we chose, and why*, *what it
-cost* (the consequences the record admits), *since then* (amendments, later
-decisions that changed it, what was built or not). Where the record admits a
-mistake — a briefing that was wrong, a recommendation the owner vetoed, a
-sentence that contradicted its own argument, a queue described as existing
-that did not — the article says so in the same words. Nothing is claimed that
-the ADR does not back; dates and numbers are the record's.
+weighed* (each option and why it is not the decision), *what we chose, and
+why* (the decision as it stands today, in the ADR's terms), *what it cost*
+(the consequences the record admits), *since then* (the ADR's revisions,
+one or two lines, by date). **The emphasis is the current state of the
+decision, not its history** — revised 2026-09-20 after the owner's review:
+a reader arriving at a pre-release product must not get the impression of a
+project that stumbled into its design; what happened was review before
+release. Titles name the decision as it is, not an episode. Nothing is
+claimed that the ADR does not back; dates and numbers are the record's.
 
 **Voice:** first person plural — the developer and the agent who made them —
 addressed to a technical reader who does not have the ADR open.

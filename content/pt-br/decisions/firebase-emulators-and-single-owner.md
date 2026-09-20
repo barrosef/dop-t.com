@@ -1,5 +1,5 @@
 ---
-title: "O emulador que não pode mentir"
+title: "O ambiente local roda o SDK da produção, e o Terraform é dono do resto"
 translationKey: "decision-0015"
 adr: "0015"
 adr_title: "Firebase emulators in the local environment; Terraform as the single owner"
@@ -7,59 +7,55 @@ adr_file: "0015-firebase-emulators-and-single-owner.md"
 date: 2026-08-30
 weight: 15
 group: "foundations"
-description: "Duas lições pagas por um projeto irmão, escritas aqui antes de pagarmos por elas de novo: o ambiente local roda o mesmo SDK e a mesma configuração da produção, e nada é criado por console."
+description: "Os emuladores do Firebase fornecem identidade e armazenamento de objetos localmente com o mesmo SDK e os mesmos arquivos de configuração da produção. A infraestrutura é criada só pelo Terraform, então não existe nada que o estado não conheça."
 related: ["0001"]
 ---
 
 ## O que estava na mesa
 
-O ambiente local precisava de identidade e de armazenamento de objetos. A
-primeira proposta era o emulador do Firebase para autenticação e o MinIO para
-objetos. São dois clientes diferentes — um S3 local contra o GCS em produção —,
-duas semânticas de URL assinada, e a falha mais velha do livro: funciona na
-minha máquina, quebra na nuvem.
+O ambiente local precisa de identidade e de armazenamento de objetos com a
+mesma semântica da produção, para que o que funciona no laptop funcione na
+nuvem. E a infraestrutura não pode divergir entre o que o Terraform gerencia
+e o que existe de fato.
 
-Um projeto irmão já tinha pago por duas lições nessa área, e não queríamos
-comprá-las uma segunda vez.
+## Os caminhos que pesamos
+
+**O emulador de Auth do Firebase mais o MinIO para objetos.** Rejeitado:
+dois clientes diferentes — um S3 local contra o GCS em produção — e duas
+semânticas de URL assinada.
+
+**O Emulator Suite do Firebase para os dois.** A escolha.
 
 ## O que escolhemos, e por quê
 
-**O Emulator Suite do Firebase cobre os dois**, autenticação e armazenamento,
-com o mesmo SDK da produção, resolvido por uma variável de ambiente. O MinIO
-não entra; fica como terceiro adaptador do port de armazenamento para o dia em
-que um cliente auto-hospedado não tiver Google Cloud.
+**O Emulator Suite do Firebase fornece autenticação e armazenamento
+localmente**, com o SDK de produção selecionado por uma variável de
+ambiente. O MinIO não é usado; fica como possível terceiro adaptador do port
+de armazenamento para um cliente auto-hospedado sem Google Cloud.
 
-**O emulador mantém os dados entre reinícios.** Um emulador que esquece tudo a
-cada parada empurra os desenvolvedores de volta para a nuvem em qualquer coisa
-que dure mais de uma sessão. A mecânica — exportar ao sair, importar
-condicionalmente, um período de tolerância — é operacional e vive na spec de
-infraestrutura; o que está decidido aqui é que o ambiente local *precisa*
-sobreviver a um reinício.
+**O emulador persiste entre reinícios** — exportação ao sair, importação
+condicional, um período de tolerância — para os dados de um desenvolvedor
+sobreviverem a uma sessão.
 
-**A configuração do emulador é a configuração do deploy.** `firebase.json`,
-`.firebaserc` e as regras ficam versionados e montados como somente-leitura no
-emulador — os mesmos arquivos que o deploy usa. Um emulador com configuração
-própria mente sobre a produção.
+**A configuração do emulador é a configuração do deploy:** `firebase.json`,
+`.firebaserc` e as regras ficam versionados e montados como somente-leitura
+no emulador. Não há uma segunda configuração que possa discordar da
+produção.
 
-**O Terraform é o único dono do que ele gerencia.** Essa foi a segunda lição do
-projeto irmão: um recurso criado pelo console ou pela CLI não está no estado, e
-o próximo `apply` o reverte ou apaga — uma funcionalidade perdida em silêncio.
-Então nada é criado pelo console; o que a CLI do Firebase publica vive em
-arquivos versionados que o Terraform referencia ou importa; e onde a fronteira
-é ambígua — provedores de autenticação, por exemplo — o README da
-infraestrutura declara um único dono por recurso, numa tabela explícita.
+**O Terraform é o único dono do que gerencia.** Nada é criado pelo console;
+o que a CLI do Firebase publica vive em arquivos versionados que o Terraform
+referencia ou importa; onde a posse é ambígua, o README da infraestrutura
+declara um único dono por recurso. Um recurso adotado de fora é importado
+até o `terraform plan` não reportar mudanças.
 
 ## O que custou
 
-Uma dependência da CLI do Firebase em todo ambiente de desenvolvimento. E a
-tabela de donos precisa ser mantida à mão; é o que impede a perda silenciosa
-no `apply`, e ela só vale o que valeu a sua última edição.
+A CLI do Firebase vira dependência de desenvolvimento, e a tabela de donos é
+mantida à mão.
 
 ## Desde então
 
-A decisão foi enxugada em 2026-09-04: a receita operacional saiu do registro e
-foi para a spec de infraestrutura, deixando só o que é decisão. A regra sobre
-o console foi testada uma semana depois, quando o ambiente de QA no Google
-Cloud foi codificado em Terraform a partir dos recursos que tinham sido
-criados à mão nos primeiros deploys — cada importação precisou produzir um
-plano sem mudanças antes de o ambiente contar como próprio.
+A receita operacional saiu do registro para a spec de infraestrutura em
+2026-09-04, deixando só a decisão. A regra do dono único foi aplicada ao
+ambiente de QA no Google Cloud em setembro, quando todo recurso foi importado
+para o estado do Terraform.

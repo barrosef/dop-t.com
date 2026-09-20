@@ -5,7 +5,7 @@
 <svg class="diagram" viewBox="0 0 1000 580" role="img" aria-labelledby="ev-title ev-desc">
   <title id="ev-title">{{ i18n "dev_title" }}</title>
   <desc id="ev-desc">{{ i18n "dev_desc" }}</desc>
-  <defs><marker id="head-ev" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="head" d="M0 0L8 4L0 8z"></path></marker></defs>
+  <defs><marker id="head-ev" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="head" d="M0 0L8 4L0 8z"></path></marker></defs>
 
   <!-- the pipeline -->
   <rect class="box" x="20" y="40" width="140" height="64" rx="6"></rect>
@@ -16,12 +16,12 @@
   <text class="name" x="434" y="64">relay</text><text class="meta" x="434" y="84">MsgId = event id</text>
   <rect class="box box--core" x="590" y="40" width="170" height="64" rx="6"></rect>
   <text class="name" x="604" y="64">NATS JetStream</text><text class="meta" x="604" y="84">dop.&gt; · dlq.&gt;</text>
-  <rect class="box" x="780" y="40" width="200" height="64" rx="6"></rect>
-  <text class="name" x="794" y="60">Envelope</text><text class="meta" x="794" y="78">{{ i18n "dev_envelope_meta" }}</text><text class="meta" x="794" y="94">{{ i18n "dev_envelope_meta2" }}</text>
+  <rect class="box" x="788" y="40" width="192" height="64" rx="6"></rect>
+  <text class="name" x="802" y="60">Envelope</text><text class="meta" x="802" y="78">{{ i18n "dev_envelope_meta" }}</text><text class="meta" x="802" y="94">{{ i18n "dev_envelope_meta2" }}</text>
   <path class="edge" d="M160 72 H190" marker-end="url(#head-ev)"></path>
   <path class="edge" d="M390 72 H420" marker-end="url(#head-ev)"></path>
   <path class="edge" d="M560 72 H590" marker-end="url(#head-ev)"></path>
-  <path class="edge edge--dashed" d="M760 72 H780"></path>
+  <path class="edge edge--dashed" d="M760 72 H788"></path>
 
   <!-- the consumers -->
   <text class="label" x="420" y="140">{{ i18n "dev_consumers" }}</text>

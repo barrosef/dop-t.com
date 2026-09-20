@@ -1,10 +1,10 @@
 {{/* The core, inside: the hexagon. Every name here is a package or a type in
      repos/dop-core — internal/domain/*, internal/domain/ports/ports.go, and
      internal/adapter/*. Redraw it when they change, not before. */}}
-<svg class="diagram" viewBox="0 0 960 470" role="img" aria-labelledby="core-title core-desc">
+<svg class="diagram" viewBox="0 0 1000 470" role="img" aria-labelledby="core-title core-desc">
   <title id="core-title">{{ i18n "dcore_title" }}</title>
   <desc id="core-desc">{{ i18n "dcore_desc" }}</desc>
-  <defs><marker id="head-core" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="head" d="M0 0L8 4L0 8z"></path></marker></defs>
+  <defs><marker id="head-core" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="head" d="M0 0L8 4L0 8z"></path></marker></defs>
 
   <!-- driving side: the four modes of the one binary -->
   <text class="label" x="20" y="48">{{ i18n "dcore_driving" }}</text>
@@ -16,10 +16,6 @@
   <text class="name" x="34" y="244">sched</text><text class="meta" x="34" y="262">{{ i18n "dcore_sched" }}</text>
   <rect class="box" x="20" y="304" width="140" height="48" rx="6"></rect>
   <text class="name" x="34" y="324">launcher</text><text class="meta" x="34" y="342">{{ i18n "dcore_launcher" }}</text>
-  <path class="edge" d="M160 88 H172 V230 H180" marker-end="url(#head-core)"></path>
-  <path class="edge" d="M160 168 H172"></path>
-  <path class="edge" d="M160 248 H172"></path>
-  <path class="edge" d="M160 328 H172 V230"></path>
   <text class="meta" x="20" y="436">{{ i18n "dcore_callauth" }}</text>
   <text class="meta" x="20" y="452">{{ i18n "dcore_callauth2" }}</text>
 
@@ -37,10 +33,17 @@
   <text class="meta" x="380" y="336" text-anchor="middle">{{ i18n "dcore_domain_meta3" }}</text>
   <text class="label" x="380" y="384" text-anchor="middle">ports</text>
 
+  <!-- the four modes feed one bus that enters the hexagon; drawn after the
+       polygons so the arrow is not painted over by the outer hexagon's fill -->
+  <path class="edge" d="M160 88 H176 V328 H160"></path>
+  <path class="edge" d="M160 168 H176"></path>
+  <path class="edge" d="M160 248 H176"></path>
+  <path class="edge" d="M176 230 H208" marker-end="url(#head-core)"></path>
+
   <!-- driven side: one port, its adapters -->
-  <text class="label" x="600" y="48">{{ i18n "dcore_driven" }}</text>
-  <path class="edge" d="M580 230 H588"></path>
-  <path class="edge" d="M588 72 V402"></path>
+  <text class="label" x="640" y="48">{{ i18n "dcore_driven" }}</text>
+  <path class="edge" d="M580 230 H612"></path>
+  <path class="edge" d="M612 72 V402"></path>
   {{ range $i, $r := slice
        (slice "Repositories" "Postgres")
        (slice "EventBus" "NATS JetStream · memory")
@@ -55,10 +58,10 @@
        (slice "AgentProvider" "Anthropic · OpenAI")
        (slice "GitProvider" "GitHub · GitLab") }}
   {{ $y := add 72 (mul $i 30) }}
-  <path class="edge" d="M588 {{ $y }} H596" marker-end="url(#head-core)"></path>
-  <text class="port" x="606" y="{{ add $y 4 }}">{{ index $r 0 }}</text>
-  <text class="mono" x="760" y="{{ add $y 4 }}">{{ index $r 1 }}</text>
+  <path class="edge" d="M612 {{ $y }} H636" marker-end="url(#head-core)"></path>
+  <text class="port" x="646" y="{{ add $y 4 }}">{{ index $r 0 }}</text>
+  <text class="mono" x="792" y="{{ add $y 4 }}">{{ index $r 1 }}</text>
   {{ end }}
-  <text class="meta" x="606" y="436">{{ i18n "dcore_contract_suite" }}</text>
-  <text class="meta" x="606" y="452">{{ i18n "dcore_contract_suite2" }}</text>
+  <text class="meta" x="646" y="436">{{ i18n "dcore_contract_suite" }}</text>
+  <text class="meta" x="646" y="452">{{ i18n "dcore_contract_suite2" }}</text>
 </svg>

@@ -58,8 +58,7 @@ fine-grained permission is one more surface for the contract tests to cover.
 
 ## Since then
 
-The rejected "raw folder" came back, and the record explains why that is not
-a contradiction. On 2026-09-03, [ADR-0021](../project-knowledge-as-a-git-repository/)
+The rejected "raw folder" came back, and it is not a contradiction. On 2026-09-03, [ADR-0021](../project-knowledge-as-a-git-repository/)
 gave the three layers a home: the project's root repository, a git server
 the platform runs, cloned into every sandbox. What had been rejected was a
 folder *as a replacement* for the package. The package stayed exactly as

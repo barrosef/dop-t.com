@@ -62,7 +62,8 @@ refuses to pretend.
 
 ## Since then
 
-The third clause did not survive, and the record keeps the whole sequence.
+The third clause did not survive; the record now states the runner and
+lists the two revisions by date.
 On 2026-09-03 the owner decided that the address stays per demand and
 parallel verification runs *queue* — simplicity over latency inside one
 demand. The write-up of that decision then added a sentence the owner had

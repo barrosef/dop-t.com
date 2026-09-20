@@ -57,8 +57,7 @@ mais uma superfície para os testes de contrato cobrirem.
 
 ## Desde então
 
-A "pasta crua" rejeitada voltou, e o registro explica por que isso não é
-contradição. Em 2026-09-03, a [ADR-0021](../project-knowledge-as-a-git-repository/)
+A "pasta crua" rejeitada voltou, e isso não é contradição. Em 2026-09-03, a [ADR-0021](../project-knowledge-as-a-git-repository/)
 deu às três camadas uma casa: o repositório raiz do projeto, um servidor git
 que a plataforma roda, clonado em toda sandbox. O que tinha sido rejeitado era
 uma pasta *como substituta* do pacote. O pacote ficou exatamente como definido

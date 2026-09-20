@@ -52,7 +52,7 @@ divergência antes seria uma descoberta em produção.
 ## Desde então
 
 Duas coisas aconteceram que o texto original não poderia prever, e as duas
-estão registradas dentro dele.
+agora fazem parte da decisão.
 
 A primeira foi uma dívida. As mensagens de requisição carregavam um
 `CallContext ctx = 1` de uma tentativa anterior, e o servidor o ignorava. Um

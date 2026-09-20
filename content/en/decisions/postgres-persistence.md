@@ -89,5 +89,5 @@ called `Term()`, which discards, under a log line claiming the message had
 been saved. The stream's thirty-day retention was the only thing between an
 exhausted event and nothing at all. The queue, the classification of
 failures and the error ledger were designed and built that week, and the
-record now carries an amendment saying so. Writing down what you *believe*
+record now states them as built, with a dated revision line. Writing down what you *believe*
 exists is how you find out that it does not.

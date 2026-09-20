@@ -54,7 +54,7 @@ once have been a discovery in production.
 ## Since then
 
 Two things happened that the original text could not have predicted, and both
-are recorded inside it.
+are now part of the decision.
 
 The first was a debt. The request messages used to carry a `CallContext ctx =
 1` from an earlier attempt, and the server ignored it. A contract that declares

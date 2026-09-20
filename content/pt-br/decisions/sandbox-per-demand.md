@@ -61,7 +61,8 @@ Kata e se recusa honestamente a fingir.
 
 ## Desde então
 
-A terceira cláusula não sobreviveu, e o registro guarda a sequência inteira.
+A terceira cláusula não sobreviveu; o registro agora declara o runner e
+lista as duas revisões por data.
 Em 2026-09-03 o idealizador decidiu que o endereço fica por demanda e as
 execuções paralelas de verificação *enfileiram* — simplicidade acima de
 latência dentro de uma demanda. A redação dessa decisão então acrescentou uma

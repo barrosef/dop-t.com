@@ -89,6 +89,6 @@ existisse. Em 2026-09-13 descobrimos que não: no esgotamento o adaptador
 chamava `Term()`, que descarta, sob uma linha de log dizendo que a mensagem
 tinha sido salva. A retenção de trinta dias do stream era a única coisa entre
 um evento esgotado e nada. A fila, a classificação de falhas e o ledger de
-erros foram desenhados e construídos naquela semana, e o registro agora
-carrega uma emenda dizendo isso. Escrever o que você *acredita* que existe é
+erros foram desenhados e construídos naquela semana, e o registro agora os
+declara como construídos, com uma linha de revisão datada. Escrever o que você *acredita* que existe é
 como se descobre que não existe.

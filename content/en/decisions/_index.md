@@ -5,7 +5,8 @@ seo_title: "How DOP was decided — the thinking behind each architecture decisi
 description: "Twenty-three decisions, told as they were made: what was on the table, the paths we weighed, the one we took and what it cost. The formal record is an ADR; this is the story."
 ---
 
-An architecture decision record says *what* was decided. These pages say *how*
+An architecture decision record fixes *what* was decided and describes the
+architecture that follows — nothing else. These pages say *how*
 — the question that arrived, the options that were on the table, the one that
 lost and why, what the choice cost, and what the weeks since did to it. Where
 we were wrong, it says so: a draft that had to be corrected, a recommendation

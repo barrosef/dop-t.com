@@ -5,7 +5,8 @@ seo_title: "Como o DOP foi decidido — o raciocínio por trás de cada decisão
 description: "Vinte e três decisões, contadas como foram tomadas: o que estava na mesa, os caminhos que pesamos, o que escolhemos e o que custou. O registro formal é uma ADR; isto é a história."
 ---
 
-Um registro de decisão de arquitetura diz *o que* foi decidido. Estas páginas
+Um registro de decisão de arquitetura fixa *o que* foi decidido e descreve a
+arquitetura que resulta — nada mais. Estas páginas
 dizem *como* — a pergunta que chegou, as opções que estavam na mesa, a que
 perdeu e por quê, o que a escolha custou, e o que as semanas seguintes fizeram
 com ela. Onde erramos, está dito: um rascunho que precisou de correção, uma

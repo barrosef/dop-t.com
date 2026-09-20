@@ -1,0 +1,70 @@
+{{/* The failure path, for any consumer. Names and numbers are the ones in
+     dop-core's internal/adapter/eventbus/nats.go, internal/app/dlq.go and
+     internal/domain/event. */}}
+<svg class="diagram" viewBox="0 0 1000 420" role="img" aria-labelledby="rs-title rs-desc">
+  <title id="rs-title">{{ i18n "drs_title" }}</title>
+  <desc id="rs-desc">{{ i18n "drs_desc" }}</desc>
+  <defs><marker id="head-rs" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="head" d="M0 0L8 4L0 8z"></path></marker></defs>
+
+  <!-- delivery -->
+  <rect class="box box--core" x="20" y="40" width="150" height="48" rx="6"></rect>
+  <text class="name" x="34" y="60">NATS JetStream</text><text class="meta" x="34" y="78">dop.&gt;</text>
+  <path class="edge" d="M170 64 H220" marker-end="url(#head-rs)"></path>
+  <rect class="box" x="220" y="40" width="150" height="48" rx="6"></rect>
+  <text class="name" x="234" y="60">{{ i18n "drs_consumer" }}</text><text class="meta" x="234" y="78">Handle(event)</text>
+
+  <!-- ok / fail -->
+  <path class="edge" d="M370 64 H420" marker-end="url(#head-rs)"></path>
+  <polygon class="box" points="420,64 470,34 520,64 470,94"></polygon>
+  <text class="mono" x="470" y="68" text-anchor="middle" style="font-size:10px">ok?</text>
+  <path class="edge" d="M520 64 H580" marker-end="url(#head-rs)"></path>
+  <text class="meta" x="550" y="56" text-anchor="middle">{{ i18n "drs_yes" }}</text>
+  <rect class="box" x="580" y="40" width="130" height="48" rx="6"></rect>
+  <text class="name" x="594" y="60">Ack</text><text class="meta" x="594" y="78">RecordSuccess</text>
+
+  <path class="edge" d="M470 94 V140" marker-end="url(#head-rs)"></path>
+  <text class="meta" x="482" y="120">{{ i18n "drs_no" }} · NAK</text>
+  <rect class="box" x="395" y="140" width="150" height="48" rx="6"></rect>
+  <text class="name" x="409" y="160">{{ i18n "drs_redeliver" }}</text><text class="meta" x="409" y="178">1s · 5s · 15s · 1min</text>
+  <path class="edge" d="M395 164 H320 V88" marker-end="url(#head-rs)"></path>
+  <text class="meta" x="330" y="130">×5 · MaxDeliver</text>
+
+  <!-- exhausted -->
+  <path class="edge" d="M545 164 H590" marker-end="url(#head-rs)"></path>
+  <text class="meta" x="567" y="134" text-anchor="middle">{{ i18n "drs_exhausted" }}</text>
+  <rect class="box box--warn" x="590" y="140" width="200" height="48" rx="6"></rect>
+  <text class="name" x="602" y="160">DeadLetter</text><text class="meta" x="602" y="178">event · consumer · attempts</text>
+  <path class="edge" d="M790 164 H820" marker-end="url(#head-rs)"></path>
+  <rect class="box box--core" x="820" y="140" width="160" height="48" rx="6"></rect>
+  <text class="name" x="834" y="160">dlq.event</text><text class="meta" x="834" y="178">MsgId event:consumer</text>
+
+  <!-- the DLQ consumer -->
+  <path class="edge" d="M900 188 V240" marker-end="url(#head-rs)"></path>
+  <rect class="box" x="820" y="240" width="160" height="48" rx="6"></rect>
+  <text class="name" x="834" y="260">DLQConsumer</text><text class="meta" x="834" y="278">{{ i18n "drs_same_handler" }} · ×3</text>
+  <path class="edge" d="M820 264 H740" marker-end="url(#head-rs)"></path>
+  <polygon class="box" points="740,264 690,234 640,264 690,294"></polygon>
+  <text class="mono" x="690" y="268" text-anchor="middle" style="font-size:10px">ok?</text>
+  <path class="edge" d="M690 234 V200 H800 V110 H645 V88" marker-end="url(#head-rs)"></path>
+  <text class="meta" x="808" y="128">{{ i18n "drs_yes" }}</text>
+  <path class="edge" d="M640 264 H595" marker-end="url(#head-rs)"></path>
+  <text class="meta" x="617" y="232" text-anchor="middle">{{ i18n "drs_no" }} · Term</text>
+
+  <!-- classify and record -->
+  <rect class="box" x="380" y="240" width="215" height="48" rx="6"></rect>
+  <text class="name" x="394" y="260">Classify</text><text class="meta" x="394" y="278">Signature(consumer, code|kind)</text>
+  <path class="edge" d="M487 288 V330" marker-end="url(#head-rs)"></path>
+  {{ range $i, $c := slice "recoverable" "irrecoverable" "unknown" }}
+  {{ $x := add 380 (mul $i 72) }}
+  <rect class="box" x="{{ $x }}" y="330" width="68" height="18" rx="4"></rect>
+  <text class="mono" x="{{ add $x 34 }}" y="343" text-anchor="middle" style="font-size:9px">{{ $c }}</text>
+  {{ end }}
+
+  <path class="edge" d="M380 264 H340" marker-end="url(#head-rs)"></path>
+  <rect class="box" x="180" y="240" width="160" height="48" rx="6"></rect>
+  <text class="name" x="194" y="260">error_signatures</text><text class="meta" x="194" y="278">{{ i18n "drs_learned" }} · ×2</text>
+
+  <path class="edge" d="M497 348 V370" marker-end="url(#head-rs)"></path>
+  <rect class="box" x="180" y="370" width="620" height="40" rx="6"></rect>
+  <text class="name" x="194" y="394">event_errors</text><text class="meta" x="320" y="394">(event_id, consumer) · attempts · broker_attempts · classification · last_success_at</text>
+</svg>

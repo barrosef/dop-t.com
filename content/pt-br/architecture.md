@@ -46,10 +46,16 @@ diagrams:
       caption: "REST com SSE para o cockpit, gRPC para a CLI, e o mesmo caso de uso por baixo. A autorização está presa ao caso de uso, não ao router, então uma regra não pode existir num transporte e não no outro; um teste de paridade mantém isso."
     - id: events
       title: "Eventos e o motor de fluxos"
-      caption: "O que roda hoje é o pipeline e o caminho da falha: outbox, NATS, quatro consumidores, uma fila de dead letters, um ledger de erros. O motor de fluxos é o vocabulário — estágios tipados, ações na entrada e na saída, regras que acumulam pela hierarquia — e o dispatcher que o liga ao barramento é o plano 2 de 3."
+      caption: "O pipeline: uma escrita commita o seu evento na mesma transação; um relay publica; todo consumidor recebe. Os dois blocos marcados com um mais são subprocessos desenhados nas duas figuras seguintes — o motor de fluxos, que decide o que um evento dispara, e o caminho da falha, que cobre a entrega de todo consumidor, não de um só."
+    - id: flow-engine
+      title: "O motor de fluxos"
+      caption: "Um fluxo é dado: uma lista versionada de estágios tipados, cada um com um portão, os seus artefatos e as suas ações na entrada e na saída. O fluxo efetivo desce por uma cadeia — plataforma, conta, workspace, projeto, demanda — em que o nível declarado mais próximo vence, e uma demanda congela a versão com que começou. Quando um estágio avança, as ações do estágio e a tabela de regras acumulada são decididas em ações planejadas; o executor as roda por um registro de quatro e registra cada uma como aplicada por evento, regra e ação, para uma retentativa nunca repetir uma."
+    - id: resilience
+      title: "O caminho da falha"
+      caption: "O mesmo caminho cobre todo consumidor. Uma entrega que falha é reentregue com backoff até cinco vezes; uma esgotada vira uma dead letter com o envelope inteiro e as suas tentativas, publicada num subject próprio. O consumidor da DLQ reexecuta o mesmo handler mais três vezes, depois encerra a mensagem — mas toda tentativa, a sua classificação e o último sucesso ficam no ledger de erros, e uma assinatura que esgota duas vezes é aprendida como irrecuperável até um sucesso rebaixá-la."
     - id: app
       title: "O cockpit por dentro"
-      caption: "Quatro camadas sobre um cliente gerado. O contrato é um arquivo commitado; os hooks e os schemas vêm dele; a camada de fetch leva o token e a conta. Nada que o backend já decidiu é decidido de novo aqui."
+      caption: "Um roteador, dez páginas, seis famílias de componentes, dois hooks e um cliente gerado por baixo. O contrato é um arquivo OpenAPI commitado; o Orval produz dele os hooks do react-query e os schemas Zod; uma camada de fetch leva o token da pessoa e a conta em toda chamada. O Firebase Auth emite o token; o BFF responde REST e empurra o stream de atenção por SSE. Nada que o backend já decidiu é decidido de novo aqui."
     - id: callauth
       title: "Como o core verifica seus chamadores"
       caption: "Toda chamada ao core carrega uma assinatura que o core consegue checar: o token da pessoa, encaminhado inteiro pelo BFF, ou uma asserção da plataforma assinada com a chave do próprio chamador quando não há pessoa. O interceptor resolve o ator pelo token e a conta pela asserção, recusa quando os dois discordam, e deixa a autorização dizer não com uma mensagem que significa algo. O IAM do Cloud Run na nuvem e uma network policy num cluster restringem quem consegue sequer alcançar o serviço; nenhum dos dois substitui a assinatura."

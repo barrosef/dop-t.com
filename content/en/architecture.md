@@ -46,10 +46,16 @@ diagrams:
       caption: "REST with SSE for the cockpit, gRPC for the CLI, and the same use case underneath. Authorization is pinned to the use case, not to the router, so a rule cannot exist on one transport and not the other; a parity test keeps it that way."
     - id: events
       title: "Events and the flow engine"
-      caption: "What runs today is the pipeline and the failure path: outbox, NATS, four consumers, one dead-letter queue, an error ledger. The flow engine is the vocabulary — typed stages, actions on enter and exit, rules that accumulate down the hierarchy — and the dispatcher that connects it to the bus is plan 2 of 3."
+      caption: "The pipeline: a write commits its event in the same transaction; a relay publishes it; every consumer receives it. The two blocks marked with a plus are sub-processes drawn in the next two figures — the flow engine, which decides what an event triggers, and the failure path, which covers every consumer's delivery, not one of them."
+    - id: flow-engine
+      title: "The flow engine"
+      caption: "A flow is data: a versioned list of typed stages, each with a gate, its artifacts and its actions on enter and exit. The effective flow comes down a chain — platform, account, workspace, project, demand — where the nearest declared level wins, and a demand freezes the version it started with. When a stage advances, the stage's actions and the accumulated rules table are decided into planned actions; the executor runs them through a registry of four and records each as applied per event, rule and action, so a retry never repeats one."
+    - id: resilience
+      title: "The failure path"
+      caption: "The same path covers every consumer. A failed delivery is redelivered with backoff up to five times; an exhausted one becomes a dead letter with the whole envelope and its attempts, published to its own subject. The dead-letter consumer re-runs the same handler three more times, then terminates the message — but every attempt, its classification and the last success are kept in the error ledger, and a signature that exhausts twice is learned as irrecoverable until a success demotes it."
     - id: app
       title: "The cockpit, inside"
-      caption: "Four layers on a generated client. The contract is a committed file; the hooks and schemas come from it; the fetch layer carries the token and the account. Nothing the backend already decided is decided again here."
+      caption: "A router, ten pages, six component families, two hooks, and a generated client underneath. The contract is a committed OpenAPI file; Orval produces the react-query hooks and the Zod schemas from it; one fetch layer carries the person's token and the account on every call. Firebase Auth issues the token; the BFF answers REST and pushes the attention stream over SSE. Nothing the backend already decided is decided again here."
     - id: callauth
       title: "How the core verifies its callers"
       caption: "Every call to the core carries a signature the core can check: the person's token, forwarded whole by the BFF, or a platform assertion signed with the caller's own key when there is no person. The interceptor resolves the actor from the token and the account from the assertion, refuses when the two disagree, and lets authorization say no with a message that means something. Cloud Run IAM in the cloud and a network policy on a cluster restrict who can reach the service at all; neither replaces the signature."

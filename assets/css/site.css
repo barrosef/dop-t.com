@@ -427,3 +427,5 @@ svg { display: block; }
 .pager__link b { font-family: var(--font-display); font-weight: 600; font-size: 18px; line-height: 1.25; }
 .pager__link--next { text-align: right; align-items: flex-end; }
 @media (max-width: 600px) { .pager { grid-template-columns: minmax(0, 1fr); } .pager__link--next { text-align: left; align-items: flex-start; } }
+.diagram .box--sub { stroke-width: 2; stroke: var(--muted); }
+.diagram a:hover .box--sub { stroke: var(--primary); }

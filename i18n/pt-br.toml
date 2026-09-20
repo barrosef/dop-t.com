@@ -317,7 +317,7 @@ other = "sem banco · sem segredo · toda escrita vai para o core"
 other = "Eventos e o motor de fluxos"
 
 [dev_desc]
-other = "Uma escrita commita o seu evento na outbox na mesma transação; um relay publica no NATS JetStream; quatro consumidores reagem; uma entrega esgotada vai para uma única fila de dead letters, é classificada e registrada. O motor de fluxos — estágios com ações na entrada e na saída, e uma tabela de regras que acumula pela hierarquia — decide o que um evento dispara; o seu dispatcher está planejado e ainda não ligado."
+other = "Uma escrita commita o seu evento com o estado; um relay publica no NATS JetStream; todo consumidor o recebe. O motor de fluxos e o caminho da falha são dois subprocessos, cada um desenhado na sua própria figura: o motor decide o que um evento dispara; o caminho da falha cobre a entrega de todo consumidor."
 
 [dev_write]
 other = "escrita"
@@ -401,7 +401,7 @@ other = "3 tentativas a partir da DLQ, depois Term — o registro fica"
 other = "O cockpit por dentro"
 
 [dapp_desc]
-other = "Páginas, componentes e hooks se apoiam num cliente gerado: o documento OpenAPI é baixado e commitado, o Orval gera os hooks do react-query e os schemas Zod, e toda requisição leva o token e a conta. O Firebase Auth autentica a pessoa no domínio do próprio produto."
+other = "Um roteador monta as páginas; as páginas são construídas de famílias de componentes; os componentes leem e escrevem por hooks; os hooks chamam um cliente gerado — hooks do react-query e schemas Zod produzidos pelo Orval a partir de um documento OpenAPI commitado — cuja camada de fetch carrega o token da pessoa e a conta. O Firebase Auth emite o token; o BFF responde REST e empurra SSE."
 
 [dapp_contract]
 other = "o contrato gerado"
@@ -749,3 +749,72 @@ other = "retentativas"
 
 [dev_classify_short]
 other = "classificar"
+
+[dev_on_failure]
+other = "em falha, qualquer consumidor"
+
+[dev_subprocess]
+other = "subprocesso"
+
+[dfe_title]
+other = "O motor de fluxos"
+
+[dfe_desc]
+other = "Um fluxo é uma composição versionada de estágios tipados; cada estágio tem um portão, artefatos e ações na entrada e na saída. O fluxo efetivo é resolvido pela cadeia plataforma, conta, workspace, projeto, demanda, e congelado quando a demanda começa. Um evento de avanço de estágio é decidido a partir das ações do estágio e da tabela de regras acumulada em ações planejadas, que o executor roda por um registro de quatro ações, registrando cada uma como aplicada por evento, regra e ação."
+
+[dfe_chain]
+other = "cadeia de resolução"
+
+[dfe_nearest]
+other = "o mais próximo vence"
+
+[dfe_frozen]
+other = "congelado ao iniciar a demanda"
+
+[dfe_rules_meta]
+other = "acumulam pela cadeia"
+
+[dfe_from_flow]
+other = "das ações do estágio"
+
+[dfe_from_rules]
+other = "da tabela de regras"
+
+[dfe_applied]
+other = "aplicada — idempotente"
+
+[drs_title]
+other = "O caminho da falha"
+
+[drs_desc]
+other = "Um consumidor trata uma entrega; em sucesso a mensagem é confirmada e o sucesso registrado; em falha é reentregue com backoff até cinco vezes. Uma entrega esgotada vira uma dead letter que carrega o envelope inteiro, o consumidor e as tentativas, publicada em dlq.event com id de mensagem de evento e consumidor. O consumidor da DLQ reexecuta o mesmo handler até três vezes mais; um sucesso registra; uma falha encerra a mensagem. Toda falha é classificada pela sua assinatura, aprendida depois de dois esgotamentos, e escrita no ledger de erros."
+
+[drs_consumer]
+other = "consumidor"
+
+[drs_yes]
+other = "sim"
+
+[drs_no]
+other = "não"
+
+[drs_redeliver]
+other = "reentrega"
+
+[drs_exhausted]
+other = "esgotada"
+
+[drs_same_handler]
+other = "mesmo handler"
+
+[drs_learned]
+other = "aprendida"
+
+[dapp_router]
+other = "roteador"
+
+[dapp_committed]
+other = "commitado"
+
+[dapp_token]
+other = "login · id token"

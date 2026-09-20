@@ -1,0 +1,70 @@
+{{/* The flow engine as blocks: a flow's shape, the resolution chain, and
+     the decide → plan → execute path with its action registry. Names are
+     the types in dop-core's internal/domain/workflow and internal/domain/reaction. */}}
+<svg class="diagram" viewBox="0 0 1000 410" role="img" aria-labelledby="fe-title fe-desc">
+  <title id="fe-title">{{ i18n "dfe_title" }}</title>
+  <desc id="fe-desc">{{ i18n "dfe_desc" }}</desc>
+  <defs><marker id="head-fe" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="head" d="M0 0L8 4L0 8z"></path></marker></defs>
+
+  <!-- the flow's shape -->
+  <rect class="box box--group" x="20" y="24" width="500" height="196" rx="8"></rect>
+  <text class="label" x="36" y="48">Flow</text><text class="meta" x="80" y="48">name · version</text>
+  {{ range $i, $s := slice "context" "spec" "plan" "implementation" "test" "human_validation" "finalization" }}
+  {{ $x := add 36 (mul (mod $i 4) 118) }}{{ $y := add 62 (mul (div $i 4) 30) }}
+  <rect class="box" x="{{ $x }}" y="{{ $y }}" width="110" height="22" rx="4"></rect>
+  <text class="mono" x="{{ add $x 55 }}" y="{{ add $y 15 }}" text-anchor="middle" style="font-size:10px">{{ $s }}</text>
+  {{ end }}
+  <text class="label" x="36" y="140">Stage</text>
+  <rect class="box" x="36" y="150" width="90" height="22" rx="4"></rect><text class="mono" x="81" y="165" text-anchor="middle" style="font-size:10px">type</text>
+  <rect class="box" x="134" y="150" width="120" height="22" rx="4"></rect><text class="mono" x="194" y="165" text-anchor="middle" style="font-size:10px">gate · human|none</text>
+  <rect class="box" x="262" y="150" width="120" height="22" rx="4"></rect><text class="mono" x="322" y="165" text-anchor="middle" style="font-size:10px">artifacts</text>
+  <rect class="box" x="390" y="150" width="118" height="22" rx="4"></rect><text class="mono" x="449" y="165" text-anchor="middle" style="font-size:9.5px">actions · enter|exit</text>
+  <text class="meta" x="36" y="204">demand/‹id›/‹kind›.md · ADR-0021</text>
+
+  <!-- the resolution chain -->
+  <text class="label" x="560" y="48">{{ i18n "dfe_chain" }}</text>
+  {{ range $i, $l := slice "platform" "account" "workspace" "project" "demand" }}
+  {{ $y := add 62 (mul $i 32) }}
+  <rect class="box" x="560" y="{{ $y }}" width="120" height="22" rx="4"></rect>
+  <text class="mono" x="620" y="{{ add $y 15 }}" text-anchor="middle" style="font-size:10px">{{ $l }}</text>
+  {{ if lt $i 4 }}<path class="edge" d="M620 {{ add $y 22 }} V{{ add $y 32 }}"></path>{{ end }}
+  {{ end }}
+  <text class="meta" x="692" y="140">{{ i18n "dfe_nearest" }}</text>
+  <text class="meta" x="692" y="206">{{ i18n "dfe_frozen" }}</text>
+
+  <!-- the rules table -->
+  <rect class="box" x="770" y="62" width="215" height="60" rx="6"></rect>
+  <text class="name" x="784" y="82">reaction_rules</text><text class="meta" x="784" y="98">{{ i18n "dfe_rules_meta" }}</text>
+  <text class="meta" x="784" y="112">trigger · actions · disables</text>
+
+  <!-- decide → plan → execute -->
+  <path class="edge" d="M270 220 V260" marker-end="url(#head-fe)"></path>
+  <text class="meta" x="282" y="246">stage-advanced · from → to</text>
+  <path class="edge" d="M880 122 V260" marker-end="url(#head-fe)"></path>
+
+  <rect class="box" x="170" y="260" width="170" height="44" rx="6"></rect>
+  <text class="name" x="184" y="279">DecideStage</text><text class="meta" x="184" y="295">{{ i18n "dfe_from_flow" }}</text>
+  <rect class="box" x="790" y="260" width="160" height="44" rx="6"></rect>
+  <text class="name" x="804" y="279">Decide</text><text class="meta" x="804" y="295">{{ i18n "dfe_from_rules" }}</text>
+
+  <path class="edge" d="M340 282 H470" marker-end="url(#head-fe)"></path>
+  <path class="edge" d="M810 282 H640" marker-end="url(#head-fe)"></path>
+  <rect class="box box--core" x="470" y="260" width="170" height="44" rx="6"></rect>
+  <text class="name" x="484" y="279">PlannedAction</text><text class="meta" x="484" y="295">rule · name · params</text>
+
+  <path class="edge" d="M555 304 V340" marker-end="url(#head-fe)"></path>
+  <rect class="box" x="470" y="340" width="170" height="44" rx="6"></rect>
+  <text class="name" x="484" y="359">Execute</text><text class="meta" x="484" y="375">Registry · Applied</text>
+
+  <path class="edge" d="M470 362 H420" marker-end="url(#head-fe)"></path>
+  {{ range $i, $a := slice "open_attention" "close_attention" "send_email" "provision_bench" }}
+  {{ $y := add 318 (mul $i 22) }}
+  <rect class="box" x="270" y="{{ $y }}" width="150" height="18" rx="4"></rect>
+  <text class="mono" x="345" y="{{ add $y 13 }}" text-anchor="middle" style="font-size:10px">{{ $a }}</text>
+  {{ end }}
+
+  <path class="edge" d="M640 362 H690" marker-end="url(#head-fe)"></path>
+  <rect class="box" x="690" y="340" width="260" height="44" rx="6"></rect>
+  <text class="name" x="704" y="359">{{ i18n "dfe_applied" }}</text><text class="meta" x="704" y="375">(event, rule, action)</text>
+
+</svg>

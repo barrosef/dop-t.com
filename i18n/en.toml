@@ -317,7 +317,7 @@ other = "no database · no secret · every write goes to the core"
 other = "Events and the flow engine"
 
 [dev_desc]
-other = "A write commits its event to the outbox in the same transaction; a relay publishes it to NATS JetStream; four consumers react; an exhausted delivery goes to one dead-letter queue, is classified and recorded. The flow engine — stages with actions on enter and exit, and a rules table that accumulates down the hierarchy — decides what an event triggers; its dispatcher is planned and not wired yet."
+other = "A write commits its event with the state; a relay publishes it to NATS JetStream; every consumer receives it. The flow engine and the failure path are two sub-processes, each drawn in its own figure: the engine decides what an event triggers; the failure path covers every consumer's delivery."
 
 [dev_write]
 other = "write"
@@ -401,7 +401,7 @@ other = "3 attempts from the DLQ, then Term — the record stays"
 other = "The cockpit, inside"
 
 [dapp_desc]
-other = "Pages, components and hooks sit on a generated client: the OpenAPI document is downloaded and committed, Orval generates the react-query hooks and the Zod schemas, and every request carries the token and the account. Firebase Auth signs the person in on the product's own domain."
+other = "A router mounts the pages; pages are built from component families; components read and write through hooks; hooks call a generated client — react-query hooks and Zod schemas produced by Orval from a committed OpenAPI document — whose fetch layer carries the person's token and the account. Firebase Auth issues the token; the BFF answers REST and pushes SSE."
 
 [dapp_contract]
 other = "the generated contract"
@@ -749,3 +749,72 @@ other = "retries"
 
 [dev_classify_short]
 other = "classify"
+
+[dev_on_failure]
+other = "on failure, any consumer"
+
+[dev_subprocess]
+other = "sub-process"
+
+[dfe_title]
+other = "The flow engine"
+
+[dfe_desc]
+other = "A flow is a versioned composition of typed stages; each stage has a gate, artifacts and actions on enter and exit. The effective flow is resolved down the chain platform, account, workspace, project, demand, and frozen when the demand starts. A stage-advanced event is decided from the flow's stage actions and from the accumulated rules table into planned actions, which the executor runs through a registry of four actions, recording each as applied per event, rule and action."
+
+[dfe_chain]
+other = "resolution chain"
+
+[dfe_nearest]
+other = "nearest wins"
+
+[dfe_frozen]
+other = "frozen at demand start"
+
+[dfe_rules_meta]
+other = "accumulate down the chain"
+
+[dfe_from_flow]
+other = "from the stage's actions"
+
+[dfe_from_rules]
+other = "from the rules table"
+
+[dfe_applied]
+other = "applied — idempotent"
+
+[drs_title]
+other = "The failure path"
+
+[drs_desc]
+other = "A consumer handles a delivery; on success the message is acknowledged and the success recorded; on failure it is redelivered with backoff up to five times. An exhausted delivery becomes a dead letter carrying the whole envelope, the consumer and the attempts, published to dlq.event with a message id of event and consumer. The DLQ consumer re-runs the same handler up to three more times; a success records; a failure terminates the message. Every failure is classified by its signature, learned after two exhaustions, and written to the error ledger."
+
+[drs_consumer]
+other = "consumer"
+
+[drs_yes]
+other = "yes"
+
+[drs_no]
+other = "no"
+
+[drs_redeliver]
+other = "redeliver"
+
+[drs_exhausted]
+other = "exhausted"
+
+[drs_same_handler]
+other = "same handler"
+
+[drs_learned]
+other = "learned"
+
+[dapp_router]
+other = "router"
+
+[dapp_committed]
+other = "committed"
+
+[dapp_token]
+other = "sign-in · id token"

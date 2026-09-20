@@ -50,6 +50,9 @@ diagrams:
     - id: app
       title: "The cockpit, inside"
       caption: "Four layers on a generated client. The contract is a committed file; the hooks and schemas come from it; the fetch layer carries the token and the account. Nothing the backend already decided is decided again here."
+    - id: callauth
+      title: "How the core verifies its callers"
+      caption: "Every call to the core carries a signature the core can check: the person's token, forwarded whole by the BFF, or a platform assertion signed with the caller's own key when there is no person. The interceptor resolves the actor from the token and the account from the assertion, refuses when the two disagree, and lets authorization say no with a message that means something. Cloud Run IAM in the cloud and a network policy on a cluster restrict who can reach the service at all; neither replaces the signature."
     - id: external
       title: "The platform and what it talks to"
       caption: "Every external service sits behind a port, so swapping one is an adapter and a configuration value, not a rewrite. What is solid has an adapter today; what is dashed is on the roadmap."

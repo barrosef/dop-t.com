@@ -50,6 +50,9 @@ diagrams:
     - id: app
       title: "O cockpit por dentro"
       caption: "Quatro camadas sobre um cliente gerado. O contrato é um arquivo commitado; os hooks e os schemas vêm dele; a camada de fetch leva o token e a conta. Nada que o backend já decidiu é decidido de novo aqui."
+    - id: callauth
+      title: "Como o core verifica seus chamadores"
+      caption: "Toda chamada ao core carrega uma assinatura que o core consegue checar: o token da pessoa, encaminhado inteiro pelo BFF, ou uma asserção da plataforma assinada com a chave do próprio chamador quando não há pessoa. O interceptor resolve o ator pelo token e a conta pela asserção, recusa quando os dois discordam, e deixa a autorização dizer não com uma mensagem que significa algo. O IAM do Cloud Run na nuvem e uma network policy num cluster restringem quem consegue sequer alcançar o serviço; nenhum dos dois substitui a assinatura."
     - id: external
       title: "A plataforma e com quem ela conversa"
       caption: "Todo serviço externo fica atrás de um port, então trocar um é um adaptador e um valor de configuração, não uma reescrita. O que está sólido tem adaptador hoje; o que está tracejado está no roadmap."

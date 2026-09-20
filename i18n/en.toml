@@ -581,3 +581,120 @@ other = "Previous and next decision"
 
 [adr_file_label]
 other = "the ADR file on GitHub"
+
+[dca_title]
+other = "How the core verifies its callers (ADR-0022)"
+
+[dca_desc]
+other = "The person signs in at Identity Platform and the cockpit holds the token. The cockpit sends it to the BFF as a bearer. The BFF forwards it whole to the core and adds a signed assertion naming caller, actor, kind, account, session and expiry; on Cloud Run it also carries the invoker token. Callers with no person send the assertion only. The core's interceptor verifies the token through the identity port, verifies the assertion's HMAC with the caller's key, refuses when token and assertion name different actors, applies the mode, and leaves the decision to authorization. Transport authentication — Cloud Run IAM or a network policy — is additional."
+
+[dca_lane_edge]
+other = "person · cockpit"
+
+[dca_idp_meta]
+other = "sign-in · issues the id token"
+
+[dca_token_issued]
+other = "id token"
+
+[dca_cockpit]
+other = "cockpit"
+
+[dca_cockpit_meta]
+other = "holds the person's token"
+
+[dca_bff]
+other = "BFF"
+
+[dca_bff_meta]
+other = "forwards the person's token"
+
+[dca_person_token]
+other = "person token"
+
+[dca_invoker_token]
+other = "invoker token"
+
+[dca_noperson_meta]
+other = "no person behind the call"
+
+[dca_only]
+other = "only"
+
+[dca_transport]
+other = "transport (additional)"
+
+[dca_only_bff_sa]
+other = "only the BFF's service account"
+
+[dca_cluster]
+other = "cluster"
+
+[dca_port]
+other = "port"
+
+[dca_interceptor]
+other = "interceptor — before any use case"
+
+[dca_step1]
+other = "actor = token.subject → UserBySubject (cached 5 min)"
+
+[dca_step2]
+other = "HMAC with the caller's key · expiry 2 min"
+
+[dca_step2b]
+other = "account · session · caller come from here — never from the token"
+
+[dca_step3_name]
+other = "token ≠ assertion"
+
+[dca_step3]
+other = "different actors → the call is refused"
+
+[dca_step4]
+other = "strict: no verified signature → no actor"
+
+[dca_step4b]
+other = "permissive: warn and proceed · off: trust the metadata"
+
+[dca_step5_name]
+other = "authorization"
+
+[dca_step5]
+other = "an empty actor fails here, where the message means something"
+
+[dca_three]
+other = "three layers, three questions"
+
+[dca_q1]
+other = "may this caller invoke this service?"
+
+[dca_q2]
+other = "which component asserts, about which actor?"
+
+[dca_q3]
+other = "who is the person?"
+
+[dca_core]
+other = "core"
+
+[dca_core_meta]
+other = "verifies every call"
+
+[dca_carries]
+other = "what the call to the core carries"
+
+[dca_carries1]
+other = "only when there is a person — forwarded whole"
+
+[dca_carries2]
+other = "one key per caller · expiry 2 min"
+
+[dca_carries3]
+other = "Cloud Run only — the invoker's identity"
+
+[dca_bff_meta2]
+other = "signs the assertion"
+
+[dca_noperson_meta2]
+other = "assertion only · actor = platform"

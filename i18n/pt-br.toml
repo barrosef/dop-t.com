@@ -581,3 +581,120 @@ other = "Decisão anterior e próxima"
 
 [adr_file_label]
 other = "o arquivo da ADR no GitHub"
+
+[dca_title]
+other = "Como o core verifica seus chamadores (ADR-0022)"
+
+[dca_desc]
+other = "A pessoa entra pelo Identity Platform e o cockpit guarda o token. O cockpit o envia ao BFF como bearer. O BFF o encaminha inteiro ao core e acrescenta uma asserção assinada nomeando chamador, ator, tipo, conta, sessão e validade; no Cloud Run também leva o token de invocador. Chamadores sem pessoa enviam só a asserção. O interceptor do core verifica o token pelo port de identidade, verifica o HMAC da asserção com a chave do chamador, recusa quando token e asserção nomeiam atores diferentes, aplica o modo e deixa a decisão para a autorização. A autenticação de transporte — IAM do Cloud Run ou uma network policy — é adicional."
+
+[dca_lane_edge]
+other = "pessoa · cockpit"
+
+[dca_idp_meta]
+other = "login · emite o id token"
+
+[dca_token_issued]
+other = "id token"
+
+[dca_cockpit]
+other = "cockpit"
+
+[dca_cockpit_meta]
+other = "guarda o token da pessoa"
+
+[dca_bff]
+other = "BFF"
+
+[dca_bff_meta]
+other = "encaminha o token da pessoa"
+
+[dca_person_token]
+other = "token da pessoa"
+
+[dca_invoker_token]
+other = "token de invocador"
+
+[dca_noperson_meta]
+other = "nenhuma pessoa por trás"
+
+[dca_only]
+other = "apenas"
+
+[dca_transport]
+other = "transporte (adicional)"
+
+[dca_only_bff_sa]
+other = "só a conta de serviço do BFF"
+
+[dca_cluster]
+other = "cluster"
+
+[dca_port]
+other = "porta"
+
+[dca_interceptor]
+other = "interceptor — antes de qualquer caso de uso"
+
+[dca_step1]
+other = "ator = token.subject → UserBySubject (cache de 5 min)"
+
+[dca_step2]
+other = "HMAC com a chave do chamador · validade 2 min"
+
+[dca_step2b]
+other = "conta · sessão · chamador vêm daqui — nunca do token"
+
+[dca_step3_name]
+other = "token ≠ asserção"
+
+[dca_step3]
+other = "atores diferentes → a chamada é recusada"
+
+[dca_step4]
+other = "strict: sem assinatura verificada → sem ator"
+
+[dca_step4b]
+other = "permissive: avisa e segue · off: confia nos metadados"
+
+[dca_step5_name]
+other = "autorização"
+
+[dca_step5]
+other = "um ator vazio falha aqui, onde a mensagem significa algo"
+
+[dca_three]
+other = "três camadas, três perguntas"
+
+[dca_q1]
+other = "este chamador pode invocar este serviço?"
+
+[dca_q2]
+other = "qual componente afirma, sobre qual ator?"
+
+[dca_q3]
+other = "quem é a pessoa?"
+
+[dca_core]
+other = "core"
+
+[dca_core_meta]
+other = "verifica toda chamada"
+
+[dca_carries]
+other = "o que a chamada ao core carrega"
+
+[dca_carries1]
+other = "só quando há pessoa — encaminhado inteiro"
+
+[dca_carries2]
+other = "uma chave por chamador · validade 2 min"
+
+[dca_carries3]
+other = "só no Cloud Run — a identidade do invocador"
+
+[dca_bff_meta2]
+other = "assina a asserção"
+
+[dca_noperson_meta2]
+other = "só a asserção · ator = platform"

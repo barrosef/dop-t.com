@@ -1,0 +1,87 @@
+{{/* ADR-0022 as one picture: the hops, what the BFF → core call carries, the
+     transport layer, the core's interceptor step by step, and the three
+     layers that answer three different questions. Header names and limits
+     are the ones in dop-core's internal/platform/callauth and dop-api's
+     coreclient. */}}
+<svg class="diagram" viewBox="0 0 1000 740" role="img" aria-labelledby="ca-title ca-desc">
+  <title id="ca-title">{{ i18n "dca_title" }}</title>
+  <desc id="ca-desc">{{ i18n "dca_desc" }}</desc>
+  <defs><marker id="head-ca" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="head" d="M0 0L8 4L0 8z"></path></marker></defs>
+
+  <!-- the hops -->
+  <rect class="box box--dashed" x="20" y="56" width="220" height="56" rx="6"></rect>
+  <text class="name" x="34" y="78">Identity Platform</text><text class="meta" x="34" y="98">{{ i18n "dca_idp_meta" }}</text>
+  <path class="edge edge--dashed" d="M240 84 H290" marker-end="url(#head-ca)"></path>
+  <text class="meta" x="265" y="74" text-anchor="middle">id token</text>
+
+  <rect class="box" x="290" y="56" width="210" height="56" rx="6"></rect>
+  <text class="name" x="304" y="78">{{ i18n "dca_cockpit" }}</text><text class="meta" x="304" y="98">{{ i18n "dca_cockpit_meta" }}</text>
+  <path class="edge" d="M500 84 H560" marker-end="url(#head-ca)"></path>
+  <text class="meta" x="530" y="74" text-anchor="middle">Bearer</text>
+
+  <rect class="box" x="560" y="56" width="230" height="64" rx="6"></rect>
+  <text class="name" x="574" y="78">{{ i18n "dca_bff" }}</text><text class="meta" x="574" y="96">{{ i18n "dca_bff_meta" }}</text><text class="meta" x="574" y="110">{{ i18n "dca_bff_meta2" }}</text>
+  <path class="edge" d="M790 88 H820" marker-end="url(#head-ca)"></path>
+
+  <rect class="box" x="560" y="140" width="230" height="64" rx="6"></rect>
+  <text class="name" x="574" y="162">worker · sched · launcher</text><text class="meta" x="574" y="180">{{ i18n "dca_noperson_meta" }}</text><text class="meta" x="574" y="194">{{ i18n "dca_noperson_meta2" }}</text>
+  <path class="edge" d="M790 172 H820" marker-end="url(#head-ca)"></path>
+
+  <rect class="box box--core" x="820" y="56" width="160" height="148" rx="6"></rect>
+  <text class="name" x="834" y="80">{{ i18n "dca_core" }}</text><text class="meta" x="834" y="100">dop-core · gRPC :9090</text>
+  <text class="meta" x="834" y="184">{{ i18n "dca_core_meta" }}</text>
+  <path class="edge edge--dashed" d="M900 204 V224"></path>
+
+  <!-- what the call carries -->
+  <rect class="box box--group" x="20" y="224" width="960" height="104" rx="8"></rect>
+  <text class="label" x="36" y="248">{{ i18n "dca_carries" }}</text>
+  <text class="mono" x="36" y="272">authorization: Bearer ‹{{ i18n "dca_person_token" }}›</text>
+  <text class="meta" x="560" y="272">{{ i18n "dca_carries1" }}</text>
+  <text class="mono" x="36" y="294">x-dop-assertion: base64url(caller|actor|kind|account|session|expiry) + HMAC-SHA256</text>
+  <text class="meta" x="720" y="294">{{ i18n "dca_carries2" }}</text>
+  <text class="mono" x="36" y="316">X-Serverless-Authorization: ‹{{ i18n "dca_invoker_token" }}›</text>
+  <text class="meta" x="560" y="316">{{ i18n "dca_carries3" }}</text>
+
+  <!-- transport -->
+  <rect class="box box--dashed" x="20" y="352" width="960" height="52" rx="8"></rect>
+  <text class="label" x="36" y="374">{{ i18n "dca_transport" }}</text>
+  <text class="mono" x="36" y="394">Cloud Run · roles/run.invoker</text>
+  <text class="meta" x="270" y="394">{{ i18n "dca_only_bff_sa" }}</text>
+  <text class="mono" x="560" y="394">{{ i18n "dca_cluster" }} · NetworkPolicy</text>
+  <text class="meta" x="760" y="394">{{ i18n "dca_port" }} 9090</text>
+
+  <!-- the interceptor -->
+  <rect class="box box--core" x="20" y="428" width="960" height="228" rx="8"></rect>
+  <text class="label" x="36" y="452">{{ i18n "dca_interceptor" }}</text>
+
+  <text class="port" x="36" y="480">1</text>
+  <text class="mono" x="56" y="480">IdentityProvider.VerifyToken</text>
+  <text class="meta" x="380" y="480">{{ i18n "dca_step1" }}</text>
+
+  <text class="port" x="36" y="514">2</text>
+  <text class="mono" x="56" y="514">callauth.Verify(assertion)</text>
+  <text class="meta" x="380" y="514">{{ i18n "dca_step2" }}</text>
+  <text class="meta" x="380" y="530">{{ i18n "dca_step2b" }}</text>
+
+  <text class="port" x="36" y="562">3</text>
+  <text class="mono" x="56" y="562">{{ i18n "dca_step3_name" }}</text>
+  <text class="meta" x="380" y="562">{{ i18n "dca_step3" }}</text>
+
+  <text class="port" x="36" y="596">4</text>
+  <text class="mono" x="56" y="596">mode: strict · permissive · off</text>
+  <text class="meta" x="380" y="596">{{ i18n "dca_step4" }}</text>
+  <text class="meta" x="380" y="612">{{ i18n "dca_step4b" }}</text>
+
+  <text class="port" x="36" y="644">5</text>
+  <text class="mono" x="56" y="644">{{ i18n "dca_step5_name" }}</text>
+  <text class="meta" x="380" y="644">{{ i18n "dca_step5" }}</text>
+
+  <!-- the three questions -->
+  <text class="label" x="20" y="686">{{ i18n "dca_three" }}</text>
+  <rect class="box" x="20" y="696" width="300" height="40" rx="6"></rect>
+  <text class="mono" x="34" y="713">Cloud Run IAM</text><text class="meta" x="34" y="728">{{ i18n "dca_q1" }}</text>
+  <rect class="box" x="340" y="696" width="320" height="40" rx="6"></rect>
+  <text class="mono" x="354" y="713">x-dop-assertion</text><text class="meta" x="354" y="728">{{ i18n "dca_q2" }}</text>
+  <rect class="box" x="680" y="696" width="300" height="40" rx="6"></rect>
+  <text class="mono" x="694" y="713">{{ i18n "dca_person_token" }}</text><text class="meta" x="694" y="728">{{ i18n "dca_q3" }}</text>
+</svg>
